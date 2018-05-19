@@ -1,4 +1,4 @@
-package com.naver.android.svc.sample.core
+package com.naver.android.svc.sample
 
 interface OnClickGnbListener {
     fun onClickPalette()

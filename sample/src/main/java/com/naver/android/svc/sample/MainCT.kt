@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.naver.android.svc.core.SvcBaseCT
 import com.naver.android.svc.core.SvcBaseFragment
-import com.naver.android.svc.sample.core.MainViews
-import com.naver.android.svc.sample.core.tabs.palette.PaletteFragment
 import com.naver.android.svc.sample.tabs.MainTab
+import com.naver.android.svc.sample.tabs.palette.PaletteFragment
 import com.naver.android.svc.sample.tabs.scroll.ScrollFragment
 import com.naver.android.svc.sample.tabs.search.SearchFragment
 import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
@@ -17,8 +16,6 @@ class MainCT(owner: MainActivity, views: MainViews) : SvcBaseCT<MainActivity, Ma
             MainTab.PALETTE to PaletteFragment(),
             MainTab.SEARCH to SearchFragment(),
             MainTab.STATISTIC to StatisticFragment())
-
-    var instanceNo = 0
 
     override fun onClickScroll() {
         replaceFragment(MainTab.SCROLL)

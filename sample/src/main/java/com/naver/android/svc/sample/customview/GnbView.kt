@@ -2,7 +2,7 @@ package com.naver.android.svc.sample.customview
 
 import android.content.Context
 import android.util.AttributeSet
-import com.naver.android.svc.sample.core.OnClickGnbListener
+import com.naver.android.svc.sample.OnClickGnbListener
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.v_gnb.view.*
 

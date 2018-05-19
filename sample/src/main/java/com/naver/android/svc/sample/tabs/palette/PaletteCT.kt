@@ -1,7 +1,6 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
-import com.naver.android.svc.sample.core.tabs.palette.PaletteFragment
 import com.naver.android.svc.core.SvcBaseCT
 import com.naver.android.svc.sample.tabs.common.CommonFragmentViews
 

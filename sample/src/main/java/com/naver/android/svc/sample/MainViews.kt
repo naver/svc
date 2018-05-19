@@ -1,9 +1,6 @@
-package com.naver.android.svc.sample.core
+package com.naver.android.svc.sample
 
-import com.naver.android.svc.sample.MainActivity
-import com.naver.android.svc.sample.MainUseCase
 import com.naver.android.svc.core.views.UseCaseViews
-import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainViews(owner: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(owner) {
