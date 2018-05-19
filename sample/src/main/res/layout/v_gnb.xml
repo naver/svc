@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/gnb_height"
+    tools:parentTag="android.support.constraint.ConstraintLayout">
+
+
+    <ImageView
+        android:id="@+id/gnb_palete"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="@dimen/gnb_image_padding"
+        android:src="@drawable/palete"
+        app:layout_constraintEnd_toStartOf="@id/gnb_search"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/gnb_search"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="@dimen/gnb_image_padding"
+        android:src="@drawable/search"
+        app:layout_constraintEnd_toStartOf="@id/gnb_scroll"
+        app:layout_constraintStart_toEndOf="@id/gnb_palete" />
+
+    <ImageView
+        android:id="@+id/gnb_scroll"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="@dimen/gnb_image_padding"
+        android:src="@drawable/scroll"
+        app:layout_constraintEnd_toStartOf="@id/gnb_statistic"
+        app:layout_constraintStart_toEndOf="@id/gnb_search" />
+
+    <ImageView
+        android:id="@+id/gnb_statistic"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="@dimen/gnb_image_padding"
+        android:src="@drawable/statistic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/gnb_scroll" />
+
+</merge>

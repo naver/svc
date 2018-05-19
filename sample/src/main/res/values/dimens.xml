@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gnb_height">52dp</dimen>
+    <dimen name="gnb_image_padding">7dp</dimen>
+    <dimen name="text_big">40dp</dimen>
+</resources>
