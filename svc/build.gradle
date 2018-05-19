@@ -1,6 +1,97 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+group = rootProject.ext.packageName
+version = rootProject.ext.libVersionName
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name name = rootProject.ext.moduleName
+            description rootProject.ext.desc
+            url rootProject.ext.defaultUrl
+            inceptionYear '2018'
+
+            packaging 'aar'
+            groupId rootProject.ext.packageName
+            artifactId rootProject.ext.moduleName
+            version rootProject.ext.libVersionName
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            scm {
+                connection rootProject.ext.defaultRepoUrl
+                developerConnection rootProject.ext.defaultRepoUrl
+                url rootProject.ext.defaultUrl
+            }
+
+            developers {
+                developer {
+                    id 'BansookNam'
+                    name 'BansookNam'
+                    email 'bs.nam@navercorp.com'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    user = properties.hasProperty('bintrayUser') ? properties.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = properties.hasProperty('bintrayApiKey') ? properties.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+    configurations = ['archives']
+
+    publish = true
+
+    pkg {
+        repo = rootProject.ext.repoName
+        name = rootProject.ext.moduleName
+        userOrg = user
+        desc = rootProject.ext.desc
+        licenses = ['Apache-2.0']
+
+        vcsUrl = rootProject.ext.defaultRepoUrl
+        websiteUrl = rootProject.ext.defaultUrl
+
+        labels = ['aar', 'android', 'svc']
+        publicDownloadNumbers = true
+
+        githubRepo = 'BansookNam/svc'
+        githubReleaseNotesFile = 'CONTRIBUTING.md'
+
+        version {
+            name = rootProject.ext.libVersionName
+            desc = rootProject.ext.desc
+            released  = new Date() // Optional - Date of the version release. 2 possible values: date in the format of 'yyyy-MM-dd'T'HH:mm:ss.SSSZZ' OR a java.util.Date instance
+            vcsTag = rootProject.ext.libVersionName
+        }
+    }
+}
+
+// JCenter publish
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 
 android {
     compileSdkVersion 27
@@ -10,8 +101,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode VERSION_CODE
-        versionName VERSION_NAME
+        versionCode libVersionCode
+        versionName libVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -40,16 +131,4 @@ dependencies {
 }
 repositories {
     mavenCentral()
-}
-
-
-ext {
-    VERSION_NAME = "0.0.1-SNAPSHOT"
-    VERSION_CODE = 1
-
-    MIN_SDK_VERSION = 16
-    TARGET_SDK_VERSION = 27
-    COMPILE_SDK_VERSION = 27
-
-    support_library_version = '27.1.1'
 }

@@ -1,14 +1,18 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.40'
+    ext.kotlin_version = '1.2.41'
     repositories {
+        mavenCentral()
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,6 +23,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -27,19 +32,20 @@ task clean(type: Delete) {
 }
 
 ext {
+    packageName = 'com.naver.android.svc'
+    defaultRepoUrl = 'https://github.com/BansookNam/svc.git'
+    defaultUrl = 'https://github.com/BansookNam/svc'
+    repoName = 'SVC'
+    moduleName = 'SVC'
+    desc = 'Easy and intuitive pattern for Android'
+
     kotlin_version = '1.2.41'
-    VERSION_NAME = "0.0.1-SNAPSHOT"
-    VERSION_CODE = 1
+    libVersionName = "0.0.1-alpha1"
+    libVersionCode = 1
     MIN_SDK_VERSION = 16
 
     TARGET_SDK_VERSION = 27
     COMPILE_SDK_VERSION = 27
 
-    support_library_version = '26.0.0'
-
-    junitVersion = '4.12'
-    mockitoVersion = '2.10.0'
-    assertjVersion = '2.8.0'
-    supportTestVersion = '1.0.1'
-    espressoVersion = '3.0.1'
+    support_library_version = '27.1.1'
 }
