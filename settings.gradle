@@ -1,1 +1,1 @@
-include ':sample', ':SVC'
+include ':sample', ':svc'
