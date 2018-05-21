@@ -50,8 +50,12 @@ bintray {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-    user = properties.hasProperty('bintrayUser') ? properties.property('bintrayUser') : System.getenv('BINTRAY_USER')
-    key = properties.hasProperty('bintrayApiKey') ? properties.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    user = properties.getProperty('bintrayUser')
+    key = properties.getProperty('bintrayApiKey')
+
+    println(user)
+    println(key)
+
 
     configurations = ['archives']
 
