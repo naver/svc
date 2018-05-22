@@ -32,6 +32,7 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
 
     @get:LayoutRes
     abstract val layoutResId: Int
+
     val isInitialized: Boolean
         get() = rootView != null
 
@@ -102,13 +103,19 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
     }
 
     fun getColor(@ColorRes colorRes: Int): Int {
-        val context = context
+        var context = context
+        if (context == null) {
+            context = getMainApplicationContext()
+        }
         context ?: return 0
         return ContextCompat.getColor(context, colorRes)
     }
 
     fun getDimen(@DimenRes dimenId: Int): Int {
-        val context = context
+        var context = context
+        if (context == null) {
+            context = getMainApplicationContext()
+        }
         context ?: return 0
         return context.resources.getDimensionPixelSize(dimenId)
     }
@@ -120,7 +127,7 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
     }
 
     fun isDestroyed(): Boolean {
-        return context == null
+        return !isInitialized
     }
 
     open fun onBackPressed(): Boolean {
@@ -129,5 +136,16 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
 
     fun <T : View> findViewById(id: Int): T? {
         return rootView?.findViewById(id)
+    }
+
+    /**
+     * when use getDimen or getString in contructor
+     * there is no context before inflating and setting rootView
+     *
+     * to use getDimen or getString in constructor
+     * you can override this function on your BaseViews.
+     */
+    open fun getMainApplicationContext(): Context? {
+        return null
     }
 }
