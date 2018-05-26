@@ -35,6 +35,7 @@ abstract class SvcBaseCT<out Owner : ActivityProvider, out V : SvcBaseViews<*>>(
             Log.d(TAG, "onCreate")
         }
     }
+
     /**
      * is called after views inflated
      */
@@ -42,14 +43,14 @@ abstract class SvcBaseCT<out Owner : ActivityProvider, out V : SvcBaseViews<*>>(
     abstract fun onCreated()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onStarted() {
+    open fun onStarted() {
         if (SvcConfig.debugMode) {
             Log.d(TAG, "onStarted")
         }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResumed() {
+    open fun onResumed() {
         if (SvcConfig.debugMode) {
             Log.d(TAG, "onResumed")
         }

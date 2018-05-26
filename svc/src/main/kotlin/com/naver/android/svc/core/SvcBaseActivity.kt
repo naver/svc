@@ -73,7 +73,6 @@ abstract class SvcBaseActivity<out V : SvcBaseViews<*>, out C : SvcBaseCT<*, *>>
         super.onBackPressed()
     }
 
-    fun isAvailable(): Boolean {
-        return !isFinishing
-    }
+    val isActive: Boolean
+        get() = !isFinishing
 }

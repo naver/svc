@@ -36,6 +36,9 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
     val isInitialized: Boolean
         get() = rootView != null
 
+    val isDestroyed: Boolean
+        get() = !isInitialized
+
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -126,9 +129,6 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
         return context.resources.getString(stringId)
     }
 
-    fun isDestroyed(): Boolean {
-        return !isInitialized
-    }
 
     open fun onBackPressed(): Boolean {
         return false

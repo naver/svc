@@ -69,7 +69,6 @@ abstract class SvcBaseFragment<out V : SvcBaseViews<*>, out C : SvcBaseCT<*, *>>
         lifecycle.removeObserver(views)
     }
 
-    fun isAvailable(): Boolean {
-        return activity != null && context != null && isAdded && !isRemoving && !isDetached
-    }
+    val isActive: Boolean
+        get() = activity != null && context != null && isAdded && !isRemoving && !isDetached
 }

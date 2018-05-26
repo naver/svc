@@ -40,7 +40,7 @@ ext {
     desc = 'Easy and intuitive pattern for Android'
 
     kotlin_version = '1.2.41'
-    libVersionName = "0.0.1-alpha6"
+    libVersionName = "0.0.1-alpha7"
     libVersionCode = 1
     MIN_SDK_VERSION = 16
 
