@@ -26,7 +26,7 @@ abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompat
     override val hostActivity: FragmentActivity?
         get() = this
 
-    var statusbarColor: Int? = null
+    open var statusbarColor: Int? = null
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     fun setStatusBarBGColor(bgColor: Int?) {
