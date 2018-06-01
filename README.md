@@ -10,18 +10,25 @@
 
 MVP and MVVM use Fragment or Activity as "VIew"
 
-So when we write code inside the Fragment, Activity "View" the code is mixed with
+So when we write code inside the Fragment or Activity, codes are getting mixed with
 "View" code and "Screen Code" such as `onCreate,onCreateView, onViewCreated` or `onSaveInstanceState, onRestoreInstanceState `.`onActivityResult` etc.
 
-It makes hard to see a "View Logic" and "Screen Logic"
+It makes hard to see each "View Logic" and "Screen Logic"
 
-And the most important thing is "Business Logic" easily get Inside of the "View"(Fragment, Activity)
+And the most important thing is that "Business Logic" easily get Inside of the "View"(Fragment, Activity).
+
+It's because Activity, Fragments are actually "Control Tower"
 
 SVC is the how to divide Screen |View| Business Logics.
 
-It can be used with ViewModel as Well.
-you can check an example here below.
 
+
+For more read check article below
+[https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f](https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f)
+
+
+Ps. It can be used with ViewModel as Well.
+you can check an example here below.
 https://github.com/BansookNam/android-architecture
 
 
@@ -125,10 +132,15 @@ class TaskDetailActivity : SvcBaseActivity<TaskDetailViews, TaskDetailCT>() {
 Each alphabet stands for.
 
 S — Screen
+
 V — Views
+
 C — Control Tower
 
+
+
 +In addition
+
 UseCase — Interface which have "User Interaction methods"
 
 
