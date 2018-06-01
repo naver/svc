@@ -22,15 +22,15 @@
         android:layout_height="match_parent"
         android:padding="@dimen/gnb_image_padding"
         android:src="@drawable/search"
-        app:layout_constraintEnd_toStartOf="@id/gnb_scroll"
+        app:layout_constraintEnd_toStartOf="@id/gnb_paper"
         app:layout_constraintStart_toEndOf="@id/gnb_palete" />
 
     <ImageView
-        android:id="@+id/gnb_scroll"
+        android:id="@+id/gnb_paper"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:padding="@dimen/gnb_image_padding"
-        android:src="@drawable/scroll"
+        android:src="@drawable/paper"
         app:layout_constraintEnd_toStartOf="@id/gnb_statistic"
         app:layout_constraintStart_toEndOf="@id/gnb_search" />
 
@@ -41,6 +41,6 @@
         android:padding="@dimen/gnb_image_padding"
         android:src="@drawable/statistic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/gnb_scroll" />
+        app:layout_constraintStart_toEndOf="@id/gnb_paper" />
 
 </merge>

@@ -6,19 +6,19 @@ import com.naver.android.svc.core.SvcCT
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab
 import com.naver.android.svc.sample.tabs.palette.PaletteFragment
-import com.naver.android.svc.sample.tabs.scroll.ScrollFragment
+import com.naver.android.svc.sample.tabs.paper.PaperFragment
 import com.naver.android.svc.sample.tabs.search.SearchFragment
 import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
 class MainCT(screen: MainActivity, views: MainViews) : SvcCT<MainActivity, MainViews>(screen, views), MainUseCase {
     private val fragmentMap = mapOf<MainTab, Fragment>(
-            MainTab.SCROLL to ScrollFragment(),
+            MainTab.PAPER to PaperFragment(),
             MainTab.PALETTE to PaletteFragment(),
             MainTab.SEARCH to SearchFragment(),
             MainTab.STATISTIC to StatisticFragment())
 
     override fun onClickScroll() {
-        replaceFragment(MainTab.SCROLL)
+        replaceFragment(MainTab.PAPER)
     }
 
     override fun onClickPalette() {

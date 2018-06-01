@@ -28,7 +28,7 @@ class GnbView @JvmOverloads constructor(
             onClickGnbListener?.onClickStatistic()
         }
 
-        gnb_scroll.setOnClickListener {
+        gnb_paper.setOnClickListener {
             onClickGnbListener?.onClickScroll()
         }
     }
