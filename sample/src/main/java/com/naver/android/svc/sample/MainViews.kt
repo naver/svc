@@ -3,7 +3,7 @@ package com.naver.android.svc.sample
 import com.naver.android.svc.core.views.UseCaseViews
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainViews(owner: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(owner) {
+class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(screen) {
 
     override val layoutResId = R.layout.activity_main
 
@@ -11,13 +11,13 @@ class MainViews(owner: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(o
         /**
          * case 1. when you want delegate event totally to CT
          */
-        owner.gnb.onClickGnbListener = usecase
+        screen.gnb.onClickGnbListener = usecase
 
         /**
          * case 2. when you don't want to delegate to CT for those events
          * in this case you don't need to define MainUseCase methods
          */
-        owner.gnb.onClickGnbListener = object : OnClickGnbListener {
+        screen.gnb.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
                 this@MainViews.onClickScroll()
@@ -43,7 +43,7 @@ class MainViews(owner: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(o
         /**
          * case 3. when you have somthing to do it in Views
          */
-        owner.gnb.onClickGnbListener = object : OnClickGnbListener {
+        screen.gnb.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
                 usecase.onClickScroll()

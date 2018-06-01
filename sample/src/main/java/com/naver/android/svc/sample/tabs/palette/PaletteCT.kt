@@ -1,10 +1,10 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
-import com.naver.android.svc.core.SvcBaseCT
-import com.naver.android.svc.sample.tabs.common.CommonFragmentViews
+import com.naver.android.svc.core.SvcCT
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaletteCT(owner: PaletteFragment, views: CommonFragmentViews) : SvcBaseCT<PaletteFragment, CommonFragmentViews>(owner, views) {
+class PaletteCT(screen: PaletteFragment, views: CommonViews) : SvcCT<PaletteFragment, CommonViews>(screen, views) {
     override fun onCreated() {
         views.setExtraString("PaletteCT")
     }

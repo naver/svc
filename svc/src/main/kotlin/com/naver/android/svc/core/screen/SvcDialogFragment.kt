@@ -1,4 +1,4 @@
-package com.naver.android.svc.core
+package com.naver.android.svc.core.screen
 
 import android.app.Dialog
 import android.arch.lifecycle.LifecycleOwner
@@ -6,10 +6,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.naver.android.svc.core.views.SvcBaseViews
+import com.naver.android.svc.core.SvcCT
+import com.naver.android.svc.core.views.SvcViews
 import com.naver.android.svc.core.views.UseCase
 import com.naver.android.svc.core.views.UseCaseViews
 
@@ -17,16 +19,15 @@ import com.naver.android.svc.core.views.UseCaseViews
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcBaseDialogFragment<out V : SvcBaseViews<*>, out C : SvcBaseCT<*, *>> : DialogFragment(), LifecycleOwner, ActivityProvider {
+abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
-
-    protected abstract fun createViews(): V
-    protected abstract fun createControlTower(): C
+    override val views by lazy { createViews() }
+    override val ct by lazy { createControlTower() }
+    override val hostActivity: FragmentActivity?
+        get() = activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +84,6 @@ abstract class SvcBaseDialogFragment<out V : SvcBaseViews<*>, out C : SvcBaseCT<
     }
 
     fun isAvailable(): Boolean {
-        return activity != null && context != null && isAdded && !isRemoving && !isDetached
+        return hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
     }
 }

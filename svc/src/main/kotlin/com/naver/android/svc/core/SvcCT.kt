@@ -9,23 +9,24 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.naver.android.svc.SvcConfig
-import com.naver.android.svc.core.views.SvcBaseViews
+import com.naver.android.svc.core.screen.SvcScreen
+import com.naver.android.svc.core.views.SvcViews
 
 
 /**
- * this class is dealing with lifecycle of owner(Activity, Fragment, Dialog)
+ * this class is dealing with lifecycle of screen(Activity, Fragment, Dialog)
  * mainly the first initialize screen logic
  * and receives view events from usecase(User Interaction)
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcBaseCT<out Owner : ActivityProvider, out V : SvcBaseViews<*>>(val owner: Owner, val views: V) : LifecycleObserver {
+abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(val screen: Screen, val views: V) : LifecycleObserver {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    val activity: FragmentActivity? = owner.getActivity()
+    val activity: FragmentActivity? = screen.hostActivity
 
 
     //------LifeCycle START------

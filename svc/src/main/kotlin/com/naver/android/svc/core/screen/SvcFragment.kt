@@ -1,12 +1,14 @@
-package com.naver.android.svc.core
+package com.naver.android.svc.core.screen
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.naver.android.svc.BuildConfig
-import com.naver.android.svc.core.views.SvcBaseViews
+import com.naver.android.svc.core.SvcCT
+import com.naver.android.svc.core.views.SvcViews
 import com.naver.android.svc.core.views.UseCase
 import com.naver.android.svc.core.views.UseCaseViews
 
@@ -14,7 +16,7 @@ import com.naver.android.svc.core.views.UseCaseViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcBaseFragment<out V : SvcBaseViews<*>, out C : SvcBaseCT<*, *>> : Fragment(), ActivityProvider {
+abstract class SvcFragment<out V : SvcViews<*>, out C : SvcCT<*, *>> : Fragment(), SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -23,11 +25,11 @@ abstract class SvcBaseFragment<out V : SvcBaseViews<*>, out C : SvcBaseCT<*, *>>
         const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
     }
 
-    val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    override val views by lazy { createViews() }
+    override val ct by lazy { createControlTower() }
 
-    protected abstract fun createViews(): V
-    protected abstract fun createControlTower(): C
+    override val hostActivity: FragmentActivity?
+        get() = activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         addExtraTagId()
@@ -70,5 +72,5 @@ abstract class SvcBaseFragment<out V : SvcBaseViews<*>, out C : SvcBaseCT<*, *>>
     }
 
     val isActive: Boolean
-        get() = activity != null && context != null && isAdded && !isRemoving && !isDetached
+        get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
 }

@@ -4,7 +4,7 @@ import com.naver.android.svc.core.views.UseCaseViews
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.fragment_statistic.*
 
-class StatisticViews(owner: StatisticFragment) : UseCaseViews<StatisticFragment, StatisticUseCase>(owner) {
+class StatisticViews(screen: StatisticFragment) : UseCaseViews<StatisticFragment, StatisticUseCase>(screen) {
     override val layoutResId: Int
         get() = R.layout.fragment_statistic
 
@@ -12,6 +12,6 @@ class StatisticViews(owner: StatisticFragment) : UseCaseViews<StatisticFragment,
     }
 
     fun setName(name: String) {
-        owner.name.text = name
+        screen.name.text = name
     }
 }

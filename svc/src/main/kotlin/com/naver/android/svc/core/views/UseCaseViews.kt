@@ -1,8 +1,8 @@
 package com.naver.android.svc.core.views
 
-import com.naver.android.svc.core.ActivityProvider
+import com.naver.android.svc.core.screen.SvcScreen
 
-abstract class UseCaseViews<out Owner : ActivityProvider, U : UseCase>(owner: Owner) : SvcBaseViews<Owner>(owner) {
+abstract class UseCaseViews<out Screen : SvcScreen<*, *>, U : UseCase>(screen: Screen) : SvcViews<Screen>(screen) {
     lateinit var usecase: U
 
     fun setControllerUsecase(useCase: UseCase) {

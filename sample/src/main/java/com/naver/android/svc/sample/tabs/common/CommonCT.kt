@@ -1,9 +1,9 @@
 package com.naver.android.svc.sample.tabs.common
 
-import com.naver.android.svc.core.SvcBaseCT
-import com.naver.android.svc.sample.core.AbstractFragment
+import com.naver.android.svc.core.SvcCT
+import com.naver.android.svc.core.screen.SvcScreen
 
-class CommonCT(owner: AbstractFragment<*, *>, views: CommonFragmentViews) : SvcBaseCT<AbstractFragment<*, *>, CommonFragmentViews>(owner, views) {
+class CommonCT(screen: SvcScreen<CommonViews, *>, views: CommonViews) : SvcCT<SvcScreen<CommonViews, *>, CommonViews>(screen, views) {
     override fun onCreated() {
         views.setExtraString("CommonCT")
     }

@@ -1,11 +1,11 @@
 package com.naver.android.svc.sample.tabs.common
 
+import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.UseCaseViews
 import com.naver.android.svc.sample.R
-import com.naver.android.svc.sample.core.AbstractFragment
-import kotlinx.android.synthetic.main.fragment_common.*
+import kotlinx.android.synthetic.main.fragment_common.view.*
 
-class CommonFragmentViews(owner: AbstractFragment<*, *>) : UseCaseViews<AbstractFragment<*, *>, CommonUseCase>(owner) {
+class CommonViews(screen: SvcScreen<*, *>) : UseCaseViews<SvcScreen<*, *>, CommonUseCase>(screen) {
 
     override val layoutResId: Int
         get() = R.layout.fragment_common
@@ -14,6 +14,7 @@ class CommonFragmentViews(owner: AbstractFragment<*, *>) : UseCaseViews<Abstract
     }
 
     fun setExtraString(extra: String) {
-        owner.extra.text = extra
+        val rootView = rootView ?: return
+        rootView.extra.text = extra
     }
 }

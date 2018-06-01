@@ -14,13 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.naver.android.svc.SvcConfig
-import com.naver.android.svc.core.ActivityProvider
+import com.naver.android.svc.core.screen.SvcScreen
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : LifecycleObserver {
+abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -28,7 +28,7 @@ abstract class SvcBaseViews<out Owner : ActivityProvider>(val owner: Owner) : Li
     var rootView: ViewGroup? = null
 
     val context: Context?
-        get() = owner.getActivity()
+        get() = screen.hostActivity
 
     @get:LayoutRes
     abstract val layoutResId: Int

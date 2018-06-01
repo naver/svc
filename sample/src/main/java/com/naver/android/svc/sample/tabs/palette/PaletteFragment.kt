@@ -1,9 +1,10 @@
 package com.naver.android.svc.sample.tabs.palette
 
-import com.naver.android.svc.sample.core.AbstractFragment
-import com.naver.android.svc.sample.tabs.common.CommonFragmentViews
+import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.svc.core.screen.SvcScreen
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaletteFragment : AbstractFragment<CommonFragmentViews, PaletteCT>() {
-    override fun createViews() = CommonFragmentViews(this)
+class PaletteFragment : SvcFragment<CommonViews, PaletteCT>(), SvcScreen<CommonViews, PaletteCT> {
+    override fun createViews() = CommonViews(this)
     override fun createControlTower() = PaletteCT(this, views)
 }
