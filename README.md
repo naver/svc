@@ -13,7 +13,7 @@ MVP and MVVM use Fragment or Activity as "VIew"
 So when we write code inside the Fragment, Activity "View" the code is mixed with
 "View" code and "Screen Code" such as `onCreate,onCreateView, onViewCreated` or `onSaveInstanceState, onRestoreInstanceState `.`onActivityResult` etc.
 
-If makes hard to see a "View Logic" and "Screen Logic"
+It makes hard to see a "View Logic" and "Screen Logic"
 
 And the most important thing is "Business Logic" easily get Inside of the "View"(Fragment, Activity)
 
