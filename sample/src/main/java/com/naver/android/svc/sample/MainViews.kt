@@ -11,7 +11,7 @@ class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(
         /**
          * case 1. when you want delegate event totally to CT
          */
-        screen.gnb.onClickGnbListener = usecase
+        screen.gnb.onClickGnbListener = useCase
 
         /**
          * case 2. when you don't want to delegate to CT for those events
@@ -41,42 +41,45 @@ class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(
         }
 
         /**
-         * case 3. when you have somthing to do it in Views
+         * case 3. when you have somthing to do it in Views then call usecase
          */
         screen.gnb.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
-                usecase.onClickScroll()
+                useCase.onClickScroll()
             }
 
             override fun onClickPalette() {
                 //do stuff
-                usecase.onClickPalette()
+                useCase.onClickPalette()
             }
 
             override fun onClickSearch() {
                 //do stuff
-                usecase.onClickSearch()
+                useCase.onClickSearch()
             }
 
             override fun onClickStatistic() {
                 //do stuff
-                usecase.onClickStatistic()
-                //do stuff
+                useCase.onClickStatistic()
             }
         }
     }
 
     private fun onClickScroll() {
+        useCase.onClickScroll()
     }
 
     private fun onClickStatistic() {
+        useCase.onClickStatistic()
     }
 
     private fun onClickSearch() {
+        useCase.onClickSearch()
     }
 
     private fun onClickPalette() {
+        useCase.onClickPalette()
     }
 
 }
