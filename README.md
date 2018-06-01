@@ -197,15 +197,15 @@ If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplat
  3) restart Android Studio
 
  4) right click, and use "SVC" - "SVC ***"
-![svcTemplate](/Users/naver/Projects/svc/doc/img/svcTemplate.png)
+![svcTemplate](./doc/img/svcTemplate.png)
 
  5) write screen name, author then finish!
 
-![svcTemplate2](/Users/naver/Desktop/svcTemplate2.png)
+![svcTemplate2](./doc/img/svcTemplate2.png)
 
-![svcTemplate3](/Users/naver/Projects/svc/doc/img/svcTemplate3.png)
+![svcTemplate3](./doc/img/svcTemplate3.png)
 
-6. Happy coding!
+6. **Happy coding!**
 
 
 
