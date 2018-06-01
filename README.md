@@ -1,8 +1,8 @@
-
-
-# svc
+# SVC
 
 **Easy** and **intuitive** pattern **library** for Android
+
+
 
 
 
