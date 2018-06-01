@@ -24,7 +24,12 @@ SVC is the how to divide Screen |View| Business Logics.
 
 
 For more read check article below
-[https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f](https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f)
+
+1. 1. 4 reasons why MVP is not good enough
+      [https://medium.com/@bansooknam/intro-svc-the-better-pattern-against-mvp-138e6e790bbc](https://medium.com/@bansooknam/intro-svc-the-better-pattern-against-mvp-138e6e790bbc)
+
+   2. Detail concept of SVC
+      [https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f](https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f)
 
 
 Ps. It can be used with ViewModel as Well.
