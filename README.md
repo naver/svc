@@ -220,7 +220,8 @@ If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplat
 "Views" and "CT" can be reused in different Screens.
 (It means it has same look or same usecase and proccess)
 
-If you want to reuse you should  "SvcScreen" or "Abstract Screen (implements SvcScreen)"
+If you want to reuse you should refer your screen as "SvcScreen"
+or make "Abstract Screen (implements SvcScreen)" with common methods then refere the "Abstract Screen".
 
 
 
