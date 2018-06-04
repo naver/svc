@@ -16,6 +16,8 @@ interface SvcScreen<out V, out C> {
      */
     val hostActivity: FragmentActivity?
 
+    val isActive: Boolean
+
     fun createViews(): V
     fun createControlTower(): C
 }

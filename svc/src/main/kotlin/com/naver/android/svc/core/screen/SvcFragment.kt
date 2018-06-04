@@ -71,6 +71,6 @@ abstract class SvcFragment<out V : SvcViews<*>, out C : SvcCT<*, *>> : Fragment(
         lifecycle.removeObserver(views)
     }
 
-    val isActive: Boolean
+    override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
 }

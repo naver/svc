@@ -83,7 +83,7 @@ abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogF
         dismissAllowingStateLoss()
     }
 
-    fun isAvailable(): Boolean {
-        return hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
-    }
+    override val isActive: Boolean
+        get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
+
 }

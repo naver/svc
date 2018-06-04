@@ -70,7 +70,7 @@ abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompat
         super.onBackPressed()
     }
 
-    val isActive: Boolean
+    override val isActive: Boolean
         get() = !isFinishing
 
 }
