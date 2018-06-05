@@ -15,12 +15,11 @@ So when we write code inside the Fragment or Activity, codes are getting mixed w
 
 It makes hard to see each "View Logic" and "Screen Logic"
 
-And the most important thing is that "Business Logic" easily get Inside of the "View"(Fragment, Activity).
+And the most important thing is that "Business Logic" can be included in the "View" easily(Fragment, Activity).
 
-It's because Activity, Fragments are actually "Control Tower"
+It's because Activity, Fragments are actually "Control Tower" (control lifecycle and receives view events)
 
-SVC is the how to divide Screen |View| Business Logics.
-
+SVC gives the way how to divide Screen, View and Business Logic.
 
 
 For more read check article below
