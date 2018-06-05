@@ -15,7 +15,7 @@ So when we write code inside the Fragment or Activity, codes are getting mixed w
 
 It makes hard to see each "View Logic" and "Screen Logic"
 
-And the most important thing is that "Business Logic" can be included in the "View" easily(Fragment, Activity).
+And the most important thing is that "Business Logic" can be included in the "View"(Fragment, Activity) easily.
 
 It's because Activity, Fragments are actually "Control Tower" (control lifecycle and receives view events)
 
