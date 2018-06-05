@@ -26,7 +26,7 @@ import android.view.View
  * @author bs.nam@navercorp.com 2017. 6. 19..
  */
 
-abstract class BaseBindHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class SvcHolder<in T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     abstract fun bindView(item: T, position: Int)
 
