@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.statistic
+package com.naver.android.svc.core.controltower
 
-import com.naver.android.svc.core.controltower.SvcCT
+import com.naver.android.svc.core.screen.SvcScreen
+import com.naver.android.svc.core.views.SvcViews
 
-class StatisticCT(screen: StatisticFragment, views: StatisticViews) : SvcCT<StatisticFragment, StatisticViews>(screen, views) {
+/**
+ * CT which has no logics
+ */
+class EmptyCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(screen: Screen, views: V) : SvcCT<Screen, V>(screen, views) {
     override fun onCreated() {
-        views.setName("St")
     }
 }

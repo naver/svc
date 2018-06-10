@@ -26,7 +26,7 @@ import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.naver.android.svc.core.SvcCT
+import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
 import com.naver.android.svc.core.views.UseCase
 import com.naver.android.svc.core.views.UseCaseViews

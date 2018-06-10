@@ -18,7 +18,7 @@ package com.naver.android.svc.sample
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.naver.android.svc.core.SvcCT
+import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab
 import com.naver.android.svc.sample.tabs.palette.PaletteFragment

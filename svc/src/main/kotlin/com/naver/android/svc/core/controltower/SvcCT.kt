@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core
+package com.naver.android.svc.core.controltower
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
