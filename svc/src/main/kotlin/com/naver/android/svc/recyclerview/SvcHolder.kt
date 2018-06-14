@@ -17,6 +17,7 @@
 package com.naver.android.svc.recyclerview
 
 import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -40,5 +41,9 @@ abstract class SvcHolder<in T>(itemView: View) : RecyclerView.ViewHolder(itemVie
 
     fun getColor(@ColorRes resId: Int): Int {
         return ContextCompat.getColor(itemView.context, resId)
+    }
+
+    fun getDimen(@DimenRes resId: Int): Int {
+        return itemView.context.resources.getDimensionPixelSize(resId)
     }
 }
