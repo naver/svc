@@ -183,9 +183,15 @@ And both MVP, MVVM can call Business logics of Mediator directly.
 
 ![diagram](./doc/img/SVC_M.png)
 
+As same as MVP, Mediator("ControlTower") comunicated with Model.
 
+It's exactly same.
 
 ![diagram](./doc/img/SVC_VM_M.png)
+
+We can use ViewModel in CT to take advantage of "Auto Lifecycle Management".
+
+Especially when we call asynchronous call which take more than 100ms, using ViewModel would be a good choice.
 
 ## 4. Difference between MVP,MVVM vs SVC
 
