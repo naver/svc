@@ -2,7 +2,7 @@
 
 **Easy** and **intuitive** pattern **library** for Android
 
-
+![diagram](./doc/img/SVC_LOGO_256.png)
 
 
 
