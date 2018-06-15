@@ -246,7 +246,9 @@ implementation "com.naver.android.svc:svc:0.0.1-alpha13"
 
 
 
-### 4. SvcTemplate can makes "works" easier
+### 4. Svc-template can makes "works" easier
+
+Github Link: https://github.com/naver/svc-template
 
 If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplate.
  1) clone `https://github.com/naver/svc-template.git`
