@@ -148,8 +148,9 @@ C — Control Tower
 
 UseCase — Interface which have "User Interaction methods"
 
-
 # Diagram
+
+## 1. SVC
 
 ![diagram](./doc/img/diagram.png)
 
@@ -157,6 +158,53 @@ UseCase — Interface which have "User Interaction methods"
 2. "Views" don't know "CT" directly. It knows "CT" as "UseCase"
 3. "CT" knows "Views"'s public methods and fields.
 4. Each "Views" and "CT" has "Screen"
+
+
+
+## 2. MVP, MVVM
+
+![diagram](./doc/img/MVP.png)
+
+![diagram](./doc/img/MVVM.png)
+
+When we use MVP or MVVM, "View"(which is implemented on Activity, Fragment) can easily get Bigger with lots of responsibility. It has 3 main responsibility.
+
+1. Screen logics
+2. View logics
+3. Control tower logics (access directly to Mediator "Presenter" or "ViewModel")
+
+
+
+And both MVP, MVVM can call Business logics of Mediator directly.
+
+
+
+## 3. SVC with Model
+
+![diagram](./doc/img/SVC_M.png)
+
+
+
+![diagram](./doc/img/SVC_VM_M.png)
+
+## 4. Difference between MVP,MVVM vs SVC
+
+There are 2 big differences.
+
+1. SVC divides "View"'s 3 responsibilities into 3 parts, which is Screen, ControlTower, Views
+2. "Views" cannot call "Control Tower" directly. (Because "Views" knows "CT" as "UseCase")
+
+
+
+With this 2 big differences. We can
+
+1. Prevent "View" from being "God View"
+2. We can see well divided logics.
+3. When we write "View" logic we don't need to think about business logics.
+4. We don't need to make duplicated methods by interfaces (in MVP especially)
+5. We don't need to observe commands with parameter (in MVVM)
+6. We can use same "Views" in "A Activity" and "B Fragment". (reusable)
+7. We can understand intuitively with clear naming.
 
 
 
