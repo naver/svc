@@ -274,7 +274,7 @@ If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplat
 (It means it has same look or same usecase and proccess)
 
 If you want to reuse you should refer your screen as "SvcScreen"
-or make "Abstract Screen (implements SvcScreen)" with common methods then refere the "Abstract Screen".
+or make "Abstract Screen (implements SvcScreen)" with common methods then refer the "Abstract Screen" on your reused "Views" or "CT".
 
 
 
