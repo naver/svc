@@ -237,7 +237,7 @@ allprojects {
 Include below in your "application" build.gradle file
 
 ```groovy
-implementation "com.naver.android.svc:svc:0.0.1-alpha9"
+implementation "com.naver.android.svc:svc:0.0.1-alpha13"
 ```
 
 
@@ -249,7 +249,7 @@ implementation "com.naver.android.svc:svc:0.0.1-alpha9"
 ### 4. SvcTemplate can makes "works" easier
 
 If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplate.
- 1) clone `https://github.com/BansookNam/svcTemplate.git`
+ 1) clone `https://github.com/naver/svc-template.git`
 
  2) run shell script through command line. (Terminal in mac)`./install.sh`
 
