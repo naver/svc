@@ -97,7 +97,6 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy() {
-        rootView = null
         if (SvcConfig.debugMode) {
             Log.d(TAG, "onDestroy")
         }
