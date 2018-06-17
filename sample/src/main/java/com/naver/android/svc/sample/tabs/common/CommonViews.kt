@@ -23,14 +23,14 @@ import kotlinx.android.synthetic.main.fragment_common.view.*
 
 class CommonViews(screen: SvcScreen<*, *>) : UseCaseViews<SvcScreen<*, *>, CommonUseCase>(screen) {
 
-    override val layoutResId: Int
-        get() = R.layout.fragment_common
+    override val layoutResId = R.layout.fragment_common
+
+    val extra by lazy { rootView?.extra }
 
     override fun onCreated() {
     }
 
-    fun setExtraString(extra: String) {
-        val rootView = rootView ?: return
-        rootView.extra.text = extra
+    fun setExtraString(extraName: String) {
+        extra?.text = extraName
     }
 }

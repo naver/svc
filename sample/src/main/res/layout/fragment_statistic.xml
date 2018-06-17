@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 NAVER Corp.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +23,7 @@
     <TextView
         android:id="@+id/name"
         style="@style/fragment_title"
+        android:gravity="center"
         android:text="Statistic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
