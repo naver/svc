@@ -17,6 +17,8 @@
 package com.naver.android.svc.core.screen
 
 import android.annotation.TargetApi
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
@@ -32,7 +34,7 @@ import com.naver.android.svc.core.views.UseCaseViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C> {
+abstract class SvcActivity<VB : ViewDataBinding, out V : SvcViews<*, VB>, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C> {
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
@@ -54,15 +56,17 @@ abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompat
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(views.layoutResId)
+        val vb = DataBindingUtil.setContentView<VB>(this, views.layoutResId)
 
         val finalViews = views
         val finalController = ct
 
+        finalViews.vb = vb
+
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
 
-        if (finalViews is UseCaseViews<*, *> && finalController is UseCase) {
+        if (finalViews is UseCaseViews<*, *, *> && finalController is UseCase) {
             finalViews.setControllerUsecase(finalController)
         }
 

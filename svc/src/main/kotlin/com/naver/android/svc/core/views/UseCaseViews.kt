@@ -16,9 +16,10 @@
 
 package com.naver.android.svc.core.views
 
+import android.databinding.ViewDataBinding
 import com.naver.android.svc.core.screen.SvcScreen
 
-abstract class UseCaseViews<out Screen : SvcScreen<*, *>, U : UseCase>(screen: Screen) : SvcViews<Screen>(screen) {
+abstract class UseCaseViews<out Screen : SvcScreen<*, *>, VB : ViewDataBinding, U : UseCase>(screen: Screen) : SvcViews<Screen, VB>(screen) {
     lateinit var useCase: U
 
     fun setControllerUsecase(useCase: UseCase) {

@@ -20,6 +20,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
+import android.databinding.ViewDataBinding
 import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
 import android.support.annotation.LayoutRes
@@ -36,12 +37,13 @@ import com.naver.android.svc.core.screen.SvcScreen
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver {
+abstract class SvcViews<out Screen : SvcScreen<*, *>, VB : ViewDataBinding>(val screen: Screen) : LifecycleObserver {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     var rootView: ViewGroup? = null
+    lateinit var vb: VB
 
     val context: Context?
         get() = screen.hostActivity

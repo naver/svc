@@ -19,18 +19,18 @@ package com.naver.android.svc.sample.tabs.common
 import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.UseCaseViews
 import com.naver.android.svc.sample.R
-import kotlinx.android.synthetic.main.fragment_common.view.*
+import com.naver.android.svc.sample.databinding.FragmentCommonBinding
 
-class CommonViews(screen: SvcScreen<*, *>) : UseCaseViews<SvcScreen<*, *>, CommonUseCase>(screen) {
+class CommonViews(screen: SvcScreen<*, *>) : UseCaseViews<SvcScreen<*, *>, FragmentCommonBinding, CommonUseCase>(screen) {
 
     override val layoutResId = R.layout.fragment_common
 
-    val extra by lazy { rootView?.extra }
+    private val extra by lazy { vb.extra }
 
     override fun onCreated() {
     }
 
     fun setExtraString(extraName: String) {
-        extra?.text = extraName
+        extra.text = extraName
     }
 }

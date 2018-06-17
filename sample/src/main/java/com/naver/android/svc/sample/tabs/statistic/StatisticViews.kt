@@ -18,19 +18,17 @@ package com.naver.android.svc.sample.tabs.statistic
 
 import com.naver.android.svc.core.views.UseCaseViews
 import com.naver.android.svc.sample.R
-import kotlinx.android.synthetic.main.fragment_statistic.*
+import com.naver.android.svc.sample.databinding.FragmentStatisticBinding
 
-class StatisticViews(screen: StatisticFragment) : UseCaseViews<StatisticFragment, StatisticUseCase>(screen) {
+class StatisticViews(screen: StatisticFragment) : UseCaseViews<StatisticFragment, FragmentStatisticBinding, StatisticUseCase>(screen) {
 
     override val layoutResId = R.layout.fragment_statistic
 
     override fun onCreated() {
-        screen.name.setOnClickListener {
-            useCase.onNameClicked()
-        }
+        vb.usecase = useCase
     }
 
     fun setName(name: String) {
-        screen.name.text = name
+        vb.name.text = name
     }
 }

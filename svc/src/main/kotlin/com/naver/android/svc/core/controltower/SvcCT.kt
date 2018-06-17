@@ -37,7 +37,7 @@ import com.naver.android.svc.core.views.SvcViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(val screen: Screen, val views: V) : LifecycleObserver {
+abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*, *>>(val screen: Screen, val views: V) : LifecycleObserver {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME

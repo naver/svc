@@ -17,9 +17,10 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.svc.sample.databinding.FragmentCommonBinding
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaletteFragment : SvcFragment<CommonViews, PaletteCT>() {
+class PaletteFragment : SvcFragment<FragmentCommonBinding, CommonViews, PaletteCT>() {
     override fun createViews() = CommonViews(this)
     override fun createControlTower() = PaletteCT(this, views)
 }
