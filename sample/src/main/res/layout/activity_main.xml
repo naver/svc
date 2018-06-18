@@ -15,6 +15,13 @@
   -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+	<data>
+		<variable
+			name="usecase"
+			type="com.naver.android.svc.sample.MainUseCase" />
+
+	</data>
+
     <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -41,6 +48,7 @@
             android:id="@+id/gnb"
             android:layout_width="match_parent"
             android:layout_height="@dimen/gnb_height"
+			app:onClickGnbListener="@{usecase}"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
