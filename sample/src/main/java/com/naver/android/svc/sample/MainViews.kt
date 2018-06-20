@@ -27,7 +27,10 @@ class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(
         /**
          * case 1. when you want delegate event totally to CT
          */
-        screen.gnb.onClickGnbListener = useCase
+        withScreen {
+            gnb.onClickGnbListener = useCase
+        }
+        //screen.gnb.onClickGnbListener = useCase
 
         /**
          * case 2. when you don't want to delegate to CT for those events

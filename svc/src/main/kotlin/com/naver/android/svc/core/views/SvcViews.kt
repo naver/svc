@@ -17,15 +17,15 @@
 package com.naver.android.svc.core.views
 
 import android.content.Context
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import android.util.Log
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -55,6 +55,11 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     val isDestroyed: Boolean
         get() = !isInitialized
 
+    inline fun withScreen(screenLamda: Screen.() -> Unit) {
+        with(screen) {
+            screenLamda()
+        }
+    }
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -121,21 +126,34 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     }
 
     fun getColor(@ColorRes colorRes: Int): Int {
-        var context = context
-        if (context == null) {
-            context = getMainApplicationContext()
-        }
+        val context = getAvaiableContext()
         context ?: return 0
         return ContextCompat.getColor(context, colorRes)
     }
 
     fun getDimen(@DimenRes dimenId: Int): Int {
+        val context = getAvaiableContext()
+        context ?: return 0
+        return context.resources.getDimensionPixelSize(dimenId)
+    }
+
+    private fun getAvaiableContext(): Context? {
         var context = context
         if (context == null) {
             context = getMainApplicationContext()
         }
-        context ?: return 0
-        return context.resources.getDimensionPixelSize(dimenId)
+        return context
+    }
+
+    fun dpToPx(dp: Float): Int {
+        val context = getAvaiableContext() ?: return 0
+        val displayMetrics = context.resources.displayMetrics
+
+        var px = (displayMetrics.density * dp).toInt()
+        if (0 < dp && px == 0) {
+            px = 1
+        }
+        return px
     }
 
     fun getString(@StringRes stringId: Int): String {
