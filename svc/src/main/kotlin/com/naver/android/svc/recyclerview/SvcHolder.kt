@@ -16,34 +16,24 @@
 
 package com.naver.android.svc.recyclerview
 
-import androidx.annotation.ColorRes
-import androidx.annotation.DimenRes
-import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
+import com.naver.android.svc.core.common.ResourceProvider
+
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 19..
  */
 
-abstract class SvcHolder<in T>(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+abstract class SvcHolder<in T> : RecyclerView.ViewHolder, ResourceProvider {
+    constructor(layoutId: Int, parent: ViewGroup) :
+            super(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
+
+
+    override val context: Context?
+        get() = itemView.context
 
     abstract fun bindView(item: T, position: Int)
-
-    fun getString(@StringRes resId: Int): String {
-        return itemView.context.getString(resId)
-    }
-
-    fun getString(@StringRes resId: Int, vararg formatArgs: Any): String {
-        return itemView.context.getString(resId, *formatArgs)
-    }
-
-    fun getColor(@ColorRes resId: Int): Int {
-        return ContextCompat.getColor(itemView.context, resId)
-    }
-
-    fun getDimen(@DimenRes resId: Int): Int {
-        return itemView.context.resources.getDimensionPixelSize(resId)
-    }
 }

@@ -30,6 +30,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
+import com.naver.android.svc.core.common.ContextHolder
+import com.naver.android.svc.core.common.ResourceProvider
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.SvcScreen
 
@@ -37,7 +39,7 @@ import com.naver.android.svc.core.screen.SvcScreen
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver, Toastable {
+abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver, Toastable, ContextHolder, ResourceProvider {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -122,60 +124,11 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
         rootView?.removeCallbacks(runnable)
     }
 
-    fun getColor(@ColorRes colorRes: Int): Int {
-        val context = getAvaiableContext()
-        context ?: return 0
-        return ContextCompat.getColor(context, colorRes)
-    }
-
-    fun getDimen(@DimenRes dimenId: Int): Int {
-        val context = getAvaiableContext()
-        context ?: return 0
-        return context.resources.getDimensionPixelSize(dimenId)
-    }
-
-    private fun getAvaiableContext(): Context? {
-        var context = context
-        if (context == null) {
-            context = getMainApplicationContext()
-        }
-        return context
-    }
-
-    fun dpToPx(dp: Float): Int {
-        val context = getAvaiableContext() ?: return 0
-        val displayMetrics = context.resources.displayMetrics
-
-        var px = (displayMetrics.density * dp).toInt()
-        if (0 < dp && px == 0) {
-            px = 1
-        }
-        return px
-    }
-
-    fun getString(@StringRes stringId: Int): String {
-        val context = context
-        context ?: return ""
-        return context.resources.getString(stringId)
-    }
-
-
     open fun onBackPressed(): Boolean {
         return false
     }
 
     fun <T : View> findViewById(id: Int): T? {
         return rootView?.findViewById(id)
-    }
-
-    /**
-     * when use getDimen or getString in contructor
-     * there is no context before inflating and setting rootView
-     *
-     * to use getDimen or getString in constructor
-     * you can override this function on your BaseViews.
-     */
-    open fun getMainApplicationContext(): Context? {
-        return null
     }
 }
