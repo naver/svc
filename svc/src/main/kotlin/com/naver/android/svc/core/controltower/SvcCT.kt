@@ -16,15 +16,16 @@
 
 package com.naver.android.svc.core.controltower
 
+import android.content.Context
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
+import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.SvcViews
 
@@ -37,13 +38,15 @@ import com.naver.android.svc.core.views.SvcViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(val screen: Screen, val views: V) : LifecycleObserver {
+abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(val screen: Screen, val views: V) : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     val activity: FragmentActivity? = screen.hostActivity
-
+    
+    override val context: Context?
+        get() = activity
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -95,11 +98,6 @@ abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(val scre
     }
 
     //------LifeCycle END------
-
-    fun showToast(message: String) {
-        val toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT)
-        toast.show()
-    }
 
     fun showDialog(dialogFragment: DialogFragment) {
         val activity = activity ?: return

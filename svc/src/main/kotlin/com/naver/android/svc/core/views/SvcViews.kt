@@ -30,20 +30,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
+import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.SvcScreen
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver {
+abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     var rootView: ViewGroup? = null
 
-    val context: Context?
+    override val context: Context?
         get() = screen.hostActivity
 
     @get:LayoutRes
@@ -119,10 +120,6 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
 
     fun removeCallbacks(runnable: Runnable) {
         rootView?.removeCallbacks(runnable)
-    }
-
-    fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     fun getColor(@ColorRes colorRes: Int): Int {
