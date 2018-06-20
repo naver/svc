@@ -16,7 +16,7 @@
 
 package com.naver.android.svc.core.screen
 
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..

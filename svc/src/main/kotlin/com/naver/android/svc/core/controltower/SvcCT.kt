@@ -16,14 +16,14 @@
 
 package com.naver.android.svc.core.controltower
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.SvcViews

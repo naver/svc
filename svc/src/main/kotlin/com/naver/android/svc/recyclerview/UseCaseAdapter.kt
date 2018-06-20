@@ -16,7 +16,7 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 import com.naver.android.svc.core.views.UseCase
 
@@ -24,4 +24,4 @@ import com.naver.android.svc.core.views.UseCase
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class UseCaseAdapter<VH : RecyclerView.ViewHolder, out U : UseCase>(val useCase: U) : RecyclerView.Adapter<VH>()
+abstract class UseCaseAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder, out U : UseCase>(val useCase: U) : androidx.recyclerview.widget.RecyclerView.Adapter<VH>()

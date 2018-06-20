@@ -16,18 +16,18 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.support.annotation.ColorRes
-import android.support.annotation.DimenRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 19..
  */
 
-abstract class SvcHolder<in T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class SvcHolder<in T>(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     abstract fun bindView(item: T, position: Int)
 
