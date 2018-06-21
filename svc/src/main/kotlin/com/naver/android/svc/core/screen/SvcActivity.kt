@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
 import com.naver.android.svc.core.views.UseCase
@@ -32,7 +33,7 @@ import com.naver.android.svc.core.views.UseCaseViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C> {
+abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C>, DialogPlug {
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
@@ -41,6 +42,8 @@ abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompat
     override val ct by lazy { createControlTower() }
     override val hostActivity: FragmentActivity?
         get() = this
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = this.supportFragmentManager
 
     open var statusbarColor: Int? = null
 

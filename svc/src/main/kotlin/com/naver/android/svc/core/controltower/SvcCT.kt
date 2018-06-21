@@ -18,8 +18,6 @@ package com.naver.android.svc.core.controltower
 
 import android.content.Context
 import android.util.Log
-import android.view.View
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -98,18 +96,6 @@ abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(val scre
     }
 
     //------LifeCycle END------
-
-    fun showDialog(dialogFragment: DialogFragment) {
-        val activity = activity ?: return
-        dialogFragment.show(activity.supportFragmentManager, dialogFragment.javaClass.simpleName)
-    }
-
-    fun showDialog(dialogFragment: DialogFragment, sharedElement: View, elementId: String) {
-        val activity = activity ?: return
-        val transaction = activity.supportFragmentManager.beginTransaction()
-        transaction.addSharedElement(sharedElement, elementId)
-        dialogFragment.show(transaction, dialogFragment.javaClass.simpleName)
-    }
 
     fun finishActivity() {
         activity?.finish()
