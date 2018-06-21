@@ -35,7 +35,7 @@ import com.naver.android.svc.core.views.UseCaseViews
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
+abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>, L>(private val dialogListener: L) : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -47,6 +47,10 @@ abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (dialogListener == null) {
+            dismissAllowingStateLoss()
+            return
+        }
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
     }
 
