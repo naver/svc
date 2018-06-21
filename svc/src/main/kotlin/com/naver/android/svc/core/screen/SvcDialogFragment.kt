@@ -35,7 +35,7 @@ import com.naver.android.svc.core.views.UseCaseViews
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>, L>(private val dialogListener: L) : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
+abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>, L> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -44,6 +44,8 @@ abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>, L>(privat
     override val ct by lazy { createControlTower() }
     override val hostActivity: FragmentActivity?
         get() = activity
+
+    var dialogListener: L? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
