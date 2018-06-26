@@ -16,12 +16,11 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.support.v7.widget.RecyclerView
-
-import com.naver.android.svc.core.views.UseCase
+import android.view.ViewGroup
 
 /**
+ * holder with user interaction(click or swipe etc.)
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class UseCaseAdapter<VH : RecyclerView.ViewHolder, out U : UseCase>(val useCase: U) : RecyclerView.Adapter<VH>()
+abstract class SvcListenerHolder<in T, out Listener>(layoutId: Int, parent: ViewGroup, val listener: Listener) : BaseSvcHolder<T>(layoutId, parent)

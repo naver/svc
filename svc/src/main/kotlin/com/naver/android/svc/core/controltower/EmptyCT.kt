@@ -22,7 +22,7 @@ import com.naver.android.svc.core.views.SvcViews
 /**
  * CT which has no logics
  */
-class EmptyCT<out Screen : SvcScreen<V, *>, out V : SvcViews<*>>(screen: Screen, views: V) : SvcCT<Screen, V>(screen, views) {
+class EmptyCT<out Screen : SvcScreen<V, *>, out V : SvcViews>(screen: Screen, views: V) : SvcCT<Screen, V>(screen, views) {
     override fun onCreated() {
     }
 }

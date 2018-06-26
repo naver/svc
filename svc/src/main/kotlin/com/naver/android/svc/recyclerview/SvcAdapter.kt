@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.statistic
+package com.naver.android.svc.recyclerview
 
-import com.naver.android.svc.core.views.UseCaseViews
-import com.naver.android.svc.sample.R
-import kotlinx.android.synthetic.main.fragment_statistic.view.*
+import android.support.v7.widget.RecyclerView
 
-class StatisticViews : UseCaseViews<StatisticUseCase>() {
+/**
+ * @author bs.nam@navercorp.com 2017. 8. 16..
+ */
 
-    override val layoutResId = R.layout.fragment_statistic
-
-    override fun onCreated() {
-        rootView.name.setOnClickListener {
-            useCase.onNameClicked()
+abstract class SvcAdapter<VH : RecyclerView.ViewHolder, out Listener>(val listener: Listener) : RecyclerView.Adapter<VH>() {
+    final override fun onBindViewHolder(holder: VH, position: Int) {
+        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+            return
         }
+        onBindUseCaseHolder(holder, holder.adapterPosition)
     }
 
-    fun setName(name: String) {
-        rootView.name.text = name
-    }
+    abstract fun onBindUseCaseHolder(holder: VH, adapterPosition: Int)
 }

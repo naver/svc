@@ -20,40 +20,47 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
-import android.support.annotation.ColorRes
-import android.support.annotation.DimenRes
 import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.naver.android.svc.SvcConfig
-import com.naver.android.svc.core.screen.SvcScreen
+import com.naver.android.svc.core.common.ResourceProvider
+import com.naver.android.svc.core.common.Toastable
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver {
+abstract class SvcViews : LifecycleObserver, Toastable, ResourceProvider {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    var rootView: ViewGroup? = null
+    lateinit var rootView: ViewGroup
 
-    val context: Context?
-        get() = screen.hostActivity
+    override val context: Context?
+        get() = if (isInitialized) rootView.context else null
 
     @get:LayoutRes
     abstract val layoutResId: Int
 
     val isInitialized: Boolean
-        get() = rootView != null
+        get() = ::rootView.isInitialized
 
     val isDestroyed: Boolean
         get() = !isInitialized
+
+    inline fun withRootView(action: View.() -> Unit) {
+        if (!isInitialized) {
+            return
+        }
+
+        with(rootView) {
+            action()
+        }
+    }
+
 
 
     //------LifeCycle START------
@@ -105,62 +112,31 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     //------LifeCycle END------
 
     fun post(runnable: () -> Unit) {
-        rootView?.post(runnable)
+        if (!isInitialized) {
+            return
+        }
+        rootView.post(runnable)
     }
 
     fun postDelayed(runnable: Runnable, delayMillis: Int) {
-        rootView?.postDelayed(runnable, delayMillis.toLong())
+        if (!isInitialized) {
+            return
+        }
+        rootView.postDelayed(runnable, delayMillis.toLong())
     }
 
     fun removeCallbacks(runnable: Runnable) {
-        rootView?.removeCallbacks(runnable)
-    }
-
-    fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    fun getColor(@ColorRes colorRes: Int): Int {
-        var context = context
-        if (context == null) {
-            context = getMainApplicationContext()
+        if (!isInitialized) {
+            return
         }
-        context ?: return 0
-        return ContextCompat.getColor(context, colorRes)
+        rootView.removeCallbacks(runnable)
     }
-
-    fun getDimen(@DimenRes dimenId: Int): Int {
-        var context = context
-        if (context == null) {
-            context = getMainApplicationContext()
-        }
-        context ?: return 0
-        return context.resources.getDimensionPixelSize(dimenId)
-    }
-
-    fun getString(@StringRes stringId: Int): String {
-        val context = context
-        context ?: return ""
-        return context.resources.getString(stringId)
-    }
-
 
     open fun onBackPressed(): Boolean {
         return false
     }
 
     fun <T : View> findViewById(id: Int): T? {
-        return rootView?.findViewById(id)
-    }
-
-    /**
-     * when use getDimen or getString in contructor
-     * there is no context before inflating and setting rootView
-     *
-     * to use getDimen or getString in constructor
-     * you can override this function on your BaseViews.
-     */
-    open fun getMainApplicationContext(): Context? {
-        return null
+        return rootView.findViewById(id)
     }
 }
