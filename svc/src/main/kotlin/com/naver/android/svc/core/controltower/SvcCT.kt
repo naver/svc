@@ -23,8 +23,8 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.naver.android.svc.SvcConfig
+import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.SvcViews
 
@@ -37,7 +37,7 @@ import com.naver.android.svc.core.views.SvcViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews>(val screen: Screen, val views: V) : LifecycleObserver {
+abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews>(val screen: Screen, val views: V) : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -95,11 +95,6 @@ abstract class SvcCT<out Screen : SvcScreen<V, *>, out V : SvcViews>(val screen:
     }
 
     //------LifeCycle END------
-
-    fun showToast(message: String) {
-        val toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT)
-        toast.show()
-    }
 
     fun showDialog(dialogFragment: DialogFragment) {
         val activity = activity ?: return

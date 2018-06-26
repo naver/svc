@@ -28,21 +28,21 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.naver.android.svc.SvcConfig
+import com.naver.android.svc.core.common.Toastable
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews : LifecycleObserver {
+abstract class SvcViews : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
 
-    val context: Context?
+    override val context: Context?
         get() = if (isInitialized) rootView.context else null
 
     @get:LayoutRes
@@ -133,10 +133,6 @@ abstract class SvcViews : LifecycleObserver {
             return
         }
         rootView.removeCallbacks(runnable)
-    }
-
-    fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     fun getColor(@ColorRes colorRes: Int): Int {
