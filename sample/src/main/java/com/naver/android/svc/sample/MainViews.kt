@@ -16,10 +16,11 @@
 
 package com.naver.android.svc.sample
 
+import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.UseCaseViews
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainViews() : UseCaseViews<MainUseCase>() {
+class MainViews(screen: SvcScreen<*, *>) : UseCaseViews<MainUseCase>(screen) {
 
     override val layoutResId = R.layout.activity_main
 
