@@ -60,7 +60,7 @@ class MainCT(screen: MainActivity, views: MainViews) : SvcCT<MainActivity, MainV
         bundle.putString(SvcFragment.EXTRA_TAG_ID, tab.name)
         fragment.arguments = bundle
 
-        val transaction = screen.fragmentManagerForDialog.beginTransaction()
+        val transaction = screen.supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(tab.name)
         transaction.commit()

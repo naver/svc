@@ -17,9 +17,9 @@
 package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.views.UseCaseViews
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(screen) {
+class MainViews : UseCaseViews<MainUseCase>() {
 
     override val layoutResId = R.layout.activity_main
 
@@ -27,7 +27,7 @@ class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(
         /**
          * case 1. when you want delegate event totally to CT
          */
-        withScreen {
+        withRootView {
             gnb.onClickGnbListener = useCase
         }
         //screen.gnb.onClickGnbListener = useCase
@@ -36,7 +36,7 @@ class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(
          * case 2. when you don't want to delegate to CT for those events
          * in this case you don't need to define MainUseCase methods
          */
-        screen.gnb.onClickGnbListener = object : OnClickGnbListener {
+        rootView?.gnb?.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
                 this@MainViews.onClickScroll()
@@ -62,7 +62,7 @@ class MainViews(screen: MainActivity) : UseCaseViews<MainActivity, MainUseCase>(
         /**
          * case 3. when you have somthing to do it in Views then call usecase
          */
-        screen.gnb.onClickGnbListener = object : OnClickGnbListener {
+        rootView?.gnb?.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
                 useCase.onClickScroll()
