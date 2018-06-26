@@ -16,15 +16,16 @@
 
 package com.naver.android.svc.sample.tabs.common
 
+import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.UseCaseViews
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.fragment_common.view.*
 
-class CommonViews : UseCaseViews<CommonUseCase>() {
+class CommonViews(screen: SvcScreen<*, *>) : UseCaseViews<CommonUseCase>(screen) {
 
     override val layoutResId = R.layout.fragment_common
 
-    val extra by lazy { rootView?.extra }
+    val extra by lazy { rootView.extra }
 
     override fun onCreated() {
     }

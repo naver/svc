@@ -16,10 +16,11 @@
 
 package com.naver.android.svc.sample
 
+import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.UseCaseViews
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainViews : UseCaseViews<MainUseCase>() {
+class MainViews(screen: SvcScreen<*, *>) : UseCaseViews<MainUseCase>(screen) {
 
     override val layoutResId = R.layout.activity_main
 
@@ -36,7 +37,7 @@ class MainViews : UseCaseViews<MainUseCase>() {
          * case 2. when you don't want to delegate to CT for those events
          * in this case you don't need to define MainUseCase methods
          */
-        rootView?.gnb?.onClickGnbListener = object : OnClickGnbListener {
+        rootView.gnb?.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
                 this@MainViews.onClickScroll()
@@ -62,7 +63,7 @@ class MainViews : UseCaseViews<MainUseCase>() {
         /**
          * case 3. when you have somthing to do it in Views then call usecase
          */
-        rootView?.gnb?.onClickGnbListener = object : OnClickGnbListener {
+        rootView.gnb?.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
                 useCase.onClickScroll()
