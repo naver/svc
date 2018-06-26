@@ -33,9 +33,11 @@ import com.naver.android.svc.core.views.UseCaseViews
 
 
 /**
+ * you should set dialogListener after you create dialog instance.
+ * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : SvcViews, C : SvcCT<*, *>> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
+abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -45,8 +47,15 @@ abstract class SvcDialogFragment<out V : SvcViews, C : SvcCT<*, *>> : DialogFrag
     override val hostActivity: FragmentActivity?
         get() = activity
 
+    lateinit var dialogListener: DL
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (::dialogListener.isInitialized) {
+            dismissAllowingStateLoss()
+            return
+        }
+
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
     }
 
