@@ -16,19 +16,19 @@
 
 package com.naver.android.svc.core.views
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
-import android.support.annotation.ColorRes
-import android.support.annotation.DimenRes
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.screen.SvcScreen
 
@@ -121,26 +121,30 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     }
 
     fun getColor(@ColorRes colorRes: Int): Int {
-        var context = context
-        if (context == null) {
-            context = getMainApplicationContext()
-        }
-        context ?: return 0
+        val context = getAvaiableContext() ?: return 0
         return ContextCompat.getColor(context, colorRes)
     }
 
     fun getDimen(@DimenRes dimenId: Int): Int {
-        var context = context
-        if (context == null) {
-            context = getMainApplicationContext()
-        }
+        val context = getAvaiableContext()
         context ?: return 0
         return context.resources.getDimensionPixelSize(dimenId)
     }
 
+    fun dpToPx(dp: Float): Int {
+        val context = getAvaiableContext() ?: return 0
+        val displayMetrics = context.resources.displayMetrics
+
+        var px = (displayMetrics.density * dp).toInt()
+        if (0 < dp && px == 0) {
+            px = 1
+        }
+        return px
+    }
+
+
     fun getString(@StringRes stringId: Int): String {
-        val context = context
-        context ?: return ""
+        val context = getAvaiableContext() ?: return ""
         return context.resources.getString(stringId)
     }
 
@@ -152,6 +156,15 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     fun <T : View> findViewById(id: Int): T? {
         return rootView?.findViewById(id)
     }
+
+    private fun getAvaiableContext(): Context? {
+        var context = context
+        if (context == null) {
+            context = getMainApplicationContext()
+        }
+        return context
+    }
+
 
     /**
      * when use getDimen or getString in contructor
