@@ -35,7 +35,7 @@ import com.naver.android.svc.core.views.UseCaseViews
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
+abstract class SvcDialogFragment<out V : SvcViews, C : SvcCT<*, *>> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -53,7 +53,7 @@ abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogF
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        views.rootView?.setOnClickListener {
+        views.rootView.setOnClickListener {
             dismissAllowingStateLoss()
         }
 
@@ -63,7 +63,7 @@ abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val finalViews = views
         val finalController = ct
-        if (finalViews is UseCaseViews<*, *> && finalController is UseCase) {
+        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
             finalViews.setControllerUsecase(finalController)
         }
 
@@ -78,7 +78,7 @@ abstract class SvcDialogFragment<out V : SvcViews<*>, C : SvcCT<*, *>> : DialogF
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        views.rootView = LayoutInflater.from(context).inflate(views.layoutResId, null) as ViewGroup?
+        views.rootView = LayoutInflater.from(context).inflate(views.layoutResId, null) as ViewGroup
         val dialog = super.onCreateDialog(savedInstanceState)
 
         dialog.setOnKeyListener { _, keyCode, _ ->

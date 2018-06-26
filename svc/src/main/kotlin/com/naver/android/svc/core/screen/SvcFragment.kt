@@ -32,7 +32,7 @@ import com.naver.android.svc.core.views.UseCaseViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcFragment<out V : SvcViews<*>, out C : SvcCT<*, *>> : Fragment(), SvcScreen<V, C> {
+abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), SvcScreen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -69,7 +69,7 @@ abstract class SvcFragment<out V : SvcViews<*>, out C : SvcCT<*, *>> : Fragment(
         val finalViews = views
         val finalController = ct
 
-        if (finalViews is UseCaseViews<*, *> && finalController is UseCase) {
+        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
             finalViews.setControllerUsecase(finalController)
         }
 

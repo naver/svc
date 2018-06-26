@@ -32,7 +32,7 @@ import com.naver.android.svc.core.views.UseCaseViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C> {
+abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C> {
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
@@ -62,7 +62,7 @@ abstract class SvcActivity<out V : SvcViews<*>, out C : SvcCT<*, *>> : AppCompat
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
 
-        if (finalViews is UseCaseViews<*, *> && finalController is UseCase) {
+        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
             finalViews.setControllerUsecase(finalController)
         }
 

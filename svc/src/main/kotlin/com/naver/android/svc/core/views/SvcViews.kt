@@ -30,30 +30,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.naver.android.svc.SvcConfig
-import com.naver.android.svc.core.screen.SvcScreen
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : LifecycleObserver {
+abstract class SvcViews : LifecycleObserver {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    var rootView: ViewGroup? = null
+    lateinit var rootView: ViewGroup
 
     val context: Context?
-        get() = screen.hostActivity
+        get() = if (isInitialized) rootView.context else null
 
     @get:LayoutRes
     abstract val layoutResId: Int
 
     val isInitialized: Boolean
-        get() = rootView != null
+        get() = ::rootView.isInitialized
 
     val isDestroyed: Boolean
         get() = !isInitialized
+
+    inline fun withRootView(action: View.() -> Unit) {
+        if (!isInitialized) {
+            return
+        }
+
+        with(rootView) {
+            action()
+        }
+    }
+
 
 
     //------LifeCycle START------
@@ -105,15 +115,24 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     //------LifeCycle END------
 
     fun post(runnable: () -> Unit) {
-        rootView?.post(runnable)
+        if (!isInitialized) {
+            return
+        }
+        rootView.post(runnable)
     }
 
     fun postDelayed(runnable: Runnable, delayMillis: Int) {
-        rootView?.postDelayed(runnable, delayMillis.toLong())
+        if (!isInitialized) {
+            return
+        }
+        rootView.postDelayed(runnable, delayMillis.toLong())
     }
 
     fun removeCallbacks(runnable: Runnable) {
-        rootView?.removeCallbacks(runnable)
+        if (!isInitialized) {
+            return
+        }
+        rootView.removeCallbacks(runnable)
     }
 
     fun showToast(message: String) {
@@ -154,7 +173,7 @@ abstract class SvcViews<out Screen : SvcScreen<*, *>>(val screen: Screen) : Life
     }
 
     fun <T : View> findViewById(id: Int): T? {
-        return rootView?.findViewById(id)
+        return rootView.findViewById(id)
     }
 
     private fun getAvaiableContext(): Context? {
