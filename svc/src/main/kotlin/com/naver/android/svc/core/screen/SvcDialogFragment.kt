@@ -30,6 +30,7 @@ import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
 import com.naver.android.svc.core.views.UseCase
 import com.naver.android.svc.core.views.UseCaseViews
+import kotlin.jvm.javaClass
 
 
 /**
@@ -59,7 +60,7 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DialogLi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        views.rootView?.setOnClickListener {
+        views.rootView.setOnClickListener {
             dismissAllowingStateLoss()
         }
 

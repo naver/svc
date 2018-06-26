@@ -28,6 +28,7 @@ import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.ContextHolder
 import com.naver.android.svc.core.common.ResourceProvider
 import com.naver.android.svc.core.common.Toastable
+import kotlin.jvm.javaClass
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
@@ -132,6 +133,6 @@ abstract class SvcViews : LifecycleObserver, Toastable, ContextHolder, ResourceP
     }
 
     fun <T : View> findViewById(id: Int): T? {
-        return rootView?.findViewById(id)
+        return rootView.findViewById(id)
     }
 }
