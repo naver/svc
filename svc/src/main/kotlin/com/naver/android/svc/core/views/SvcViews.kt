@@ -16,19 +16,19 @@
 
 package com.naver.android.svc.core.views
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
+import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
+import android.support.annotation.LayoutRes
+import android.support.annotation.StringRes
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.ColorRes
-import androidx.annotation.DimenRes
-import androidx.annotation.LayoutRes
-import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.screen.SvcScreen
 
