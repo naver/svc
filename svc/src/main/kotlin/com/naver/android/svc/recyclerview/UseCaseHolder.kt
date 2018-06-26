@@ -23,4 +23,4 @@ import com.naver.android.svc.core.views.UseCase
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class UseCaseHolder<in T, out U : UseCase>(layoutId: Int, parent: ViewGroup, val useCase: U) : SvcHolder<T>(layoutId, parent)
+abstract class UseCaseHolder<in T, out U>(layoutId: Int, parent: ViewGroup, val useCase: U) : SvcHolder<T>(layoutId, parent)

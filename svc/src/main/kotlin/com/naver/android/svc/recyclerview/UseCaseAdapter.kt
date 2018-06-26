@@ -23,7 +23,7 @@ import com.naver.android.svc.core.views.UseCase
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class UseCaseAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder, out U : UseCase>(val useCase: U) : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
+abstract class UseCaseAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder, out U>(val useCase: U) : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         if (holder.adapterPosition == RecyclerView.NO_POSITION) {
