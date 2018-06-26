@@ -17,11 +17,12 @@
 package com.naver.android.svc.core.screen
 
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
-interface SvcScreen<out V, out C> {
+interface SvcScreen<out V, out C> : LifecycleOwner {
     val views: V
     val ct: C
 
