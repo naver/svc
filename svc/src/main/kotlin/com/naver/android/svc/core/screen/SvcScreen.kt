@@ -17,6 +17,7 @@
 package com.naver.android.svc.core.screen
 
 import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
@@ -26,11 +27,14 @@ interface SvcScreen<out V, out C> {
     val ct: C
 
     /**
-     * every screen can access to their host Activity
-     * because fragment's getActivity() method is final method
+     * every screen can access to their host Activity.
+     *
      * I had to change name "activity" as "hostActivity"
+     * because fragment's getActivity() method is final method
      */
     val hostActivity: FragmentActivity?
+
+    val screenFragmentManager: FragmentManager?
 
     val isActive: Boolean
 

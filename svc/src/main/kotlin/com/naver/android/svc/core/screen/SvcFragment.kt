@@ -47,9 +47,12 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
 
     override val hostActivity: FragmentActivity?
         get() = activity
-    override val fragmentManagerForDialog: FragmentManager?
-        get() = this.fragmentManager
 
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = this.hostActivity?.supportFragmentManager
+
+    override val screenFragmentManager: FragmentManager?
+        get() = this.fragmentManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

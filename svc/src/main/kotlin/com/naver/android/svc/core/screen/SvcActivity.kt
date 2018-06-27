@@ -40,11 +40,15 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
 
     override val views by lazy { createViews() }
     override val ct by lazy { createControlTower() }
+
     override val hostActivity: FragmentActivity?
         get() = this
-    override val fragmentManagerForDialog: FragmentManager?
-        get() = this.supportFragmentManager
 
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = supportFragmentManager
+
+    override val screenFragmentManager: FragmentManager?
+        get() = supportFragmentManager
 
     open var statusbarColor: Int? = null
 

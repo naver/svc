@@ -23,6 +23,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,8 +45,12 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
 
     override val views by lazy { createViews() }
     override val ct by lazy { createControlTower() }
+
     override val hostActivity: FragmentActivity?
         get() = activity
+
+    override val screenFragmentManager: FragmentManager?
+        get() = fragmentManager
 
     lateinit var dialogListener: DL
 
