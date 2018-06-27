@@ -29,8 +29,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
-import com.naver.android.svc.core.views.UseCase
-import com.naver.android.svc.core.views.UseCaseViews
 
 
 /**
@@ -75,11 +73,7 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val finalViews = views
-        val finalController = ct
-        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
-            finalViews.setControllerUsecase(finalController)
-        }
+        initializeViews(this)
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(ct)

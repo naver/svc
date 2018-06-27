@@ -26,8 +26,6 @@ import android.view.ViewGroup
 import com.naver.android.svc.BuildConfig
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
-import com.naver.android.svc.core.views.UseCase
-import com.naver.android.svc.core.views.UseCaseViews
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
@@ -74,12 +72,7 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val finalViews = views
-        val finalController = ct
-
-        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
-            finalViews.setControllerUsecase(finalController)
-        }
+        initializeViews(this)
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup

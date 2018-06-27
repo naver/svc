@@ -18,11 +18,14 @@ package com.naver.android.svc.core.screen
 
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
+import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.views.UseCase
+import com.naver.android.svc.core.views.UseCaseViews
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
-interface SvcScreen<out V, out C> {
+interface SvcScreen<out V : SvcViews, out C> {
     val views: V
     val ct: C
 
@@ -40,4 +43,16 @@ interface SvcScreen<out V, out C> {
 
     fun createViews(): V
     fun createControlTower(): C
+
+    fun initializeViews(svcScreen: SvcScreen<*, *>) {
+        views.apply {
+            screen = svcScreen
+
+            val finalController = ct
+            if (this is UseCaseViews<*> && finalController is UseCase) {
+                setControllerUsecase(finalController)
+            }
+        }
+    }
+
 }
