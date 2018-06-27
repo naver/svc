@@ -26,8 +26,6 @@ import android.view.ViewGroup
 import com.naver.android.svc.BuildConfig
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
-import com.naver.android.svc.core.views.UseCase
-import com.naver.android.svc.core.views.UseCaseViews
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
@@ -42,14 +40,17 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
         const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
     }
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
-    override val fragmentManagerForDialog: FragmentManager?
-        get() = this.fragmentManager
 
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = this.hostActivity?.supportFragmentManager
+
+    override val screenFragmentManager: FragmentManager?
+        get() = this.fragmentManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,12 +72,7 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val finalViews = views
-        val finalController = ct
-
-        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
-            finalViews.setControllerUsecase(finalController)
-        }
+        initializeSVC(this, views, ct)
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup

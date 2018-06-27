@@ -23,13 +23,12 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
-import com.naver.android.svc.core.views.UseCase
-import com.naver.android.svc.core.views.UseCaseViews
 
 
 /**
@@ -42,10 +41,14 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
+
     override val hostActivity: FragmentActivity?
         get() = activity
+
+    override val screenFragmentManager: FragmentManager?
+        get() = fragmentManager
 
     lateinit var dialogListener: DL
 
@@ -70,11 +73,7 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val finalViews = views
-        val finalController = ct
-        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
-            finalViews.setControllerUsecase(finalController)
-        }
+        initializeSVC(this, views, ct)
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(ct)

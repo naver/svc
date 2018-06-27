@@ -25,8 +25,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
-import com.naver.android.svc.core.views.UseCase
-import com.naver.android.svc.core.views.UseCaseViews
 
 
 /**
@@ -38,13 +36,17 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
+
     override val hostActivity: FragmentActivity?
         get() = this
-    override val fragmentManagerForDialog: FragmentManager?
-        get() = this.supportFragmentManager
 
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = supportFragmentManager
+
+    override val screenFragmentManager: FragmentManager?
+        get() = supportFragmentManager
 
     open var statusbarColor: Int? = null
 
@@ -59,16 +61,10 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
-
-        val finalViews = views
-        val finalController = ct
+        initializeSVC(this, views, ct)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
-
-        if (finalViews is UseCaseViews<*> && finalController is UseCase) {
-            finalViews.setControllerUsecase(finalController)
-        }
 
         setStatusBarBGColor(statusbarColor)
 
