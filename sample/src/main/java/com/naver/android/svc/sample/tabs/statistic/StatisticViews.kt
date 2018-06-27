@@ -16,12 +16,11 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.screen.SvcScreen
 import com.naver.android.svc.core.views.UseCaseViews
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.fragment_statistic.view.*
 
-class StatisticViews(screen: SvcScreen<*, *>) : UseCaseViews<StatisticUseCase>(screen) {
+class StatisticViews : UseCaseViews<StatisticUseCase>() {
 
     override val layoutResId = R.layout.fragment_statistic
 

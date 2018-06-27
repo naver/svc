@@ -34,12 +34,13 @@ import com.naver.android.svc.core.screen.SvcScreen
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews(val screen: SvcScreen<*, *>) : LifecycleObserver, Toastable, ContextHolder, ResourceProvider {
+abstract class SvcViews : LifecycleObserver, Toastable, ContextHolder, ResourceProvider {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
+    lateinit var screen: SvcScreen<*, *>
 
     override val context: Context?
         get() = rootView.context
