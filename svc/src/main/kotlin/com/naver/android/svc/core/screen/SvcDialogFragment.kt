@@ -25,12 +25,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.SvcCT
 import com.naver.android.svc.core.views.SvcViews
 import com.naver.android.svc.core.views.UseCase
 import com.naver.android.svc.core.views.UseCaseViews
-import kotlin.jvm.javaClass
 
 
 /**
@@ -41,10 +41,13 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DialogLi
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
     override val hostActivity: FragmentActivity?
         get() = activity
+
+    override val screenFragmentManager: FragmentManager?
+        get() = fragmentManager
 
     var dialogListener: DialogListener? = null
 

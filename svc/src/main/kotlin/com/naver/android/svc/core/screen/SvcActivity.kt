@@ -38,11 +38,15 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
     override val hostActivity: FragmentActivity?
         get() = this
+
     override val fragmentManagerForDialog: FragmentManager?
+        get() = this.supportFragmentManager
+
+    override val screenFragmentManager: FragmentManager?
         get() = this.supportFragmentManager
 
     open var statusbarColor: Int? = null

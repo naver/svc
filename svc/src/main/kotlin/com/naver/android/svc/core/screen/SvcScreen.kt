@@ -17,14 +17,13 @@
 package com.naver.android.svc.core.screen
 
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
 interface SvcScreen<out V, out C> : LifecycleOwner {
-    val views: V
-    val ct: C
 
     /**
      * every screen can access to their host Activity
@@ -32,6 +31,8 @@ interface SvcScreen<out V, out C> : LifecycleOwner {
      * I had to change name "activity" as "hostActivity"
      */
     val hostActivity: FragmentActivity?
+
+    val screenFragmentManager: FragmentManager?
 
     val isActive: Boolean
 
