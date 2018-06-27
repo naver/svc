@@ -41,8 +41,8 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -73,7 +73,7 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeViews(this)
+        initializeSVC(this, views, ct)
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(ct)

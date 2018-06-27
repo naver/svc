@@ -40,8 +40,8 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
         const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
     }
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -72,7 +72,7 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeViews(this)
+        initializeSVC(this, views, ct)
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup

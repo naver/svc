@@ -36,8 +36,8 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val ct by lazy { createControlTower() }
+    val views by lazy { createViews() }
+    val ct by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -61,7 +61,7 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
-        initializeViews(this)
+        initializeSVC(this, views, ct)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
