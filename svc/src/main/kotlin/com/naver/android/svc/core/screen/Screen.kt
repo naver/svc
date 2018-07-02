@@ -19,9 +19,9 @@ package com.naver.android.svc.core.screen
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.views.UseCase
-import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.core.views.Views
+import com.naver.android.svc.core.views.ViewsAction
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
@@ -43,14 +43,14 @@ interface Screen<out V : Views, out C> {
     fun createControlTower(): C
 
     /**
-     * add dependency of screen and usecase
+     * add dependency of screen and viewsAction
      */
     fun <V : Views, C : ControlTower<*, *>> initializeSVC(screen: Screen<*, *>, views: V, ct: C) {
         views.apply {
             views.screen = screen
 
-            if (this is UseCaseViews<*> && ct is UseCase) {
-                setControllerUsecase(ct)
+            if (this is ActionViews<*> && ct is ViewsAction) {
+                setViewsAction(ct)
             }
         }
     }

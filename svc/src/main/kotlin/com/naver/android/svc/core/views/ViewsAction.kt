@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.statistic
+package com.naver.android.svc.core.views
 
-import com.naver.android.svc.core.views.UseCase
-
-interface StatisticUseCase : UseCase {
-    fun onNameClicked()
-}
+/**
+ * define event methods which views can produce
+ * @author bs.nam@navercorp.com 2017. 6. 8..
+ */
+interface ViewsAction

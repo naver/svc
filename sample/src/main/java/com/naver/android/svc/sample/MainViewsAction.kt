@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.views
+package com.naver.android.svc.sample
 
-abstract class UseCaseViews<U : UseCase> : Views() {
-    lateinit var useCase: U
+import com.naver.android.svc.core.views.ViewsAction
 
-    fun setControllerUsecase(useCase: UseCase) {
-        try {
-            @Suppress("UNCHECKED_CAST")
-            this.useCase = useCase as U
-        } catch (e: Exception) {
-            throw IllegalStateException("useCase type dismatch \n ${useCase.javaClass.simpleName} are using wrong usecase")
-        }
-    }
-
-}
+interface MainViewsAction : ViewsAction, OnClickGnbListener

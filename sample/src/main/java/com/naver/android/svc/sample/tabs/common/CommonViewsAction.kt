@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.views
+package com.naver.android.svc.sample.tabs.common
 
-/**
- * @author bs.nam@navercorp.com 2017. 6. 8..
- */
+import com.naver.android.svc.core.views.ViewsAction
 
-interface UseCase
+interface CommonViewsAction : ViewsAction {
+    //something
+}

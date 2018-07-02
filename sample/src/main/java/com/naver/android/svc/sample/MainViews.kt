@@ -16,11 +16,11 @@
 
 package com.naver.android.svc.sample
 
-import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.sample.tabs.MainTab
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainViews : UseCaseViews<MainUseCase>() {
+class MainViews : ActionViews<MainViewsAction>() {
 
     override val layoutResId = R.layout.activity_main
 
@@ -55,7 +55,7 @@ class MainViews : UseCaseViews<MainUseCase>() {
         /**
          * case 2. when you want delegate event totally to ControlTower
          */
-        rootView.gnb.onClickGnbListener = useCase
+        rootView.gnb.onClickGnbListener = action
 
         /**
          * case 3. when you don't want to delegate to ControlTower for those events
@@ -85,27 +85,27 @@ class MainViews : UseCaseViews<MainUseCase>() {
         }
 
         /**
-         * case 4. when you have something to do in Views then call usecase
+         * case 4. when you have something to do in Views then call viewsAction
          */
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickPaper() {
                 //do stuff
-                useCase.onClickPaper()
+                action.onClickPaper()
             }
 
             override fun onClickPalette() {
                 //do stuff
-                useCase.onClickPalette()
+                action.onClickPalette()
             }
 
             override fun onClickSearch() {
                 //do stuff
-                useCase.onClickSearch()
+                action.onClickSearch()
             }
 
             override fun onClickStatistic() {
                 //do stuff
-                useCase.onClickStatistic()
+                action.onClickStatistic()
             }
         }
     }

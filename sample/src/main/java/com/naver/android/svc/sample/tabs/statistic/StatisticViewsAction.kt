@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample
+package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.views.UseCase
+import com.naver.android.svc.core.views.ViewsAction
 
-interface MainUseCase : UseCase, OnClickGnbListener
+interface StatisticViewsAction : ViewsAction {
+    fun onNameClicked()
+}

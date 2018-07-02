@@ -146,7 +146,7 @@ C — Control Tower
 
 +In addition
 
-UseCase — Interface which have "User Interaction methods"
+ViewsAction — Contains user interaction method which "Views" can produce. and Control Tower should know (such as click, swipe, drag..)
 
 # Diagram
 
@@ -155,7 +155,7 @@ UseCase — Interface which have "User Interaction methods"
 ![diagram](./doc/img/diagram.png)
 
 1. Each "Screen" has "Views" and "ControlTower".
-2. "Views" don't know "ControlTower" directly. It knows "ControlTower" as "UseCase"
+2. "Views" don't know "ControlTower" directly. It knows "ControlTower" as "ViewsAction"
 3. "ControlTower" knows "Views"'s public methods and fields.
 4. Each "Views" and "ControlTower" has "Screen"
 
@@ -198,7 +198,7 @@ Especially when we call asynchronous call which take more than 100ms, using View
 There are 2 big differences.
 
 1. SVC divides "View"'s 3 responsibilities into 3 parts, which is Screen, ControlTower, Views
-2. "Views" cannot call "Control Tower" directly. (Because "Views" knows "ControlTower" as "UseCase")
+2. "Views" cannot call "Control Tower" directly. (Because "Views" knows "ControlTower" as "ViewsAction")
 
 
 
@@ -273,7 +273,7 @@ If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplat
 # Reuse of Views and ControlTower
 
 "Views" and "ControlTower" can be reused in different Screens.
-(It means it has same look or same usecase and proccess)
+(It means it has same look or same viewsAction and proccess)
 
  1) Views
     you can easily reuse "Views" in this pattern

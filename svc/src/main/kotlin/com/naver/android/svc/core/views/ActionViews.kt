@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.common
+package com.naver.android.svc.core.views
 
-import com.naver.android.svc.core.views.UseCase
+import java.lang.ClassCastException
 
-interface CommonUseCase : UseCase {
-    //something
+abstract class ActionViews<VA : ViewsAction> : Views() {
+    lateinit var action: VA
+
+    fun setViewsAction(viewsAction: ViewsAction) {
+        try {
+            @Suppress("UNCHECKED_CAST")
+            this.action = viewsAction as VA
+        } catch (e: ClassCastException) {
+            throw IllegalStateException("viewsAction type dismatch \n ${viewsAction.javaClass.simpleName} are using wrong viewsAction")
+        }
+    }
 }

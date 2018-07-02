@@ -19,7 +19,7 @@ package com.naver.android.svc.sample
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.sample.tabs.MainTab
 
-class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainUseCase {
+class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainViewsAction {
 
     override fun onClickPaper() {
         screen.changeScreen(MainTab.PAPER)

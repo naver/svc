@@ -16,11 +16,11 @@
 
 package com.naver.android.svc.sample.tabs.common
 
-import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.fragment_common.view.*
 
-class CommonViews : UseCaseViews<CommonUseCase>() {
+class CommonViews : ActionViews<CommonViewsAction>() {
 
     override val layoutResId = R.layout.fragment_common
 
