@@ -18,15 +18,15 @@ package com.naver.android.svc.core.screen
 
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.views.UseCase
 import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.core.views.Views
 
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
-interface SvcScreen<out V : SvcViews, out C> {
+interface Screen<out V : Views, out C> {
     /**
      * every screen can access to their host Activity.
      *
@@ -45,9 +45,9 @@ interface SvcScreen<out V : SvcViews, out C> {
     /**
      * add dependency of screen and usecase
      */
-    fun <V : SvcViews, C : SvcCT<*, *>> initializeSVC(svcScreen: SvcScreen<*, *>, views: V, ct: C) {
+    fun <V : Views, C : ControlTower<*, *>> initializeSVC(screen: Screen<*, *>, views: V, ct: C) {
         views.apply {
-            views.screen = svcScreen
+            views.screen = screen
 
             if (this is UseCaseViews<*> && ct is UseCase) {
                 setControllerUsecase(ct)

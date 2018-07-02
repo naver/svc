@@ -16,13 +16,13 @@
 
 package com.naver.android.svc.core.controltower
 
-import com.naver.android.svc.core.screen.SvcScreen
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.screen.Screen
+import com.naver.android.svc.core.views.Views
 
 /**
- * CT which has no logics
+ * ControlTower which has no logics
  */
-class EmptyCT<out Screen : SvcScreen<V, *>, out V : SvcViews>(screen: Screen, views: V) : SvcCT<Screen, V>(screen, views) {
+class EmptyControlTower<out S : Screen<V, *>, out V : Views>(screen: S, views: V) : ControlTower<S, V>(screen, views) {
     override fun onCreated() {
     }
 }

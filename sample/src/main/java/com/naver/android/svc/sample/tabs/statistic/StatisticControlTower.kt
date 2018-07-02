@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.common
+package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.screen.SvcScreen
+import com.naver.android.svc.core.controltower.ControlTower
 
-class CommonCT(screen: SvcScreen<CommonViews, *>, views: CommonViews) : SvcCT<SvcScreen<CommonViews, *>, CommonViews>(screen, views) {
+class StatisticControlTower(screen: StatisticFragment, views: StatisticViews) : ControlTower<StatisticFragment, StatisticViews>(screen, views), StatisticUseCase {
+    override fun onNameClicked() {
+        showToast("NameClicked")
+    }
+
     override fun onCreated() {
-        views.setExtraString("CommonCT")
+        views.setName("StatisticViews\nStatisticControlTower")
     }
 }

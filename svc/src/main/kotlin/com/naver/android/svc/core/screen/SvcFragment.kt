@@ -24,14 +24,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.naver.android.svc.BuildConfig
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.views.Views
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), SvcScreen<V, C>, DialogPlug {
+abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment(), Screen<V, C>, DialogPlug {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -41,7 +41,7 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
     }
 
     val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -61,7 +61,7 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
     private fun addExtraTagId() {
         val extraId = arguments?.getString(EXTRA_TAG_ID)
         extraId?.apply {
-            ct.TAG = "${ct.CLASS_SIMPLE_NAME}_$this"
+            controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
             views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
         }
     }
@@ -72,19 +72,19 @@ abstract class SvcFragment<out V : SvcViews, out C : SvcCT<*, *>> : Fragment(), 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeSVC(this, views, ct)
+        initializeSVC(this, views, controlTower)
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup
         }
 
         lifecycle.addObserver(views)
-        lifecycle.addObserver(ct)
+        lifecycle.addObserver(controlTower)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(ct)
+        lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
     }
 

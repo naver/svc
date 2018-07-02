@@ -16,9 +16,37 @@
 
 package com.naver.android.svc.sample
 
+import android.os.Bundle
+import android.support.v4.app.Fragment
 import com.naver.android.svc.core.screen.SvcActivity
+import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.svc.sample.tabs.MainTab
+import com.naver.android.svc.sample.tabs.palette.PaletteFragment
+import com.naver.android.svc.sample.tabs.paper.PaperFragment
+import com.naver.android.svc.sample.tabs.search.ReallyLongScreenNameSearchFragment
+import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
-class MainActivity : SvcActivity<MainViews, MainCT>() {
+class MainActivity : SvcActivity<MainViews, MainControlTower>() {
+    private val fragmentMap = mapOf<MainTab, Fragment>(
+            MainTab.PAPER to PaperFragment(),
+            MainTab.PALETTE to PaletteFragment(),
+            MainTab.SEARCH to ReallyLongScreenNameSearchFragment(),
+            MainTab.STATISTIC to StatisticFragment())
+
     override fun createViews() = MainViews()
-    override fun createControlTower() = MainCT(this, views)
+    override fun createControlTower() = MainControlTower(this, views)
+
+    fun changeScreen(tab: MainTab) {
+        val fragment = fragmentMap[tab]
+        fragment ?: return
+
+        val bundle = Bundle()
+        bundle.putString(SvcFragment.EXTRA_TAG_ID, tab.name)
+        fragment.arguments = bundle
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(tab.name)
+        transaction.commit()
+    }
 }

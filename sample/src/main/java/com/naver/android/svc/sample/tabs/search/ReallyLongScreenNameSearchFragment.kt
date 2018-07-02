@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.statistic
+package com.naver.android.svc.sample.tabs.search
 
-import com.naver.android.svc.core.controltower.SvcCT
+import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class StatisticCT(screen: StatisticFragment, views: StatisticViews) : SvcCT<StatisticFragment, StatisticViews>(screen, views), StatisticUseCase {
-    override fun onNameClicked() {
-        showToast("NameClicked")
-    }
-
-    override fun onCreated() {
-        views.setName("StatisticViews\nStatisticCT")
-    }
+class ReallyLongScreenNameSearchFragment : SvcFragment<CommonViews, ReallyLongScreenNameSearchCT>() {
+    override fun createViews() = CommonViews()
+    override fun createControlTower() = ReallyLongScreenNameSearchCT(this, views)
 }

@@ -16,7 +16,7 @@
 
 package com.naver.android.svc.core.views
 
-abstract class UseCaseViews<U : UseCase> : SvcViews() {
+abstract class UseCaseViews<U : UseCase> : Views() {
     lateinit var useCase: U
 
     fun setControllerUsecase(useCase: UseCase) {

@@ -20,5 +20,5 @@ interface OnClickGnbListener {
     fun onClickPalette()
     fun onClickSearch()
     fun onClickStatistic()
-    fun onClickScroll()
+    fun onClickPaper()
 }

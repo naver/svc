@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.statistic
+package com.naver.android.svc.sample.tabs.palette
 
-import com.naver.android.svc.core.screen.SvcFragment
+import android.util.Log
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class StatisticFragment : SvcFragment<StatisticViews, StatisticControlTower>() {
-    override fun createViews() = StatisticViews()
-    override fun createControlTower() = StatisticControlTower(this, views)
+class PaletteControlTower(screen: PaletteFragment, views: CommonViews) : ControlTower<PaletteFragment, CommonViews>(screen, views) {
+    override fun onCreated() {
+        views.setExtraString("PaletteControlTower")
+    }
+
+    override fun onStop() {
+        Log.d(TAG, "override onStop")
+        super.onStop()
+    }
+
 }

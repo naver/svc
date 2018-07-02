@@ -17,6 +17,7 @@
 package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.sample.tabs.MainTab
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainViews : UseCaseViews<MainUseCase>() {
@@ -24,19 +25,46 @@ class MainViews : UseCaseViews<MainUseCase>() {
     override val layoutResId = R.layout.activity_main
 
     override fun onCreated() {
+
         /**
-         * case 1. when you want delegate event totally to CT
+         * case 1. you can call screen method directly with casting.
+         * it's okay if you are using MainViews in one Screen (in this case MainActivity)
+         * with casting you don't need to define useCase or make ControlTower.
+         * If you think making useCase and ControlTower is waste of time (for simple screen) just cast screen like below
+         * But not recommended way.
+         */
+        val mainActivity = screen as MainActivity
+        rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
+            override fun onClickPaper() {
+                mainActivity.changeScreen(MainTab.PAPER)
+            }
+
+            override fun onClickPalette() {
+                mainActivity.changeScreen(MainTab.PALETTE)
+            }
+
+            override fun onClickSearch() {
+                mainActivity.changeScreen(MainTab.SEARCH)
+            }
+
+            override fun onClickStatistic() {
+                mainActivity.changeScreen(MainTab.STATISTIC)
+            }
+        }
+
+        /**
+         * case 2. when you want delegate event totally to ControlTower
          */
         rootView.gnb.onClickGnbListener = useCase
 
         /**
-         * case 2. when you don't want to delegate to CT for those events
-         * in this case you don't need to define MainUseCase methods
+         * case 3. when you don't want to delegate to ControlTower for those events
+         * in this case you don't need to make or define MainUseCase methods
          */
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-            override fun onClickScroll() {
+            override fun onClickPaper() {
                 //do stuff
-                this@MainViews.onClickScroll()
+                this@MainViews.onClickPaper()
             }
 
             override fun onClickPalette() {
@@ -57,12 +85,12 @@ class MainViews : UseCaseViews<MainUseCase>() {
         }
 
         /**
-         * case 3. when you have somthing to do it in Views then call usecase
+         * case 4. when you have something to do in Views then call usecase
          */
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-            override fun onClickScroll() {
+            override fun onClickPaper() {
                 //do stuff
-                useCase.onClickScroll()
+                useCase.onClickPaper()
             }
 
             override fun onClickPalette() {
@@ -82,20 +110,20 @@ class MainViews : UseCaseViews<MainUseCase>() {
         }
     }
 
-    private fun onClickScroll() {
-        useCase.onClickScroll()
+    private fun onClickPaper() {
+        //do stuff
     }
 
     private fun onClickStatistic() {
-        useCase.onClickStatistic()
+        //do stuff
     }
 
     private fun onClickSearch() {
-        useCase.onClickSearch()
+        //do stuff
     }
 
     private fun onClickPalette() {
-        useCase.onClickPalette()
+        //do stuff
     }
 
 }

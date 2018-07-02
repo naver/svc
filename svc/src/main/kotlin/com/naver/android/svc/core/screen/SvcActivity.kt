@@ -23,21 +23,21 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.views.Views
 
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C>, DialogPlug {
+abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogPlug {
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -61,7 +61,7 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
-        initializeSVC(this, views, ct)
+        initializeSVC(this, views, controlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
@@ -70,17 +70,17 @@ abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatAct
 
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
-        lifecycle.addObserver(ct)
+        lifecycle.addObserver(controlTower)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(ct)
+        lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
     }
 
     override fun onBackPressed() {
-        if (ct.onBackPressed() || views.onBackPressed()) {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
             return
         }
         super.onBackPressed()

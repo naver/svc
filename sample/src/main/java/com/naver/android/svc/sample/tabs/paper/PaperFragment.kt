@@ -17,10 +17,10 @@
 package com.naver.android.svc.sample.tabs.paper
 
 import com.naver.android.svc.core.screen.SvcFragment
-import com.naver.android.svc.sample.tabs.common.CommonCT
+import com.naver.android.svc.sample.tabs.common.CommonControlTower
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaperFragment : SvcFragment<CommonViews, CommonCT>() {
+class PaperFragment : SvcFragment<CommonViews, CommonControlTower>() {
     override fun createViews() = CommonViews()
-    override fun createControlTower() = CommonCT(this, views)
+    override fun createControlTower() = CommonControlTower(this, views)
 }

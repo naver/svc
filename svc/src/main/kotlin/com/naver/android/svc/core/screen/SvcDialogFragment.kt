@@ -27,8 +27,8 @@ import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.views.Views
 
 
 /**
@@ -36,13 +36,13 @@ import com.naver.android.svc.core.views.SvcViews
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -73,15 +73,15 @@ abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DL : Any
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeSVC(this, views, ct)
+        initializeSVC(this, views, controlTower)
 
         lifecycle.addObserver(views)
-        lifecycle.addObserver(ct)
+        lifecycle.addObserver(controlTower)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(ct)
+        lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
     }
 

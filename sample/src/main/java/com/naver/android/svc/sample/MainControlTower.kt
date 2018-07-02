@@ -14,13 +14,30 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.search
+package com.naver.android.svc.sample
 
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.sample.tabs.common.CommonViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.sample.tabs.MainTab
 
-class SearchCT(screen: SearchFragment, views: CommonViews) : SvcCT<SearchFragment, CommonViews>(screen, views) {
-    override fun onCreated() {
-        views.setExtraString("SearchCT")
+class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainUseCase {
+
+    override fun onClickPaper() {
+        screen.changeScreen(MainTab.PAPER)
     }
+
+    override fun onClickPalette() {
+        screen.changeScreen(MainTab.PALETTE)
+    }
+
+    override fun onClickSearch() {
+        screen.changeScreen(MainTab.SEARCH)
+    }
+
+    override fun onClickStatistic() {
+        screen.changeScreen(MainTab.STATISTIC)
+    }
+
+    override fun onCreated() {
+    }
+
 }
