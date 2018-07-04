@@ -16,11 +16,19 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.view.ViewGroup
+import android.support.v7.widget.RecyclerView
 
 /**
- * holder with user interaction(click or swipe etc.)
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class SvcListenerHolder<in T, out Listener>(layoutId: Int, parent: ViewGroup, val listener: Listener) : BaseSvcHolder<T>(layoutId, parent)
+abstract class BaseAdapter<VH : RecyclerView.ViewHolder, out Listener>(val listener: Listener) : RecyclerView.Adapter<VH>() {
+    final override fun onBindViewHolder(holder: VH, position: Int) {
+        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+            return
+        }
+        onBindHolder(holder, holder.adapterPosition)
+    }
+
+    abstract fun onBindHolder(holder: VH, adapterPosition: Int)
+}

@@ -29,8 +29,8 @@ class MainViews : ActionViews<MainViewsAction>() {
         /**
          * case 1. you can call screen method directly with casting.
          * it's okay if you are using MainViews in one Screen (in this case MainActivity)
-         * with casting you don't need to define useCase or make ControlTower.
-         * If you think making useCase and ControlTower is waste of time (for simple screen) just cast screen like below
+         * with casting you don't need to define viewsAction or make ControlTower.
+         * If you think making viewsAction and ControlTower is waste of time (for simple screen) just cast screen like below
          * But not recommended way.
          */
         val mainActivity = screen as MainActivity
@@ -59,7 +59,7 @@ class MainViews : ActionViews<MainViewsAction>() {
 
         /**
          * case 3. when you don't want to delegate to ControlTower for those events
-         * in this case you don't need to make or define MainUseCase methods
+         * in this case you don't need to make or define MainViewsAction methods
          */
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickPaper() {
