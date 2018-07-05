@@ -16,9 +16,14 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.svc.core.controltower.ControlTower
 
-class StatisticFragment : SvcFragment<StatisticViews, StatisticControlTower>() {
-    override fun createViews() = StatisticViews()
-    override fun createControlTower() = StatisticControlTower(this, views)
+class StatisticControlTower(screen: StatisticFragment, views: StatisticViews) : ControlTower<StatisticFragment, StatisticViews>(screen, views), StatisticViewsAction {
+    override fun onNameClicked() {
+        showToast("NameClicked")
+    }
+
+    override fun onCreated() {
+        views.setName("StatisticViews\nStatisticControlTower")
+    }
 }

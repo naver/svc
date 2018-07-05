@@ -16,14 +16,8 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.controltower.SvcCT
+import com.naver.android.svc.core.views.ViewsAction
 
-class StatisticCT(screen: StatisticFragment, views: StatisticViews) : SvcCT<StatisticFragment, StatisticViews>(screen, views), StatisticUseCase {
-    override fun onNameClicked() {
-        showToast("NameClicked")
-    }
-
-    override fun onCreated() {
-        views.setName("StatisticViews\nStatisticCT")
-    }
+interface StatisticViewsAction : ViewsAction {
+    fun onNameClicked()
 }

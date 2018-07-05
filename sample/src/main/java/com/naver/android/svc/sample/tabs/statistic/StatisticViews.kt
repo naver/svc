@@ -16,18 +16,18 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.fragment_statistic.view.*
 
-class StatisticViews : UseCaseViews<StatisticUseCase>() {
+class StatisticViews : ActionViews<StatisticViewsAction>() {
 
     override val layoutResId = R.layout.fragment_statistic
 
     override fun onCreated() {
         withRootView {
             name.setOnClickListener {
-                useCase.onNameClicked()
+                viewsAction.onNameClicked()
             }
         }
     }

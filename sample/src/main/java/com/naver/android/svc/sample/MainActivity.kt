@@ -18,7 +18,7 @@ package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.screen.SvcActivity
 
-class MainActivity : SvcActivity<MainViews, MainCT>() {
+class MainActivity : SvcActivity<MainViews, MainControlTower>() {
     override fun createViews() = MainViews()
-    override fun createControlTower() = MainCT(this, views)
+    override fun createControlTower() = MainControlTower(this, views)
 }

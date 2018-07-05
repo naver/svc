@@ -16,10 +16,10 @@
 
 package com.naver.android.svc.sample
 
-import com.naver.android.svc.core.views.UseCaseViews
+import com.naver.android.svc.core.views.ActionViews
 import kotlinx.android.synthetic.main.activity_main.view.*
 
-class MainViews : UseCaseViews<MainUseCase>() {
+class MainViews : ActionViews<MainViewsAction>() {
 
     override val layoutResId = R.layout.activity_main
 
@@ -28,7 +28,7 @@ class MainViews : UseCaseViews<MainUseCase>() {
          * case 1. when you want delegate event totally to CT
          */
         withRootView {
-            gnb.onClickGnbListener = useCase
+            gnb.onClickGnbListener = viewsAction
         }
         //screen.gnb.onClickGnbListener = useCase
 
@@ -65,40 +65,40 @@ class MainViews : UseCaseViews<MainUseCase>() {
         rootView.gnb?.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickScroll() {
                 //do stuff
-                useCase.onClickScroll()
+                viewsAction.onClickScroll()
             }
 
             override fun onClickPalette() {
                 //do stuff
-                useCase.onClickPalette()
+                viewsAction.onClickPalette()
             }
 
             override fun onClickSearch() {
                 //do stuff
-                useCase.onClickSearch()
+                viewsAction.onClickSearch()
             }
 
             override fun onClickStatistic() {
                 //do stuff
-                useCase.onClickStatistic()
+                viewsAction.onClickStatistic()
             }
         }
     }
 
     private fun onClickScroll() {
-        useCase.onClickScroll()
+        viewsAction.onClickScroll()
     }
 
     private fun onClickStatistic() {
-        useCase.onClickStatistic()
+        viewsAction.onClickStatistic()
     }
 
     private fun onClickSearch() {
-        useCase.onClickSearch()
+        viewsAction.onClickSearch()
     }
 
     private fun onClickPalette() {
-        useCase.onClickPalette()
+        viewsAction.onClickPalette()
     }
 
 }

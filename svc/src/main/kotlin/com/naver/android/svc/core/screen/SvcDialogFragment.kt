@@ -27,14 +27,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.views.Views
 
 
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : SvcViews, out C : SvcCT<*, *>, DialogListener> : DialogFragment(), LifecycleOwner, SvcScreen<V, C> {
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DialogListener> : DialogFragment(), LifecycleOwner, Screen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME

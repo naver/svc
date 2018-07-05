@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.search
+package com.naver.android.svc.core.views
 
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.sample.tabs.common.CommonViews
+/**
+ * @author bs.nam@navercorp.com 2017. 6. 8..
+ */
 
-class SearchCT(screen: SearchFragment, views: CommonViews) : SvcCT<SearchFragment, CommonViews>(screen, views) {
-    override fun onCreated() {
-        views.setExtraString("SearchCT")
-    }
-}
+interface ViewsAction

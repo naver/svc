@@ -18,7 +18,7 @@ package com.naver.android.svc.sample
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.naver.android.svc.core.controltower.SvcCT
+import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab
 import com.naver.android.svc.sample.tabs.palette.PaletteFragment
@@ -26,7 +26,7 @@ import com.naver.android.svc.sample.tabs.paper.PaperFragment
 import com.naver.android.svc.sample.tabs.search.SearchFragment
 import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
-class MainCT(screen: MainActivity, views: MainViews) : SvcCT<MainActivity, MainViews>(screen, views), MainUseCase {
+class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainViewsAction {
     private val fragmentMap = mapOf<MainTab, Fragment>(
             MainTab.PAPER to PaperFragment(),
             MainTab.PALETTE to PaletteFragment(),

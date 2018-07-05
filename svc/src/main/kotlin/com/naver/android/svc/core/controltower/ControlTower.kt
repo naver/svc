@@ -24,8 +24,8 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
-import com.naver.android.svc.core.screen.SvcScreen
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.screen.Screen
+import com.naver.android.svc.core.views.Views
 
 
 /**
@@ -36,7 +36,7 @@ import com.naver.android.svc.core.views.SvcViews
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcCT<out S : SvcScreen<V, *>, out V : SvcViews>(val screen: S, val views: V) : LifecycleObserver, Toastable {
+abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, val views: V) : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME

@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample
+package com.naver.android.svc.recyclerview
 
-import com.naver.android.svc.core.views.UseCase
+/**
+ * @author bs.nam@navercorp.com 2017. 8. 16..
+ */
 
-interface MainUseCase : UseCase, OnClickGnbListener
+abstract class ActionAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder, out A>(val action: A) : BaseAdapter<VH>()

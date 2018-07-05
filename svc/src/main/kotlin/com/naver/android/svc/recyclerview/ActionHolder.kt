@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.statistic
+package com.naver.android.svc.recyclerview
 
-import com.naver.android.svc.core.views.UseCase
+import android.view.ViewGroup
 
-interface StatisticUseCase : UseCase {
-    fun onNameClicked()
-}
+/**
+ * @author bs.nam@navercorp.com 2017. 8. 16..
+ */
+
+abstract class ActionHolder<in T, out A>(layoutId: Int, parent: ViewGroup, val action: A) : BaseHolder<T>(layoutId, parent)

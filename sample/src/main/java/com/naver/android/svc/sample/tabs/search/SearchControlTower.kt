@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.views
+package com.naver.android.svc.sample.tabs.search
 
-abstract class UseCaseViews<U : UseCase> : SvcViews() {
-    lateinit var useCase: U
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
-    fun setControllerUsecase(useCase: UseCase) {
-        try {
-            @Suppress("UNCHECKED_CAST")
-            this.useCase = useCase as U
-        } catch (e: Exception) {
-            throw IllegalStateException("useCase type dismatch \n ${useCase.javaClass.simpleName} are using wrong usecase")
-        }
+class SearchControlTower(screen: SearchFragment, views: CommonViews) : ControlTower<SearchFragment, CommonViews>(screen, views) {
+    override fun onCreated() {
+        views.setExtraString("SearchControlTower")
     }
-
 }

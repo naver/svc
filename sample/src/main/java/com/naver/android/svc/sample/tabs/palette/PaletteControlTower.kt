@@ -14,10 +14,20 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.views
+package com.naver.android.svc.sample.tabs.palette
 
-/**
- * @author bs.nam@navercorp.com 2017. 6. 8..
- */
+import android.util.Log
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
-interface UseCase
+class PaletteControlTower(screen: PaletteFragment, views: CommonViews) : ControlTower<PaletteFragment, CommonViews>(screen, views) {
+    override fun onCreated() {
+        views.setExtraString("PaletteControlTower")
+    }
+
+    override fun onStop() {
+        Log.d(TAG, "override onStop")
+        super.onStop()
+    }
+
+}

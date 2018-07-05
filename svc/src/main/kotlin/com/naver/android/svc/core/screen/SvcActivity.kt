@@ -23,15 +23,15 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.views.Views
 
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : SvcViews, out C : SvcCT<*, *>> : AppCompatActivity(), SvcScreen<V, C>, DialogPlug {
+abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogPlug {
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME

@@ -43,9 +43,9 @@ https://github.com/BansookNam/android-architecture
 ### 1. Activity
 
 ```kotlin
-class MainActivity : SvcBaseActivity<MainViews, MainCT>() {
+class MainActivity : SvcBaseActivity<MainViews, MainControlTower>() {
     override fun createViews() = MainViews(this)
-    override fun createControlTower() = MainCT(this, views)
+    override fun createControlTower() = MainControlTower(this, views)
 }
 
 ```
@@ -53,9 +53,9 @@ class MainActivity : SvcBaseActivity<MainViews, MainCT>() {
 ### 2. Fragment
 
 ```kotlin
-class StatisticFragment : SvcBaseFragment<StatisticViews, StatisticCT>() {
+class StatisticFragment : SvcBaseFragment<StatisticViews, StatisticControlTower>() {
     override fun createViews() = StatisticViews(this)
-    override fun createControlTower() = StatisticCT(this, views)
+    override fun createControlTower() = StatisticControlTower(this, views)
 }
 ```
 
@@ -146,7 +146,7 @@ C — Control Tower
 
 +In addition
 
-UseCase — Interface which have "User Interaction methods"
+ViewsAction — Contains user interaction method which "Views" can produce. and Control Tower should know (such as click, swipe, drag..)
 
 # Diagram
 
@@ -154,10 +154,10 @@ UseCase — Interface which have "User Interaction methods"
 
 ![diagram](./doc/img/diagram.png)
 
-1. Each "Screen" has "Views" and "CT"(control tower).
-2. "Views" don't know "CT" directly. It knows "CT" as "UseCase"
-3. "CT" knows "Views"'s public methods and fields.
-4. Each "Views" and "CT" has "Screen"
+1. Each "Screen" has "Views" and "ControlTower".
+2. "Views" don't know "ControlTower" directly. It knows "ControlTower" as "ViewsAction"
+3. "ControlTower" knows "Views"'s public methods and fields.
+4. Each "Views" and "ControlTower" has "Screen"
 
 
 
@@ -189,7 +189,7 @@ It's exactly same.
 
 ![diagram](./doc/img/SVC_VM_M.png)
 
-We can use ViewModel in CT to take advantage of "Auto Lifecycle Management".
+We can use ViewModel in ControlTower to take advantage of "Auto Lifecycle Management".
 
 Especially when we call asynchronous call which take more than 100ms, using ViewModel would be a good choice.
 
@@ -198,7 +198,7 @@ Especially when we call asynchronous call which take more than 100ms, using View
 There are 2 big differences.
 
 1. SVC divides "View"'s 3 responsibilities into 3 parts, which is Screen, ControlTower, Views
-2. "Views" cannot call "Control Tower" directly. (Because "Views" knows "CT" as "UseCase")
+2. "Views" cannot call "Control Tower" directly. (Because "Views" knows "ControlTower" as "ViewsAction")
 
 
 
@@ -218,7 +218,7 @@ With this 2 big differences. We can
 
 ### 1. Project Top Build.gradle
 
-Packages are available in `jcenter`
+Packages are available in `jcenter`
 
 Include below in your top build.gradle file
 
@@ -270,13 +270,16 @@ If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplat
 
 
 
-# Reuse of Views and CT
+# Reuse of Views and ControlTower
 
-"Views" and "CT" can be reused in different Screens.
-(It means it has same look or same usecase and proccess)
+"Views" and "ControlTower" can be reused in different Screens.
+(It means it has same look or same viewsAction and proccess)
 
-If you want to reuse you should refer your screen as "SvcScreen"
-or make "Abstract Screen (implements SvcScreen)" with common methods then refer the "Abstract Screen" on your reused "Views" or "CT".
+ 1) Views
+    you can easily reuse "Views" in this pattern
+
+ 2) ControlTower
+   If you want to reuse you should implement your screen as "Screen"or make "Abstract Screen (implements Screen)" with common methods then refer the "Abstract Screen" on your reused "Views" or "ControlTower".
 
 
 

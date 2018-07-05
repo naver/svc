@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.controltower
+package com.naver.android.svc.core.views
 
-import com.naver.android.svc.core.screen.SvcScreen
-import com.naver.android.svc.core.views.SvcViews
+abstract class ActionViews<VA : ViewsAction> : Views() {
+    lateinit var viewsAction: VA
 
-/**
- * CT which has no logics
- */
-class EmptyCT<out S : SvcScreen<V, *>, out V : SvcViews>(screen: S, views: V) : SvcCT<S, V>(screen, views) {
-    override fun onCreated() {
+    fun setControllerUsecase(viewsAction: ViewsAction) {
+        try {
+            @Suppress("UNCHECKED_CAST")
+            this.viewsAction = viewsAction as VA
+        } catch (e: Exception) {
+            throw IllegalStateException("viewsAction type mismatch \n ${viewsAction.javaClass.simpleName} are using wrong viewsAction")
+        }
     }
 }
