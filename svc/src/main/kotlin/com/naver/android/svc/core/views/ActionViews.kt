@@ -16,17 +16,11 @@
 
 package com.naver.android.svc.core.views
 
-import java.lang.ClassCastException
-
 abstract class ActionViews<VA : ViewsAction> : Views() {
-    lateinit var action: VA
+    lateinit var viewsAction: VA
 
-    fun setViewsAction(viewsAction: ViewsAction) {
-        try {
-            @Suppress("UNCHECKED_CAST")
-            this.action = viewsAction as VA
-        } catch (e: ClassCastException) {
-            throw IllegalStateException("viewsAction type dismatch \n ${viewsAction.javaClass.simpleName} are using wrong viewsAction")
-        }
+    fun setAction(viewsAction: ViewsAction) {
+        @Suppress("UNCHECKED_CAST")
+        this.viewsAction = viewsAction as VA
     }
 }

@@ -50,7 +50,7 @@ interface Screen<out V : Views, out C> {
             views.screen = screen
 
             if (this is ActionViews<*> && ct is ViewsAction) {
-                setViewsAction(ct)
+                setAction(ct)
             }
         }
     }
