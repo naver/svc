@@ -26,7 +26,7 @@ class StatisticViews : ActionViews<StatisticViewsAction>() {
 
     override fun onCreated() {
         rootView.name.setOnClickListener {
-            action.onNameClicked()
+            viewsAction.onNameClicked()
         }
     }
 

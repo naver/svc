@@ -55,7 +55,7 @@ class MainViews : ActionViews<MainViewsAction>() {
         /**
          * case 2. when you want delegate event totally to ControlTower
          */
-        rootView.gnb.onClickGnbListener = action
+        rootView.gnb.onClickGnbListener = viewsAction
 
         /**
          * case 3. when you don't want to delegate to ControlTower for those events
@@ -90,22 +90,22 @@ class MainViews : ActionViews<MainViewsAction>() {
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
             override fun onClickPaper() {
                 //do stuff
-                action.onClickPaper()
+                viewsAction.onClickPaper()
             }
 
             override fun onClickPalette() {
                 //do stuff
-                action.onClickPalette()
+                viewsAction.onClickPalette()
             }
 
             override fun onClickSearch() {
                 //do stuff
-                action.onClickSearch()
+                viewsAction.onClickSearch()
             }
 
             override fun onClickStatistic() {
                 //do stuff
-                action.onClickStatistic()
+                viewsAction.onClickStatistic()
             }
         }
     }
