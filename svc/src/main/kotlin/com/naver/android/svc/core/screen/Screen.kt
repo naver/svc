@@ -16,6 +16,7 @@
 
 package com.naver.android.svc.core.screen
 
+import android.arch.lifecycle.LifecycleOwner
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.naver.android.svc.core.controltower.ControlTower
@@ -26,7 +27,7 @@ import com.naver.android.svc.core.views.ViewsAction
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
-interface Screen<out V : Views, out C> {
+interface Screen<out V : Views, out C> : LifecycleOwner {
     /**
      * every screen can access to their host Activity.
      *
