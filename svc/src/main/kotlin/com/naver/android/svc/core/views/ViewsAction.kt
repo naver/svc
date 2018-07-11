@@ -16,16 +16,8 @@
 
 package com.naver.android.svc.core.views
 
-abstract class UseCaseViews<U : UseCase> : SvcViews() {
-    lateinit var useCase: U
-
-    fun setControllerUsecase(useCase: UseCase) {
-        try {
-            @Suppress("UNCHECKED_CAST")
-            this.useCase = useCase as U
-        } catch (e: Exception) {
-            throw IllegalStateException("useCase type dismatch \n ${useCase.javaClass.simpleName} are using wrong usecase")
-        }
-    }
-
-}
+/**
+ * define event methods which views can produce
+ * @author bs.nam@navercorp.com 2017. 6. 8..
+ */
+interface ViewsAction

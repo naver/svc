@@ -16,22 +16,19 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import com.naver.android.svc.core.common.ResourceProvider
 
 /**
- * @author bs.nam@navercorp.com 2017. 6. 19..
+ * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class BaseSvcHolder<in T>(layoutId: Int, parent: ViewGroup)
-    : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
-        , ResourceProvider {
+abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+    final override fun onBindViewHolder(holder: VH, position: Int) {
+        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+            return
+        }
+        onBindHolder(holder, holder.adapterPosition)
+    }
 
-    override val context: Context?
-        get() = itemView.context
-
-    abstract fun bindView(item: T, position: Int)
+    abstract fun onBindHolder(holder: VH, adapterPosition: Int)
 }

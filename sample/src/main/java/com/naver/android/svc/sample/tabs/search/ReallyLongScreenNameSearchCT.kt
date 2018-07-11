@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.controltower
+package com.naver.android.svc.sample.tabs.search
 
-import com.naver.android.svc.core.screen.SvcScreen
-import com.naver.android.svc.core.views.SvcViews
+import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.sample.tabs.common.CommonViews
 
 /**
- * CT which has no logics
+ * if your controlTower class name is too long,
+ * maybe you should Abbreviate name as "CT"
  */
-class EmptyCT<out Screen : SvcScreen<V, *>, out V : SvcViews>(screen: Screen, views: V) : SvcCT<Screen, V>(screen, views) {
+class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, views: CommonViews) : ControlTower<ReallyLongScreenNameSearchFragment, CommonViews>(screen, views) {
     override fun onCreated() {
+        views.setExtraString("ReallyLongScreenNameSearchCT")
     }
 }

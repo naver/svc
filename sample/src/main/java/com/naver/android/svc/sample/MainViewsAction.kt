@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.palette
+package com.naver.android.svc.sample
 
-import android.util.Log
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.sample.tabs.common.CommonViews
+import com.naver.android.svc.core.views.ViewsAction
 
-class PaletteCT(screen: PaletteFragment, views: CommonViews) : SvcCT<PaletteFragment, CommonViews>(screen, views) {
-    override fun onCreated() {
-        views.setExtraString("PaletteCT")
-    }
-
-    override fun onStop() {
-        Log.d(TAG, "override onStop")
-        super.onStop()
-    }
-
-}
+interface MainViewsAction : ViewsAction, OnClickGnbListener

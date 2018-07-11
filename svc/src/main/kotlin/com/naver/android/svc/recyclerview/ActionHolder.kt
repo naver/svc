@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.common
+package com.naver.android.svc.recyclerview
 
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.core.screen.SvcScreen
+import android.view.ViewGroup
 
-class CommonCT(screen: SvcScreen<CommonViews, *>, views: CommonViews) : SvcCT<SvcScreen<CommonViews, *>, CommonViews>(screen, views) {
-    override fun onCreated() {
-        views.setExtraString("CommonCT")
-    }
-}
+/**
+ * holder with user interaction(click or swipe etc.)
+ * @author bs.nam@navercorp.com 2017. 8. 16..
+ */
+
+abstract class ActionHolder<in T, out Listener>(layoutId: Int, parent: ViewGroup, val listener: Listener) : BaseHolder<T>(layoutId, parent)

@@ -18,7 +18,7 @@ package com.naver.android.svc.sample.tabs.statistic
 
 import com.naver.android.svc.core.screen.SvcFragment
 
-class StatisticFragment : SvcFragment<StatisticViews, StatisticCT>() {
+class StatisticFragment : SvcFragment<StatisticViews, StatisticControlTower>() {
     override fun createViews() = StatisticViews()
-    override fun createControlTower() = StatisticCT(this, views)
+    override fun createControlTower() = StatisticControlTower(this, views)
 }

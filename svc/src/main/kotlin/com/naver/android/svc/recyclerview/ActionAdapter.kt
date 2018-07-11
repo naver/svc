@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.search
+package com.naver.android.svc.recyclerview
 
-import com.naver.android.svc.core.controltower.SvcCT
-import com.naver.android.svc.sample.tabs.common.CommonViews
+import android.support.v7.widget.RecyclerView
 
-class SearchCT(screen: SearchFragment, views: CommonViews) : SvcCT<SearchFragment, CommonViews>(screen, views) {
-    override fun onCreated() {
-        views.setExtraString("SearchCT")
-    }
-}
+/**
+ * @author bs.nam@navercorp.com 2017. 8. 16..
+ */
+
+abstract class ActionAdapter<VH : RecyclerView.ViewHolder, out Action>(val action: Action) : BaseAdapter<VH>()

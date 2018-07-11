@@ -27,19 +27,19 @@ import android.view.ViewGroup
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.ResourceProvider
 import com.naver.android.svc.core.common.Toastable
-import com.naver.android.svc.core.screen.SvcScreen
+import com.naver.android.svc.core.screen.Screen
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcViews : LifecycleObserver, Toastable, ResourceProvider {
+abstract class Views : LifecycleObserver, Toastable, ResourceProvider {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
-    lateinit var screen: SvcScreen<*, *>
+    lateinit var screen: Screen<*, *>
 
     override val context: Context?
         get() = if (isInitialized) rootView.context else null

@@ -14,10 +14,16 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.views
+package com.naver.android.svc.sample.tabs.statistic
 
-/**
- * @author bs.nam@navercorp.com 2017. 6. 8..
- */
+import com.naver.android.svc.core.controltower.ControlTower
 
-interface UseCase
+class StatisticControlTower(screen: StatisticFragment, views: StatisticViews) : ControlTower<StatisticFragment, StatisticViews>(screen, views), StatisticViewsAction {
+    override fun onNameClicked() {
+        showToast("NameClicked")
+    }
+
+    override fun onCreated() {
+        views.setName("StatisticViews\nStatisticControlTower")
+    }
+}

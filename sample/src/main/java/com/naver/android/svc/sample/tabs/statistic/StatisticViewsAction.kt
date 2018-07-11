@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.recyclerview
+package com.naver.android.svc.sample.tabs.statistic
 
-import android.view.ViewGroup
+import com.naver.android.svc.core.views.ViewsAction
 
-/**
- * holder with user interaction(click or swipe etc.)
- * @author bs.nam@navercorp.com 2017. 8. 16..
- */
-
-abstract class SvcListenerHolder<in T, out Listener>(layoutId: Int, parent: ViewGroup, val listener: Listener) : BaseSvcHolder<T>(layoutId, parent)
+interface StatisticViewsAction : ViewsAction {
+    fun onNameClicked()
+}

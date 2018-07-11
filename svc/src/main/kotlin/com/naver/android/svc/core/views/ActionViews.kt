@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.search
+package com.naver.android.svc.core.views
 
-import com.naver.android.svc.core.screen.SvcFragment
-import com.naver.android.svc.sample.tabs.common.CommonViews
+abstract class ActionViews<VA : ViewsAction> : Views() {
+    lateinit var viewsAction: VA
 
-class SearchFragment : SvcFragment<CommonViews, SearchCT>() {
-    override fun createViews() = CommonViews()
-    override fun createControlTower() = SearchCT(this, views)
+    fun setAction(viewsAction: ViewsAction) {
+        @Suppress("UNCHECKED_CAST")
+        this.viewsAction = viewsAction as VA
+    }
 }
