@@ -54,7 +54,7 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (::dialogListener.isInitialized) {
+        if (!::dialogListener.isInitialized) {
             dismissAllowingStateLoss()
             return
         }
