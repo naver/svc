@@ -16,6 +16,7 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
+import android.graphics.Color
 import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.fragment_statistic.view.*
@@ -28,9 +29,15 @@ class StatisticViews : ActionViews<StatisticViewsAction>() {
         rootView.name.setOnClickListener {
             viewsAction.onNameClicked()
         }
+
+        rootView.statistic_icon.setColorFilter(Color.WHITE)
     }
 
     fun setName(name: String) {
         rootView.name.text = name
+    }
+
+    fun setExtra(extra: String) {
+        rootView.extra.text = extra
     }
 }

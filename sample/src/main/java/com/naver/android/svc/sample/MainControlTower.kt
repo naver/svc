@@ -21,6 +21,14 @@ import com.naver.android.svc.sample.tabs.MainTab
 
 class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainViewsAction {
 
+    override fun onCreated() {
+        screen.changeScreen(MainTab.HOME)
+    }
+
+    override fun onClickHome() {
+        screen.changeScreen(MainTab.HOME)
+    }
+
     override fun onClickPaper() {
         screen.changeScreen(MainTab.PAPER)
     }
@@ -36,8 +44,4 @@ class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<Ma
     override fun onClickStatistic() {
         screen.changeScreen(MainTab.STATISTIC)
     }
-
-    override fun onCreated() {
-    }
-
 }

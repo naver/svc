@@ -24,6 +24,7 @@ class StatisticControlTower(screen: StatisticFragment, views: StatisticViews) : 
     }
 
     override fun onCreated() {
-        views.setName("StatisticViews\nStatisticControlTower")
+        views.setName(views.javaClass.simpleName)
+        views.setExtra(javaClass.simpleName)
     }
 }

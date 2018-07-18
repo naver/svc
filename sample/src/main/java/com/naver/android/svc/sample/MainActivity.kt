@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment
 import com.naver.android.svc.core.screen.SvcActivity
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab
+import com.naver.android.svc.sample.tabs.home.HomeFragment
 import com.naver.android.svc.sample.tabs.palette.PaletteFragment
 import com.naver.android.svc.sample.tabs.paper.PaperFragment
 import com.naver.android.svc.sample.tabs.search.ReallyLongScreenNameSearchFragment
@@ -28,6 +29,7 @@ import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
 class MainActivity : SvcActivity<MainViews, MainControlTower>() {
     private val fragmentMap = mapOf<MainTab, Fragment>(
+            MainTab.HOME to HomeFragment(),
             MainTab.PAPER to PaperFragment(),
             MainTab.PALETTE to PaletteFragment(),
             MainTab.SEARCH to ReallyLongScreenNameSearchFragment(),
@@ -48,5 +50,13 @@ class MainActivity : SvcActivity<MainViews, MainControlTower>() {
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(tab.name)
         transaction.commit()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.findFragmentById(R.id.fragment_container) is HomeFragment) {
+            finish()
+        } else {
+            changeScreen(MainTab.HOME)
+        }
     }
 }

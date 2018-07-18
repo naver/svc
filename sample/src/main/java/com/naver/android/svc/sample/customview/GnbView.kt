@@ -32,6 +32,10 @@ class GnbView @JvmOverloads constructor(
     var onClickGnbListener: OnClickGnbListener? = null
 
     init {
+        gnb_home.setOnClickListener {
+            onClickGnbListener?.onClickHome()
+        }
+
         gnb_palete.setOnClickListener {
             onClickGnbListener?.onClickPalette()
         }
