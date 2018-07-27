@@ -35,13 +35,19 @@ class MainViews : ActionViews<MainViewsAction>() {
          */
         val mainActivity = screen as MainActivity
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-            override fun onClickPaper() {
-                mainActivity.changeScreen(MainTab.PAPER)
+
+            override fun onClickHome() {
+                mainActivity.changeScreen(MainTab.HOME)
             }
 
             override fun onClickPalette() {
                 mainActivity.changeScreen(MainTab.PALETTE)
             }
+
+            override fun onClickPaper() {
+                mainActivity.changeScreen(MainTab.PAPER)
+            }
+
 
             override fun onClickSearch() {
                 mainActivity.changeScreen(MainTab.SEARCH)
@@ -62,14 +68,19 @@ class MainViews : ActionViews<MainViewsAction>() {
          * in this case you don't need to make or define MainViewsAction methods
          */
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-            override fun onClickPaper() {
+            override fun onClickHome() {
                 //do stuff
-                this@MainViews.onClickPaper()
+                this@MainViews.onClickHome()
             }
 
             override fun onClickPalette() {
                 //do stuff
                 this@MainViews.onClickPalette()
+            }
+
+            override fun onClickPaper() {
+                //do stuff
+                this@MainViews.onClickPaper()
             }
 
             override fun onClickSearch() {
@@ -88,14 +99,20 @@ class MainViews : ActionViews<MainViewsAction>() {
          * case 4. when you have something to do in Views then call viewsAction
          */
         rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-            override fun onClickPaper() {
+
+            override fun onClickHome() {
                 //do stuff
-                viewsAction.onClickPaper()
+                viewsAction.onClickHome()
             }
 
             override fun onClickPalette() {
                 //do stuff
                 viewsAction.onClickPalette()
+            }
+
+            override fun onClickPaper() {
+                //do stuff
+                viewsAction.onClickPaper()
             }
 
             override fun onClickSearch() {
@@ -110,15 +127,7 @@ class MainViews : ActionViews<MainViewsAction>() {
         }
     }
 
-    private fun onClickPaper() {
-        //do stuff
-    }
-
-    private fun onClickStatistic() {
-        //do stuff
-    }
-
-    private fun onClickSearch() {
+    private fun onClickHome() {
         //do stuff
     }
 
@@ -126,4 +135,15 @@ class MainViews : ActionViews<MainViewsAction>() {
         //do stuff
     }
 
+    private fun onClickPaper() {
+        //do stuff
+    }
+
+    private fun onClickSearch() {
+        //do stuff
+    }
+
+    private fun onClickStatistic() {
+        //do stuff
+    }
 }

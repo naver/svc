@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/name"
-        style="@style/fragment_title"
+        style="@style/fragment_name"
         android:text="CommonViews"
         app:layout_constraintBottom_toTopOf="@id/extra"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,12 +33,12 @@
 
     <TextView
         android:id="@+id/extra"
-        style="@style/fragment_title"
+        style="@style/fragment_extra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name"
-        tools:text="Extra" />
+        tools:text="ReallyLongScreenNameSearchCT" />
 
 
 </android.support.constraint.ConstraintLayout>
