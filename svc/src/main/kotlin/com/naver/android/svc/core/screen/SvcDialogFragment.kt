@@ -92,7 +92,9 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
         dialog.setOnKeyListener { _, keyCode, _ ->
 
             if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
-                dismissAllowingStateLoss()
+                if (!onBackPressed()) {
+                    dismissAllowingStateLoss()
+                }
                 true
             } else {
                 false
@@ -101,6 +103,13 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
         }
 
         return dialog
+    }
+
+    open fun onBackPressed(): Boolean {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
+            return true
+        }
+        return false
     }
 
     override fun dismiss() {
