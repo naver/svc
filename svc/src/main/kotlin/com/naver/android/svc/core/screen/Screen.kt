@@ -17,6 +17,7 @@
 package com.naver.android.svc.core.screen
 
 import android.arch.lifecycle.LifecycleOwner
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.naver.android.svc.core.controltower.ControlTower
@@ -39,6 +40,9 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
     val screenFragmentManager: FragmentManager?
 
     val isActive: Boolean
+
+    fun getChildFragmentManager(): FragmentManager
+    fun getParentFragment(): Fragment?
 
     fun createViews(): V
     fun createControlTower(): C

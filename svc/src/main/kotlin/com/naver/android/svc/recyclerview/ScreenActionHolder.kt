@@ -14,27 +14,9 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.core.views
+package com.naver.android.svc.recyclerview
 
-import android.view.View
+import android.view.ViewGroup
+import com.naver.android.svc.core.screen.Screen
 
-abstract class ActionViews<VA : ViewsAction> : Views() {
-    lateinit var viewsAction: VA
-
-    fun setAction(viewsAction: ViewsAction) {
-        @Suppress("UNCHECKED_CAST")
-        this.viewsAction = viewsAction as VA
-    }
-
-    fun bindClick(view: View, action: (View) -> Unit) {
-        view.setOnClickListener {
-            action(it)
-        }
-    }
-
-    fun bindLongClick(view: View, action: (View) -> Boolean) {
-        view.setOnLongClickListener {
-            action(it)
-        }
-    }
-}
+abstract class ScreenActionHolder<out Action>(layoutId: Int, parent: ViewGroup, screen: Screen<*, *>, val action: Action) : ScreenBaseHolder(layoutId, parent, screen)

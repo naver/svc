@@ -88,6 +88,13 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
         lifecycle.removeObserver(views)
     }
 
+    open fun onBackPressed(): Boolean {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
+            return true
+        }
+        return false
+    }
+
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
 }

@@ -27,7 +27,7 @@ import com.naver.android.svc.core.screen.Screen
  * @author bs.nam@navercorp.com 2017. 6. 19..
  */
 
-abstract class BaseHolder<in T>(layoutId: Int, parent: ViewGroup, val screen: Screen<*, *>)
+abstract class BaseHolder<in T>(layoutId: Int, parent: ViewGroup)
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
         , ResourceProvider {
 

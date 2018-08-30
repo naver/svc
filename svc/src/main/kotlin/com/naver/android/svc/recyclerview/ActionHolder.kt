@@ -24,4 +24,4 @@ import com.naver.android.svc.core.screen.Screen
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class ActionHolder<in T, out Action>(layoutId: Int, parent: ViewGroup, val action: Action, screen: Screen<*, *>) : BaseHolder<T>(layoutId, parent, screen)
+abstract class ActionHolder<in T, out Action>(layoutId: Int, parent: ViewGroup, val action: Action) : BaseHolder<T>(layoutId, parent)
