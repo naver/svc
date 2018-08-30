@@ -19,6 +19,7 @@ package com.naver.android.svc.core.screen
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
@@ -49,6 +50,14 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         get() = supportFragmentManager
 
     open var statusbarColor: Int? = null
+
+    override fun getParentFragment(): Fragment? {
+        throw IllegalAccessError("Activity doesn't have parentFragment, If you want to use this method you should override this method and provide one")
+    }
+
+    override fun getChildFragmentManager(): FragmentManager {
+        throw IllegalAccessError("Activity doesn't have childFragmentManager, If you want to use this method you should override this method and provide one")
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     fun setStatusBarBGColor(bgColor: Int?) {
