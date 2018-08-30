@@ -16,11 +16,25 @@
 
 package com.naver.android.svc.core.views
 
+import android.view.View
+
 abstract class ActionViews<VA : ViewsAction> : Views() {
     lateinit var viewsAction: VA
 
     fun setAction(viewsAction: ViewsAction) {
         @Suppress("UNCHECKED_CAST")
         this.viewsAction = viewsAction as VA
+    }
+
+    fun bindClick(view: View, action: (View) -> Unit) {
+        view.setOnClickListener {
+            action(it)
+        }
+    }
+
+    fun bindLongClick(view: View, action: (View) -> Boolean) {
+        view.setOnLongClickListener {
+            action(it)
+        }
     }
 }
