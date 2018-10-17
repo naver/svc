@@ -55,6 +55,10 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
         get() = !isInitialized
 
     inline fun withRootView(action: View.() -> Unit) {
+        if (!isInitialized) {
+            return
+        }
+
         with(rootView) {
             action()
         }

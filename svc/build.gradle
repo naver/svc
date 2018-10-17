@@ -145,6 +145,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
     implementation 'androidx.recyclerview:recyclerview:1.0.0-alpha3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'

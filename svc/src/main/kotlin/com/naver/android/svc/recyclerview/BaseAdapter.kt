@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class BaseAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder> : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
+abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         if (holder.adapterPosition == RecyclerView.NO_POSITION) {

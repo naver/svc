@@ -16,11 +16,11 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.naver.android.svc.core.screen.Screen
 
 /**
- * holder with user interaction(click or swipe etc.)
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class ActionHolder<in T, out Action>(layoutId: Int, parent: ViewGroup, val action: Action) : BaseHolder<T>(layoutId, parent)
+abstract class ScreenActionAdapter<VH : RecyclerView.ViewHolder, out A>(screen: Screen<*, *>, val action: A) : ScreenBaseAdapter<VH>(screen)

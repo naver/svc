@@ -17,14 +17,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.61'
     repositories {
         google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha18'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
@@ -55,8 +55,7 @@ ext {
     moduleName = 'svc'
     desc = 'Easy and intuitive pattern for Android'
 
-    kotlin_version = '1.2.50'
-    libVersionName = "0.0.2-androidx-alpha2"
+    libVersionName = "0.0.2-androidx-alpha3"
     libVersionCode = 1
 
     MIN_SDK_VERSION = 16

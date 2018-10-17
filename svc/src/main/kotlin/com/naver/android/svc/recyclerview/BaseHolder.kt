@@ -27,9 +27,8 @@ import com.naver.android.svc.core.common.ResourceProvider
  * @author bs.nam@navercorp.com 2017. 6. 19..
  */
 
-abstract class BaseHolder<in T> : RecyclerView.ViewHolder, ResourceProvider {
-    constructor(layoutId: Int, parent: ViewGroup) :
-            super(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
+abstract class BaseHolder<in T>(layoutId: Int, parent: ViewGroup)
+    : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)), ResourceProvider {
 
 
     override val context: Context?
