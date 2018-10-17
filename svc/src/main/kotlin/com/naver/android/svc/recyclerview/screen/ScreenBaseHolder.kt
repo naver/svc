@@ -1,4 +1,4 @@
-package com.naver.android.svc.recyclerview
+package com.naver.android.svc.recyclerview.screen
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
