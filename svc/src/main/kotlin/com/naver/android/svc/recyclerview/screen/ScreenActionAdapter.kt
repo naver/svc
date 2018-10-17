@@ -16,10 +16,10 @@
 
 package com.naver.android.svc.recyclerview
 
+import android.support.v7.widget.RecyclerView
 import com.naver.android.svc.core.screen.Screen
-import com.naver.android.svc.recyclerview.screen.ScreenBaseHolder
 
 /**
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
-abstract class ScreenActionAdapter<VH : ScreenBaseHolder, out Action>(screen: Screen<*, *>, val action: Action) : ScreenBaseAdapter<VH>(screen)
+abstract class ScreenActionAdapter<VH : RecyclerView.ViewHolder, out Action>(screen: Screen<*, *>, val action: Action) : ScreenBaseAdapter<VH>(screen)
