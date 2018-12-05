@@ -19,7 +19,7 @@ package com.naver.android.svc.core.views
 abstract class ActionViews<VA : ViewsAction> : Views() {
     lateinit var viewsAction: VA
 
-    fun setControllerUsecase(viewsAction: ViewsAction) {
+    fun setAction(viewsAction: ViewsAction) {
         try {
             @Suppress("UNCHECKED_CAST")
             this.viewsAction = viewsAction as VA

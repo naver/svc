@@ -37,7 +37,7 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
     val TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -61,7 +61,7 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
-        initializeSVC(this, views, ct)
+        initializeSVC(this, views, controlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
@@ -71,17 +71,17 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
 
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
-        lifecycle.addObserver(ct)
+        lifecycle.addObserver(controlTower)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(ct)
+        lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
     }
 
     override fun onBackPressed() {
-        if (ct.onBackPressed() || views.onBackPressed()) {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
             return
         }
         super.onBackPressed()

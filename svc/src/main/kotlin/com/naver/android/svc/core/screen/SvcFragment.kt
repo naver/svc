@@ -41,7 +41,7 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     }
 
     val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -60,7 +60,7 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     private fun addExtraTagId() {
         val extraId = arguments?.getString(EXTRA_TAG_ID)
         extraId?.apply {
-            ct.TAG = "${ct.CLASS_SIMPLE_NAME}_$this"
+            controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
             views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
         }
     }
@@ -71,19 +71,19 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeSVC(this, views, ct)
+        initializeSVC(this, views, controlTower)
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup
         }
 
         lifecycle.addObserver(views)
-        lifecycle.addObserver(ct)
+        lifecycle.addObserver(controlTower)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(ct)
+        lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
     }
 

@@ -51,7 +51,7 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
             views.screen = svcScreen
 
             if (this is ActionViews<*> && ct is ViewsAction) {
-                setControllerUsecase(ct)
+                setAction(ct)
             }
         }
     }

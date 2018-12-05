@@ -40,7 +40,7 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, Dial
     var TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val ct by lazy { createControlTower() }
+    val controlTower by lazy { createControlTower() }
     override val hostActivity: FragmentActivity?
         get() = activity
 
@@ -69,15 +69,15 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, Dial
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeSVC(this, views, ct)
+        initializeSVC(this, views, controlTower)
 
         lifecycle.addObserver(views)
-        lifecycle.addObserver(ct)
+        lifecycle.addObserver(controlTower)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(ct)
+        lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
     }
 
