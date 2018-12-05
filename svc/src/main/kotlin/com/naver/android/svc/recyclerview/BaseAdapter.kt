@@ -29,8 +29,8 @@ abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<
         if (holder.adapterPosition == RecyclerView.NO_POSITION) {
             return
         }
-        onBindUseCaseHolder(holder, holder.adapterPosition)
+        onBindHolder(holder, holder.adapterPosition)
     }
 
-    abstract fun onBindUseCaseHolder(holder: VH, adapterPosition: Int)
+    abstract fun onBindHolder(holder: VH, adapterPosition: Int)
 }

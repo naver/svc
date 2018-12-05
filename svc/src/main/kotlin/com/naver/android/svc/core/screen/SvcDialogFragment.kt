@@ -34,27 +34,29 @@ import com.naver.android.svc.core.views.Views
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DialogListener> : DialogFragment(), LifecycleOwner, Screen<V, C> {
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
     val controlTower by lazy { createControlTower() }
+
     override val hostActivity: FragmentActivity?
         get() = activity
 
     override val screenFragmentManager: FragmentManager?
         get() = fragmentManager
 
-    var dialogListener: DialogListener? = null
+    lateinit var dialogListener: DL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (dialogListener == null) {
+        if (!::dialogListener.isInitialized) {
             dismissAllowingStateLoss()
             return
         }
+
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
     }
 
@@ -88,7 +90,9 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, Dial
         dialog.setOnKeyListener { _, keyCode, _ ->
 
             if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
-                dismissAllowingStateLoss()
+                if (!onBackPressed()) {
+                    dismissAllowingStateLoss()
+                }
                 true
             } else {
                 false
@@ -97,6 +101,13 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, Dial
         }
 
         return dialog
+    }
+
+    open fun onBackPressed(): Boolean {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
+            return true
+        }
+        return false
     }
 
     override fun dismiss() {

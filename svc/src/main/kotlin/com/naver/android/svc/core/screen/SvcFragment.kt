@@ -52,6 +52,7 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     override val screenFragmentManager: FragmentManager?
         get() = this.fragmentManager
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         addExtraTagId()
         super.onCreate(savedInstanceState)
@@ -85,6 +86,13 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
         super.onDestroy()
         lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
+    }
+
+    open fun onBackPressed(): Boolean {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
+            return true
+        }
+        return false
     }
 
     override val isActive: Boolean
