@@ -23,10 +23,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.views.Views
 
@@ -34,7 +34,9 @@ import com.naver.android.svc.core.views.Views
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(),
+        Screen<V, C>,
+        StatusbarChanger {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -49,6 +51,16 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
         get() = fragmentManager
 
     lateinit var dialogListener: DL
+
+    override var statusbarColor: Int? = null
+        set(value) {
+            field = value
+            setStatusBarBGColor(value)
+        }
+
+    override fun getWindow(): Window {
+        return activity!!.window
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

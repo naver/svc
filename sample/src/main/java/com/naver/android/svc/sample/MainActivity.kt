@@ -19,6 +19,10 @@ package com.naver.android.svc.sample
 import com.naver.android.svc.core.screen.SvcActivity
 
 class MainActivity : SvcActivity<MainViews, MainControlTower>() {
+
+    override var statusbarColor: Int? = null
+        get() = views.getColor(R.color.colorPrimaryDark)
+
     override fun createViews() = MainViews()
     override fun createControlTower() = MainControlTower(this, views)
 }

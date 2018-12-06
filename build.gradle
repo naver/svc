@@ -17,7 +17,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.61'
+    ext.kotlin_version = '1.3.10'
     repositories {
         google()
         jcenter()
@@ -55,7 +55,7 @@ ext {
     moduleName = 'svc'
     desc = 'Easy and intuitive pattern for Android'
 
-    libVersionName = "0.0.2-androidx-alpha7"
+    libVersionName = "0.0.2-androidx-alpha8"
     libVersionCode = 1
 
     MIN_SDK_VERSION = 16

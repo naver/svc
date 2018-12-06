@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -31,7 +32,10 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment(), Screen<V, C>, DialogPlug {
+abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment(),
+        Screen<V, C>,
+        DialogPlug,
+        StatusbarChanger {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -52,6 +56,15 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     override val screenFragmentManager: FragmentManager?
         get() = this.fragmentManager
 
+    override var statusbarColor: Int? = null
+        set(value) {
+            field = value
+            setStatusBarBGColor(value)
+        }
+
+    override fun getWindow(): Window {
+        return activity!!.window
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         addExtraTagId()

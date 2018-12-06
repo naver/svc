@@ -19,6 +19,7 @@ package com.naver.android.svc.core.screen
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
+import android.view.Window
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
@@ -31,7 +32,10 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogPlug {
+abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(),
+        Screen<V, C>,
+        DialogPlug,
+        StatusbarChanger{
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
@@ -48,16 +52,11 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
     override val screenFragmentManager: FragmentManager?
         get() = this.supportFragmentManager
 
-    open var statusbarColor: Int? = null
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    fun setStatusBarBGColor(bgColor: Int?) {
-        if (bgColor == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return
+    override var statusbarColor: Int? = null
+        set(value) {
+            field = value
+            setStatusBarBGColor(value)
         }
-
-        window.statusBarColor = bgColor
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
@@ -66,8 +65,7 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
 
-
-        setStatusBarBGColor(statusbarColor)
+        statusbarColor = statusbarColor
 
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)

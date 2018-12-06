@@ -37,7 +37,7 @@ import com.naver.android.svc.core.screen.Screen
 abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProvider {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
-    var TAG: String = CLASS_SIMPLE_NAME
+    override var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
     lateinit var screen: Screen<*, *>
