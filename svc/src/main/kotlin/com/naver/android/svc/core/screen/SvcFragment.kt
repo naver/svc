@@ -25,6 +25,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.naver.android.svc.BuildConfig
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.controltower.FragmentControlTowerManager
+import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -33,6 +36,7 @@ import com.naver.android.svc.core.views.Views
 
 abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Screen<V, C>, DialogPlug {
 
+    private val CONTROLTOWER_KEY = "controlTower"
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
@@ -41,7 +45,7 @@ abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Sc
     }
 
     val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    lateinit var controlTower: ControlTower
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -54,7 +58,6 @@ abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Sc
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        addExtraTagId()
         super.onCreate(savedInstanceState)
     }
 
@@ -72,7 +75,14 @@ abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Sc
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        initializeSVC(this, views)
+
+        // create ControlTower
+        assignControlTower(null)
+
+        // initialize SVC
+        initializeSVC(this, views, controlTower)
+
+        addExtraTagId()
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup
@@ -86,6 +96,9 @@ abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Sc
         super.onDestroy()
         lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
+
+        // destroy controlTower
+        FragmentControlTowerManager.instance.destroy(controlTower)
     }
 
     open fun onBackPressed(): Boolean {
@@ -94,6 +107,21 @@ abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Sc
         }
         return false
     }
+
+    /**
+     * assign ControlTower
+     */
+    private fun assignControlTower(controlTowerBundle: Bundle?) {
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+        annotation?.let {
+            val controlTowerClass = it.value
+            this.controlTower = FragmentControlTowerManager.instance.fetch(this,
+                    controlTowerClass,
+                    views,
+                    BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
+        } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
+    }
+
 
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
