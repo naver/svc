@@ -25,20 +25,23 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.controltower.ControlTowerManager
+import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogPlug {
+abstract class SvcActivity<out V : Views, out C : ControlTower> : AppCompatActivity(), Screen<V, C>, DialogPlug {
 
+    private val CONTROLTOWER_KEY = "controlTower"
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    lateinit var controlTower: ControlTower
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -70,6 +73,11 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
+
+        // create ControlTower
+        assignControlTower(null)
+
+        // initialize SVC
         initializeSVC(this, views, controlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
@@ -86,6 +94,9 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         super.onDestroy()
         lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
+
+        // destroy controlTower
+        ControlTowerManager.instance.destroy(controlTower)
     }
 
     override fun onBackPressed() {
@@ -93,6 +104,20 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
             return
         }
         super.onBackPressed()
+    }
+
+    /**
+     * assign ControlTower
+     */
+    private fun assignControlTower(controlTowerBundle: Bundle?) {
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+        annotation?.let {
+            val controlTowerClass = it.value
+            this.controlTower = ControlTowerManager.instance.fetch(this,
+                    controlTowerClass,
+                    views,
+                    BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
+        }
     }
 
     override val isActive: Boolean
