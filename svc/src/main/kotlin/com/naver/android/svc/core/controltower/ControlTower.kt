@@ -63,10 +63,17 @@ abstract class ControlTower: LifecycleObserver, Toastable {
     }
 
     /**
-     * get activity using smart cast
+     * get SvcActivity using smart cast
      */
-    fun <T: SvcActivity<Views, *>> getActivity() : T {
+    fun <T: SvcActivity<Views, *>> getActivity(): T {
         return baseScreen as T
+    }
+
+    /**
+     * get Views using smart cast
+     */
+    fun <T: Views> getViews(): T {
+        return baseViews as T
     }
 
     //------LifeCycle START------
