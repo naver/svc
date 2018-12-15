@@ -22,5 +22,4 @@ import com.naver.android.svc.core.screen.SvcFragment
 @RequireControlTower(StatisticControlTower::class)
 class StatisticFragment : SvcFragment<StatisticViews, StatisticControlTower>() {
     override fun createViews() = StatisticViews()
-    override fun createControlTower() = StatisticControlTower()
 }

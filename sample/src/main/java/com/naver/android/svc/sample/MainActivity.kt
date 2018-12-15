@@ -38,7 +38,6 @@ class MainActivity : SvcActivity<MainViews, MainControlTower>() {
             MainTab.STATISTIC to StatisticFragment())
 
     override fun createViews() = MainViews()
-    override fun createControlTower() = MainControlTower()
 
     fun changeScreen(tab: MainTab) {
         val fragment = fragmentMap[tab]

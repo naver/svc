@@ -45,7 +45,6 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
     fun getParentFragment(): Fragment?
 
     fun createViews(): V
-    fun createControlTower(): C
 
     /**
      * add dependency of screen and viewsAction
