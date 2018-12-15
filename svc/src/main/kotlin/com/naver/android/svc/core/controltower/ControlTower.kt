@@ -28,7 +28,6 @@ import android.util.Log
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.Screen
-import com.naver.android.svc.core.screen.SvcActivity
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -46,6 +45,7 @@ abstract class ControlTower: LifecycleObserver, Toastable {
 
     lateinit var baseScreen: Screen<Views, *>
     lateinit var baseViews: Views
+    var savedInstanceState: Bundle? = null
 
     private var activity: FragmentActivity? = null
 
@@ -60,12 +60,13 @@ abstract class ControlTower: LifecycleObserver, Toastable {
         this.baseScreen = screen
         this.baseViews = views
         this.activity = screen.hostActivity
+        this.savedInstanceState = savedInstanceState
     }
 
     /**
      * get SvcActivity using smart cast
      */
-    fun <T: SvcActivity<Views, *>> getActivity(): T {
+    fun <T: Screen<Views, *>> getScreen(): T {
         return baseScreen as T
     }
 
