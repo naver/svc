@@ -18,8 +18,10 @@
 package com.naver.android.svc.core.common
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
+import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 
@@ -30,30 +32,35 @@ interface ResourceProvider : ContextHolder {
     override val context: Context?
 
     fun getString(@StringRes resId: Int): String {
-        val context = getAvaiableContext()
+        val context = getAvailableContext()
         return context?.getString(resId) ?: ""
     }
 
     fun getString(@StringRes resId: Int, vararg formatArgs: Any): String {
-        val context = getAvaiableContext()
+        val context = getAvailableContext()
         return context?.getString(resId, *formatArgs) ?: ""
     }
 
-
     fun getColor(@ColorRes colorRes: Int): Int {
-        val context = getAvaiableContext()
+        val context = getAvailableContext()
         context ?: return 0
         return ContextCompat.getColor(context, colorRes)
     }
 
     fun getDimen(@DimenRes dimenId: Int): Int {
-        val context = getAvaiableContext()
+        val context = getAvailableContext()
         context ?: return 0
         return context.resources.getDimensionPixelSize(dimenId)
     }
 
+    fun getDrawable(@DrawableRes drawableId: Int): Drawable? {
+        val context = getAvailableContext()
+        context ?: return null
+        return ContextCompat.getDrawable(context, drawableId)
+    }
+
     fun dpToPx(dp: Float): Int {
-        val context = getAvaiableContext() ?: return 0
+        val context = getAvailableContext() ?: return 0
         val displayMetrics = context.resources.displayMetrics
 
         var px = (displayMetrics.density * dp).toInt()
