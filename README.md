@@ -39,13 +39,15 @@ https://github.com/BansookNam/android-architecture
 
 
 ## Examples
+For activity and fragment for the screen, should inherit the `ScvBaseXXXX` class.
+And declare `RequestControlTower` annotation above the class. This annotation will request and create ControlTower class automatically.
 
 ### 1. Activity
 
 ```kotlin
-class MainActivity : SvcBaseActivity<MainViews, MainControlTower>() {
-    override fun createViews() = MainViews(this)
-    override fun createControlTower() = MainControlTower(this, views)
+@RequireControlTower(MainControlTower::class) // magic things do happening
+class MainActivity : SvcBaseActivity<MainViews>() {
+    override fun createViews() = MainViews(this) // provide Views
 }
 
 ```
@@ -53,9 +55,9 @@ class MainActivity : SvcBaseActivity<MainViews, MainControlTower>() {
 ### 2. Fragment
 
 ```kotlin
-class StatisticFragment : SvcBaseFragment<StatisticViews, StatisticControlTower>() {
-    override fun createViews() = StatisticViews(this)
-    override fun createControlTower() = StatisticControlTower(this, views)
+@RequireControlTower(StatisticControlTower::class) // magic things do happening
+class StatisticFragment : SvcBaseFragment<StatisticViews>() {
+    override fun createViews() = StatisticViews(this) // provide Views
 }
 ```
 
@@ -66,9 +68,9 @@ You can really **divide** "Views" from Activity and Fragment.
 so you can see logic about real Fragment and Activity very well like below. ([source link](https://github.com/BansookNam/android-architecture/blob/todo-svc-kotlin/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/screen/taskdetail/TaskDetailActivity.kt))
 
 ```kotlin
-class TaskDetailActivity : SvcBaseActivity<TaskDetailViews, TaskDetailCT>() {
+@RequireControlTower(TaskDetailCT::class)
+class TaskDetailActivity : SvcBaseActivity<TaskDetailViews>() {
 
-    override fun createControlTower() = TaskDetailCT(this, views, taskId!!)
     override fun createViews() = TaskDetailViews(this)
 
     var taskId: String? = null
