@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.recyclerview
+package com.naver.android.svc.recyclerview.screen
 
 import android.support.v7.widget.RecyclerView
 import com.naver.android.svc.core.screen.Screen
