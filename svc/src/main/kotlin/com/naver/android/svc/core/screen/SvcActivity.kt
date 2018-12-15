@@ -24,8 +24,8 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
-import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.ActivityControlTowerManager
+import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
@@ -34,7 +34,7 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : Views, out C : ControlTower> : AppCompatActivity(), Screen<V, C>, DialogPlug {
+abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogPlug {
 
     private val CONTROLTOWER_KEY = "controlTower"
     var CLASS_SIMPLE_NAME = javaClass.simpleName

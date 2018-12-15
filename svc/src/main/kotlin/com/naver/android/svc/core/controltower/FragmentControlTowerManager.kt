@@ -18,7 +18,7 @@ import kotlin.reflect.full.createInstance
 class FragmentControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
-    fun <T : ControlTower> fetch(fragment: SvcFragment<*, *>,
+    fun <T : ControlTower> fetch(fragment: SvcFragment<*>,
                                  controlTowerClass: KClass<T>,
                                  views: Views,
                                  savedInstanceState: Bundle?): T {
@@ -38,7 +38,7 @@ class FragmentControlTowerManager {
         envelope.putBundle(ControlTower_STATE_KEY, state)
     }
 
-    private fun <T : ControlTower> create(fragment: SvcFragment<*, *>, ControlTowerClass: KClass<T>, views: Views,
+    private fun <T : ControlTower> create(fragment: SvcFragment<*>, ControlTowerClass: KClass<T>, views: Views,
                                           savedInstanceState: Bundle?, id: String): ControlTower {
 
         val fragmentControlTower: ControlTower

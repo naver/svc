@@ -22,7 +22,7 @@ import com.naver.android.svc.core.views.Views
 /**
  * ControlTower which has no logics
  */
-class EmptyControlTower<out S : Screen<V, *>, out V : Views>(screen: S, views: V) : ControlTower() {
+class EmptyControlTower<out S : Screen<V>, out V : Views>(screen: S, views: V) : ControlTower() {
     override fun onCreated() {
     }
 }

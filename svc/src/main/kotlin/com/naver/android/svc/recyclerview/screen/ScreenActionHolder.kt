@@ -19,4 +19,4 @@ package com.naver.android.svc.recyclerview.screen
 import android.view.ViewGroup
 import com.naver.android.svc.core.screen.Screen
 
-abstract class ScreenActionHolder<in T, out Action>(layoutId: Int, parent: ViewGroup, screen: Screen<*, *>, val action: Action) : ScreenBaseHolder<T>(layoutId, parent, screen)
+abstract class ScreenActionHolder<in T, out Action>(layoutId: Int, parent: ViewGroup, screen: Screen<*>, val action: Action) : ScreenBaseHolder<T>(layoutId, parent, screen)

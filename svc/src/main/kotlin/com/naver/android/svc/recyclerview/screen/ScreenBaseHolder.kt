@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.naver.android.svc.core.common.ResourceProvider
 import com.naver.android.svc.core.screen.Screen
 
-abstract class ScreenBaseHolder<in T>(layoutId: Int, parent: ViewGroup, val screen: Screen<*, *>)
+abstract class ScreenBaseHolder<in T>(layoutId: Int, parent: ViewGroup, val screen: Screen<*>)
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
         , ResourceProvider {
 

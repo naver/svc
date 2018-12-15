@@ -21,6 +21,6 @@ import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
 @RequireControlTower(ReallyLongScreenNameSearchCT::class)
-class ReallyLongScreenNameSearchFragment : SvcFragment<CommonViews, ReallyLongScreenNameSearchCT>() {
+class ReallyLongScreenNameSearchFragment : SvcFragment<CommonViews>() {
     override fun createViews() = CommonViews()
 }

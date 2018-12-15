@@ -43,7 +43,7 @@ abstract class ControlTower: LifecycleObserver, Toastable {
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    lateinit var baseScreen: Screen<Views, *>
+    lateinit var baseScreen: Screen<Views>
     lateinit var baseViews: Views
     var savedInstanceState: Bundle? = null
 
@@ -56,7 +56,7 @@ abstract class ControlTower: LifecycleObserver, Toastable {
      * create ControlTower
      * called automatically by ControlTowerManger
      */
-    fun onCreateControlTower(@NonNull screen: Screen<Views, *>, @NonNull views: Views, @Nullable savedInstanceState: Bundle?) {
+    fun onCreateControlTower(@NonNull screen: Screen<Views>, @NonNull views: Views, @Nullable savedInstanceState: Bundle?) {
         this.baseScreen = screen
         this.baseViews = views
         this.activity = screen.hostActivity
@@ -66,7 +66,7 @@ abstract class ControlTower: LifecycleObserver, Toastable {
     /**
      * get SvcActivity using smart cast
      */
-    fun <T: Screen<Views, *>> getScreen(): T {
+    fun <T: Screen<Views>> getScreen(): T {
         return baseScreen as T
     }
 

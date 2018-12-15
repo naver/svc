@@ -29,7 +29,7 @@ import com.naver.android.svc.sample.tabs.search.ReallyLongScreenNameSearchFragme
 import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
 @RequireControlTower(MainControlTower::class)
-class MainActivity : SvcActivity<MainViews, MainControlTower>() {
+class MainActivity : SvcActivity<MainViews>() {
     private val fragmentMap = mapOf<MainTab, Fragment>(
             MainTab.HOME to HomeFragment(),
             MainTab.PAPER to PaperFragment(),

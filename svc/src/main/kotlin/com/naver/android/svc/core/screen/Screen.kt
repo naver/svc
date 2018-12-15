@@ -28,7 +28,7 @@ import com.naver.android.svc.core.views.ViewsAction
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
-interface Screen<out V : Views, out C> : LifecycleOwner {
+interface Screen<out V : Views> : LifecycleOwner {
     /**
      * every screen can access to their host Activity.
      *
@@ -49,7 +49,7 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
     /**
      * add dependency of screen and viewsAction
      */
-    fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*, *>, views: V, ct: C) {
+    fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*>, views: V, ct: C) {
         views.apply {
             views.screen = screen
 

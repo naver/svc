@@ -18,7 +18,7 @@ import kotlin.reflect.full.createInstance
 class ActivityControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
-    fun <T : ControlTower> fetch(activity: SvcActivity<*, *>,
+    fun <T : ControlTower> fetch(activity: SvcActivity<*>,
                                  controlTowerClass: KClass<T>,
                                  views: Views,
                                  savedInstanceState: Bundle?): T {
@@ -38,7 +38,7 @@ class ActivityControlTowerManager {
         envelope.putBundle(ControlTower_STATE_KEY, state)
     }
 
-    private fun <T : ControlTower> create(activity: SvcActivity<*, *>, ControlTowerClass: KClass<T>, views: Views,
+    private fun <T : ControlTower> create(activity: SvcActivity<*>, ControlTowerClass: KClass<T>, views: Views,
                                           savedInstanceState: Bundle?, id: String): ControlTower {
 
         val activityControlTower: ControlTower

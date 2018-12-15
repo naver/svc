@@ -34,7 +34,7 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Screen<V, C>, DialogPlug {
+abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
     private val CONTROLTOWER_KEY = "controlTower"
     val CLASS_SIMPLE_NAME = javaClass.simpleName
