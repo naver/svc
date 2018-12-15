@@ -31,7 +31,7 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment(), Screen<V, C>, DialogPlug {
+abstract class SvcFragment<out V : Views, out C : ControlTower> : Fragment(), Screen<V, C>, DialogPlug {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -72,7 +72,7 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeSVC(this, views, controlTower)
+//        initializeSVC(this, views)
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup

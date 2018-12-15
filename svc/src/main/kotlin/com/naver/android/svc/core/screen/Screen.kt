@@ -50,7 +50,7 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
     /**
      * add dependency of screen and viewsAction
      */
-    fun <V : Views, C : ControlTower<*, *>> initializeSVC(screen: Screen<*, *>, views: V, ct: C) {
+    fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*, *>, views: V, ct: C) {
         views.apply {
             views.screen = screen
 
@@ -59,6 +59,4 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
             }
         }
     }
-
-
 }

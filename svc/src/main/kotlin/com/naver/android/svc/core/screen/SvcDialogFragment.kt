@@ -36,7 +36,7 @@ import com.naver.android.svc.core.views.Views
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -73,7 +73,7 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeSVC(this, views, controlTower)
+//        initializeSVC(this, views)
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
