@@ -25,7 +25,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.controltower.ControlTowerManager
+import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
@@ -96,7 +96,7 @@ abstract class SvcActivity<out V : Views, out C : ControlTower> : AppCompatActiv
         lifecycle.removeObserver(views)
 
         // destroy controlTower
-        ControlTowerManager.instance.destroy(controlTower)
+        ActivityControlTowerManager.instance.destroy(controlTower)
     }
 
     override fun onBackPressed() {
@@ -113,7 +113,7 @@ abstract class SvcActivity<out V : Views, out C : ControlTower> : AppCompatActiv
         val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
-            this.controlTower = ControlTowerManager.instance.fetch(this,
+            this.controlTower = ActivityControlTowerManager.instance.fetch(this,
                     controlTowerClass,
                     views,
                     BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
