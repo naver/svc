@@ -28,8 +28,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
+import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * you should set dialogListener after you create dialog instance.
@@ -38,11 +40,12 @@ import com.naver.android.svc.core.views.Views
  */
 abstract class SvcDialogFragment<out V : Views, out C : ControlTower, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
 
+    private val CONTROLTOWER_KEY = "controlTower"
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    lateinit var controlTower: ControlTower
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -73,7 +76,12 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower, DL : Any> 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        initializeSVC(this, views)
+
+        // create ControlTower
+        assignControlTower(null)
+
+        // initialize SVC
+        initializeSVC(this, views, controlTower)
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
@@ -115,6 +123,21 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower, DL : Any> 
     override fun dismiss() {
         dismissAllowingStateLoss()
     }
+
+    /**
+     * assign ControlTower
+     */
+    private fun assignControlTower(controlTowerBundle: Bundle?) {
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+        annotation?.let {
+            val controlTowerClass = it.value
+            this.controlTower = DialogFragmentControlTowerManager.instance.fetch(this,
+                    controlTowerClass,
+                    views,
+                    BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
+        } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
+    }
+
 
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
