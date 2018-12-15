@@ -23,8 +23,13 @@ import com.naver.android.svc.sample.tabs.common.CommonViews
  * if your controlTower class name is too long,
  * maybe you should Abbreviate name as "CT"
  */
-class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, views: CommonViews) : ControlTower<ReallyLongScreenNameSearchFragment, CommonViews>(screen, views) {
+class ReallyLongScreenNameSearchCT : ControlTower() {
+
+    private lateinit var commonViews: CommonViews
+
     override fun onCreated() {
-        views.setExtraString("ReallyLongScreenNameSearchCT")
+        this.commonViews = getViews()
+
+        this.commonViews.setExtraString("ReallyLongScreenNameSearchCT")
     }
 }

@@ -16,11 +16,13 @@
 
 package com.naver.android.svc.sample.tabs.paper
 
+import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.common.CommonControlTower
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
+@RequireControlTower(CommonControlTower::class)
 class PaperFragment : SvcFragment<CommonViews, CommonControlTower>() {
     override fun createViews() = CommonViews()
-    override fun createControlTower() = CommonControlTower(this, views)
+    override fun createControlTower() = CommonControlTower()
 }

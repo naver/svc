@@ -20,14 +20,18 @@ import android.util.Log
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaletteControlTower(screen: PaletteFragment, views: CommonViews) : ControlTower<PaletteFragment, CommonViews>(screen, views) {
+class PaletteControlTower : ControlTower() {
+
+    private lateinit var commonViews: CommonViews
+
     override fun onCreated() {
-        views.setExtraString("PaletteControlTower")
+        this.commonViews = getViews()
+
+        this.commonViews.setExtraString("PaletteControlTower")
     }
 
     override fun onStop() {
         Log.d(TAG, "override onStop")
         super.onStop()
     }
-
 }

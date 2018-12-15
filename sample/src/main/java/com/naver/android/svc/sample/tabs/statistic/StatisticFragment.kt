@@ -16,9 +16,11 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
+import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.screen.SvcFragment
 
+@RequireControlTower(StatisticControlTower::class)
 class StatisticFragment : SvcFragment<StatisticViews, StatisticControlTower>() {
     override fun createViews() = StatisticViews()
-    override fun createControlTower() = StatisticControlTower(this, views)
+    override fun createControlTower() = StatisticControlTower()
 }

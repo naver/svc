@@ -17,10 +17,14 @@
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.screen.Screen
 
-class CommonControlTower(screen: Screen<CommonViews, *>, views: CommonViews) : ControlTower<Screen<CommonViews, *>, CommonViews>(screen, views) {
+class CommonControlTower : ControlTower() {
+
+    private lateinit var commonViews: CommonViews
+
     override fun onCreated() {
-        views.setExtraString("CommonControlTower")
+        this.commonViews = getViews()
+
+        this.commonViews .setExtraString("CommonControlTower")
     }
 }

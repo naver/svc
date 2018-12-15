@@ -22,31 +22,33 @@ import com.naver.android.svc.sample.tabs.MainTab
 class MainControlTower : ControlTower(), MainViewsAction {
 
     private lateinit var mainScreen: MainActivity
+    private lateinit var mainViews: MainViews
 
     override fun onCreated() {
-        // get MainActivity from ControlTower
-        mainScreen = getActivity()
+        // get MainActivity and MainViews from ControlTower
+        this.mainScreen = getScreen()
+        this.mainViews = getViews()
 
-        mainScreen.changeScreen(MainTab.HOME)
+        this.mainScreen.changeScreen(MainTab.HOME)
     }
 
     override fun onClickHome() {
-        mainScreen.changeScreen(MainTab.HOME)
+        this.mainScreen.changeScreen(MainTab.HOME)
     }
 
     override fun onClickPaper() {
-        mainScreen.changeScreen(MainTab.PAPER)
+        this.mainScreen.changeScreen(MainTab.PAPER)
     }
 
     override fun onClickPalette() {
-        mainScreen.changeScreen(MainTab.PALETTE)
+        this.mainScreen.changeScreen(MainTab.PALETTE)
     }
 
     override fun onClickSearch() {
-        mainScreen.changeScreen(MainTab.SEARCH)
+        this.mainScreen.changeScreen(MainTab.SEARCH)
     }
 
     override fun onClickStatistic() {
-        mainScreen.changeScreen(MainTab.STATISTIC)
+        this. mainScreen.changeScreen(MainTab.STATISTIC)
     }
 }

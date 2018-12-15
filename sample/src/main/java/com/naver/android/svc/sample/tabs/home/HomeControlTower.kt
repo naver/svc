@@ -7,9 +7,13 @@ import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 /**
  * @author bs.nam@navercorp.com
  */
-class HomeControlTower(screen: HomeFragment, views: CommonViews) : ControlTower<HomeFragment, CommonViews>(screen, views), CommonViewsAction {
+class HomeControlTower : ControlTower(), CommonViewsAction {
+
+    private lateinit var commonViews: CommonViews
 
     override fun onCreated() {
-        views.setExtraString("HomeControlTower")
+        this.commonViews = getViews()
+
+        this.commonViews.setExtraString("HomeControlTower")
     }
 }
