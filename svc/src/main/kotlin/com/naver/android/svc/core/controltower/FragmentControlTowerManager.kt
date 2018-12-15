@@ -1,7 +1,7 @@
 package com.naver.android.svc.core.controltower
 
 import android.os.Bundle
-import com.naver.android.svc.core.screen.SvcActivity
+import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
@@ -15,36 +15,36 @@ import kotlin.reflect.full.createInstance
  */
 
 @Suppress("unused")
-class ActivityControlTowerManager {
+class FragmentControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
-    fun <T : ControlTower> fetch(activity: SvcActivity<*, *>,
+    fun <T : ControlTower> fetch(fragment: SvcFragment<*, *>,
                                  controlTowerClass: KClass<T>,
                                  views: Views,
                                  savedInstanceState: Bundle?): T {
         val id = fetchId(savedInstanceState)
-        var activityControlTower: ControlTower? = this.controlTowers[id]
+        var fragmentControlTower: ControlTower? = this.controlTowers[id]
 
-        if (activityControlTower == null) {
-            activityControlTower = create(activity, controlTowerClass, views, savedInstanceState, id!!)
+        if (fragmentControlTower == null) {
+            fragmentControlTower = create(fragment, controlTowerClass, views, savedInstanceState, id!!)
         }
 
-        return activityControlTower as T
+        return fragmentControlTower as T
     }
 
-    fun save(activityControlTower: ControlTower, envelope: Bundle) {
-        envelope.putString(ControlTower_ID_KEY, findIdForControlTower(activityControlTower))
+    fun save(fragmentControlTower: ControlTower, envelope: Bundle) {
+        envelope.putString(ControlTower_ID_KEY, findIdForControlTower(fragmentControlTower))
         val state = Bundle()
         envelope.putBundle(ControlTower_STATE_KEY, state)
     }
 
-    private fun <T : ControlTower> create(activity: SvcActivity<*, *>, ControlTowerClass: KClass<T>, views: Views,
+    private fun <T : ControlTower> create(fragment: SvcFragment<*, *>, ControlTowerClass: KClass<T>, views: Views,
                                           savedInstanceState: Bundle?, id: String): ControlTower {
 
-        val activityControlTower: ControlTower
+        val fragmentControlTower: ControlTower
 
         try {
-            activityControlTower = ControlTowerClass.createInstance()
+            fragmentControlTower = ControlTowerClass.createInstance()
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {
@@ -55,18 +55,18 @@ class ActivityControlTowerManager {
             throw RuntimeException(exception)
         }
 
-        this.controlTowers[id] = activityControlTower
-        activityControlTower.onCreateControlTower(activity, views, BundleUtils.maybeGetBundle(savedInstanceState, ControlTower_STATE_KEY))
-        return activityControlTower
+        this.controlTowers[id] = fragmentControlTower
+        fragmentControlTower.onCreateControlTower(fragment, views, BundleUtils.maybeGetBundle(savedInstanceState, ControlTower_STATE_KEY))
+        return fragmentControlTower
     }
 
-    fun destroy(activityControlTower: ControlTower) {
-        activityControlTower.onDestroy()
+    fun destroy(fragmentControlTower: ControlTower) {
+        fragmentControlTower.onDestroy()
 
         val iterator = this.controlTowers.entries.iterator()
         while (iterator.hasNext()) {
             val entry = iterator.next()
-            if (activityControlTower == entry.value) {
+            if (fragmentControlTower == entry.value) {
                 iterator.remove()
             }
         }
@@ -79,9 +79,9 @@ class ActivityControlTowerManager {
             UUID.randomUUID().toString()
     }
 
-    private fun findIdForControlTower(activityControlTower: ControlTower): String {
+    private fun findIdForControlTower(fragmentControlTower: ControlTower): String {
         for ((key, value) in this.controlTowers) {
-            if (activityControlTower == value) {
+            if (fragmentControlTower == value) {
                 return key
             }
         }
@@ -93,6 +93,6 @@ class ActivityControlTowerManager {
         private val ControlTower_ID_KEY = "ControlTower_id"
         private val ControlTower_STATE_KEY = "ControlTower_state"
 
-        val instance = ActivityControlTowerManager()
+        val instance = FragmentControlTowerManager()
     }
 }
