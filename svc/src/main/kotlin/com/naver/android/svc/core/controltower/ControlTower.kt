@@ -20,13 +20,16 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
+import android.os.Bundle
+import android.support.annotation.NonNull
+import android.support.annotation.Nullable
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.Screen
+import com.naver.android.svc.core.screen.SvcActivity
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * Control Tower receives events from many different environment and manage the main business logic.
@@ -36,16 +39,35 @@ import com.naver.android.svc.core.views.Views
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
-abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, val views: V) : LifecycleObserver, Toastable {
+abstract class ControlTower: LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    val activity: FragmentActivity? = screen.hostActivity
+    lateinit var baseScreen: Screen<Views, *>
+    lateinit var baseViews: Views
+
+    private var activity: FragmentActivity? = null
 
     override val context: Context?
-        get() = screen.hostActivity
+        get() = baseScreen.hostActivity
 
+    /**
+     * create ControlTower
+     * called automatically by ControlTowerManger
+     */
+    fun onCreateControlTower(@NonNull screen: Screen<Views, *>, @NonNull views: Views, @Nullable savedInstanceState: Bundle?) {
+        this.baseScreen = screen
+        this.baseViews = views
+        this.activity = screen.hostActivity
+    }
+
+    /**
+     * get activity using smart cast
+     */
+    fun <T: SvcActivity<Views, *>> getActivity() : T {
+        return baseScreen as T
+    }
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -105,5 +127,4 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
     open fun onBackPressed(): Boolean {
         return false
     }
-
 }
