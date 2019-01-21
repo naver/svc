@@ -34,7 +34,7 @@ import com.naver.android.svc.core.views.Views
 /**
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(),
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : SafeDialogFragment(),
         Screen<V, C>,
         StatusbarChanger {
 

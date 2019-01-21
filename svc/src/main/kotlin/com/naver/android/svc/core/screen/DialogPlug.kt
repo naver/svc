@@ -17,7 +17,6 @@
 package com.naver.android.svc.core.screen
 
 import android.view.View
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 
 /**
@@ -26,12 +25,12 @@ import androidx.fragment.app.FragmentManager
 interface DialogPlug {
     val fragmentManagerForDialog: FragmentManager?
 
-    fun showDialog(dialogFragment: DialogFragment) {
+    fun showDialog(dialogFragment: SafeDialogFragment) {
         val supportFragmentManager = fragmentManagerForDialog ?: return
         dialogFragment.show(supportFragmentManager, dialogFragment.javaClass.simpleName)
     }
 
-    fun showDialog(dialogFragment: DialogFragment, sharedElement: View, elementId: String) {
+    fun showDialog(dialogFragment: SafeDialogFragment, sharedElement: View, elementId: String) {
         val supportFragmentManager = fragmentManagerForDialog ?: return
         val transaction = supportFragmentManager.beginTransaction()
         transaction.addSharedElement(sharedElement, elementId)
