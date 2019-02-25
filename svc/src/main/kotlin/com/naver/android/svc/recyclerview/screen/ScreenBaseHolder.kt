@@ -3,11 +3,12 @@ package com.naver.android.svc.recyclerview.screen
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.naver.android.svc.core.common.ResourceProvider
 import com.naver.android.svc.core.screen.Screen
 
 abstract class ScreenBaseHolder<in T>(layoutId: Int, parent: ViewGroup, val screen: Screen<*>)
-    : androidx.recyclerview.widget.RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
+    : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
         , ResourceProvider {
 
     override val context: Context?

@@ -19,6 +19,7 @@ package com.naver.android.svc.recyclerview
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.naver.android.svc.core.common.ResourceProvider
 
 /**
@@ -26,7 +27,7 @@ import com.naver.android.svc.core.common.ResourceProvider
  */
 
 abstract class BaseHolder<in T>(layoutId: Int, parent: ViewGroup)
-    : androidx.recyclerview.widget.RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
+    : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false))
         , ResourceProvider {
 
     override val context: Context?
