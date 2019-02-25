@@ -17,6 +17,7 @@
 package com.naver.android.svc.sample.tabs.search
 
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.qualifiers.InjectView
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
 /**
@@ -25,11 +26,9 @@ import com.naver.android.svc.sample.tabs.common.CommonViews
  */
 class ReallyLongScreenNameSearchCT : ControlTower() {
 
-    private lateinit var commonViews: CommonViews
+    @InjectView lateinit var commonViews: CommonViews
 
     override fun onCreated() {
-        this.commonViews = getViews()
-
         this.commonViews.setExtraString("ReallyLongScreenNameSearchCT")
     }
 }

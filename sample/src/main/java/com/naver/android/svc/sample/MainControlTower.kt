@@ -17,20 +17,12 @@
 package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.qualifiers.InjectScreen
 import com.naver.android.svc.sample.tabs.MainTab
 
 class MainControlTower : ControlTower(), MainViewsAction {
 
-    private lateinit var mainScreen: MainActivity
-    private lateinit var mainViews: MainViews
-
-    override fun onCreated() {
-        // get MainActivity and MainViews from ControlTower
-        this.mainScreen = getScreen()
-        this.mainViews = getViews()
-
-        this.mainScreen.changeScreen(MainTab.HOME)
-    }
+    @InjectScreen lateinit var mainScreen: MainActivity
 
     override fun onClickHome() {
         this.mainScreen.changeScreen(MainTab.HOME)

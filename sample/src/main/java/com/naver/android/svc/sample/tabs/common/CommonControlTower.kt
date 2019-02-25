@@ -17,14 +17,13 @@
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.qualifiers.InjectView
 
 class CommonControlTower : ControlTower() {
 
-    private lateinit var commonViews: CommonViews
+    @InjectView lateinit var commonViews: CommonViews
 
     override fun onCreated() {
-        this.commonViews = getViews()
-
         this.commonViews.setExtraString("CommonControlTower")
     }
 }
