@@ -23,6 +23,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
@@ -35,7 +38,7 @@ import com.naver.android.svc.core.views.Views
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, DL : Any> : androidx.fragment.app.DialogFragment(), LifecycleOwner, Screen<V> {
+abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V> {
 
     private val CONTROLTOWER_KEY = "controlTower"
     val CLASS_SIMPLE_NAME = javaClass.simpleName
@@ -44,10 +47,10 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : androidx.fragment.ap
     val views by lazy { createViews() }
     lateinit var controlTower: ControlTower
 
-    override val hostActivity: androidx.fragment.app.FragmentActivity?
+    override val hostActivity: FragmentActivity?
         get() = activity
 
-    override val screenFragmentManager: androidx.fragment.app.FragmentManager?
+    override val screenFragmentManager: FragmentManager?
         get() = fragmentManager
 
     lateinit var dialogListener: DL
@@ -59,7 +62,7 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : androidx.fragment.ap
             return
         }
 
-        setStyle(androidx.fragment.app.DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

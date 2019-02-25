@@ -15,7 +15,7 @@ import kotlin.reflect.full.createInstance
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-@Suppress("unused")
+@Suppress("unused", "UNCHECKED_CAST")
 class FragmentControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
@@ -91,8 +91,8 @@ class FragmentControlTowerManager {
     }
 
     companion object {
-        private val ControlTower_ID_KEY = "ControlTower_id"
-        private val ControlTower_STATE_KEY = "ControlTower_state"
+        private const val ControlTower_ID_KEY = "ControlTower_id"
+        private const val ControlTower_STATE_KEY = "ControlTower_state"
 
         val instance = FragmentControlTowerManager()
     }

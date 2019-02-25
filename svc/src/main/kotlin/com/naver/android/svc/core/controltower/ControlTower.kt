@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -37,6 +38,7 @@ import com.naver.android.svc.core.views.Views
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
+@Suppress("UNCHECKED_CAST", "unused")
 abstract class ControlTower : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
@@ -46,7 +48,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
     lateinit var baseViews: Views
     var savedInstanceState: Bundle? = null
 
-    private var activity: androidx.fragment.app.FragmentActivity? = null
+    private var activity: FragmentActivity? = null
 
     override val context: Context?
         get() = baseScreen.hostActivity
