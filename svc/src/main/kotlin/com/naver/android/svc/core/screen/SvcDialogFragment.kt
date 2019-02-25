@@ -63,7 +63,7 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : androidx.fragment.ap
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         views.rootView.setOnClickListener {
             dismissAllowingStateLoss()
