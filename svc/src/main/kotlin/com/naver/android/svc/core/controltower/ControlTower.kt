@@ -27,8 +27,11 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
+import com.naver.android.svc.core.qualifiers.InjectScreen
+import com.naver.android.svc.core.qualifiers.InjectView
 import com.naver.android.svc.core.screen.Screen
 import com.naver.android.svc.core.views.Views
+
 
 /**
  * Control Tower receives events from many different environment and manage the main business logic.
@@ -62,23 +65,25 @@ abstract class ControlTower : LifecycleObserver, Toastable {
         this.baseViews = views
         this.activity = screen.hostActivity
         this.savedInstanceState = savedInstanceState
+
+        // dependency injection to field members.
+        injectMembers()
     }
 
     /**
      * get SvcActivity using smart cast
      */
-    fun <T : Screen<Views>> getScreen(): T {
+    private fun <T : Screen<Views>> getScreen(): T {
         return baseScreen as T
     }
 
     /**
      * get Views using smart cast
      */
-    fun <T : Views> getViews(): T {
+    private fun <T : Views> getViews(): T {
         return baseViews as T
     }
 
-    //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun logOnCreate() {
         if (SvcConfig.debugMode) {
@@ -86,11 +91,9 @@ abstract class ControlTower : LifecycleObserver, Toastable {
         }
     }
 
-    /**
-     * is called after views inflated
-     */
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    abstract fun onCreated()
+    open fun onCreated() {
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     open fun onStarted() {
@@ -127,13 +130,28 @@ abstract class ControlTower : LifecycleObserver, Toastable {
         }
     }
 
-    //------LifeCycle END------
-
     fun finishActivity() {
         activity?.finish()
     }
 
     open fun onBackPressed(): Boolean {
         return false
+    }
+
+    private fun injectMembers() {
+        val fields = javaClass.declaredFields
+        for(field in fields) {
+            val injectScreen = field.getAnnotation(InjectScreen::class.java)
+            injectScreen?.let {
+                field.isAccessible = true
+                field.set(this, getScreen())
+            }
+
+            val injectView = field.getAnnotation(InjectView::class.java)
+            injectView?.let {
+                field.isAccessible = true
+                field.set(this, getViews())
+            }
+        }
     }
 }
