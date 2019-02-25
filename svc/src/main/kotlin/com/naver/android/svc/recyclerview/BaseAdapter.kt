@@ -16,15 +16,15 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class BaseAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder> : androidx.recyclerview.widget.RecyclerView.Adapter<VH>() {
     final override fun onBindViewHolder(holder: VH, position: Int) {
-        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+        if (holder.adapterPosition == androidx.recyclerview.widget.RecyclerView.NO_POSITION) {
             return
         }
         onBindHolder(holder, holder.adapterPosition)

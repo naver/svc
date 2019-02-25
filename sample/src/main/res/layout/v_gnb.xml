@@ -19,7 +19,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/gnb_height"
-    tools:parentTag="android.support.constraint.ConstraintLayout">
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
         android:id="@+id/gnb_home"

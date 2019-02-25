@@ -19,11 +19,8 @@ package com.naver.android.svc.core.screen
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.qualifiers.RequireControlTower
@@ -44,22 +41,22 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     val views by lazy { createViews() }
     lateinit var controlTower: ControlTower
 
-    override val hostActivity: FragmentActivity?
+    override val hostActivity: androidx.fragment.app.FragmentActivity?
         get() = this
 
-    override val fragmentManagerForDialog: FragmentManager?
+    override val fragmentManagerForDialog: androidx.fragment.app.FragmentManager?
         get() = supportFragmentManager
 
-    override val screenFragmentManager: FragmentManager?
+    override val screenFragmentManager: androidx.fragment.app.FragmentManager?
         get() = supportFragmentManager
 
     open var statusbarColor: Int? = null
 
-    override fun getParentFragment(): Fragment? {
+    override fun getParentFragment(): androidx.fragment.app.Fragment? {
         throw IllegalAccessError("Activity doesn't have parentFragment, If you want to use this method you should override this method and provide one")
     }
 
-    override fun getChildFragmentManager(): FragmentManager {
+    override fun getChildFragmentManager(): androidx.fragment.app.FragmentManager {
         throw IllegalAccessError("Activity doesn't have childFragmentManager, If you want to use this method you should override this method and provide one")
     }
 

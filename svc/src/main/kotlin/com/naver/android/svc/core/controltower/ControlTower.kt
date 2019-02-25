@@ -16,15 +16,14 @@
 
 package com.naver.android.svc.core.controltower
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.NonNull
-import android.support.annotation.Nullable
-import android.support.v4.app.FragmentActivity
 import android.util.Log
+import androidx.annotation.NonNull
+import androidx.annotation.Nullable
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.Screen
@@ -47,7 +46,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
     lateinit var baseViews: Views
     var savedInstanceState: Bundle? = null
 
-    private var activity: FragmentActivity? = null
+    private var activity: androidx.fragment.app.FragmentActivity? = null
 
     override val context: Context?
         get() = baseScreen.hostActivity

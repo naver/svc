@@ -17,7 +17,6 @@
 package com.naver.android.svc.sample
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.screen.SvcActivity
 import com.naver.android.svc.core.screen.SvcFragment
@@ -30,7 +29,7 @@ import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
 @RequireControlTower(MainControlTower::class)
 class MainActivity : SvcActivity<MainViews>() {
-    private val fragmentMap = mapOf<MainTab, Fragment>(
+    private val fragmentMap = mapOf<MainTab, androidx.fragment.app.Fragment>(
             MainTab.HOME to HomeFragment(),
             MainTab.PAPER to PaperFragment(),
             MainTab.PALETTE to PaletteFragment(),

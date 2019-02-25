@@ -16,10 +16,7 @@
 
 package com.naver.android.svc.core.screen
 
-import android.arch.lifecycle.LifecycleOwner
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.core.views.Views
@@ -35,14 +32,14 @@ interface Screen<out V : Views> : LifecycleOwner {
      * I had to change name "activity" as "hostActivity"
      * because fragment's getActivity() method is final method
      */
-    val hostActivity: FragmentActivity?
+    val hostActivity: androidx.fragment.app.FragmentActivity?
 
-    val screenFragmentManager: FragmentManager?
+    val screenFragmentManager: androidx.fragment.app.FragmentManager?
 
     val isActive: Boolean
 
-    fun getChildFragmentManager(): FragmentManager
-    fun getParentFragment(): Fragment?
+    fun getChildFragmentManager(): androidx.fragment.app.FragmentManager
+    fun getParentFragment(): androidx.fragment.app.Fragment?
 
     fun createViews(): V
 

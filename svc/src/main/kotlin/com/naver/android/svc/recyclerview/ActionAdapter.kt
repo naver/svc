@@ -16,10 +16,8 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.support.v7.widget.RecyclerView
-
 /**
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class ActionAdapter<VH : RecyclerView.ViewHolder, out Action>(val action: Action) : BaseAdapter<VH>()
+abstract class ActionAdapter<VH : androidx.recyclerview.widget.RecyclerView.ViewHolder, out Action>(val action: Action) : BaseAdapter<VH>()

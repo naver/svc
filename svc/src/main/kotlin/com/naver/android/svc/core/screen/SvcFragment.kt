@@ -17,9 +17,6 @@
 package com.naver.android.svc.core.screen
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +32,7 @@ import com.naver.android.svc.core.views.Views
  */
 
 @Suppress("PrivatePropertyName")
-abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
+abstract class SvcFragment<out V : Views> : androidx.fragment.app.Fragment(), Screen<V>, DialogPlug {
 
     private val CONTROLTOWER_KEY = "controlTower"
     private val CLASS_SIMPLE_NAME = javaClass.simpleName
@@ -48,13 +45,13 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
     val views by lazy { createViews() }
     lateinit var controlTower: ControlTower
 
-    override val hostActivity: FragmentActivity?
+    override val hostActivity: androidx.fragment.app.FragmentActivity?
         get() = activity
 
-    override val fragmentManagerForDialog: FragmentManager?
+    override val fragmentManagerForDialog: androidx.fragment.app.FragmentManager?
         get() = this.hostActivity?.supportFragmentManager
 
-    override val screenFragmentManager: FragmentManager?
+    override val screenFragmentManager: androidx.fragment.app.FragmentManager?
         get() = this.fragmentManager
 
 
