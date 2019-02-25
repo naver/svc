@@ -5,7 +5,8 @@ import com.naver.android.svc.core.screen.SvcActivity
 import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
-import java.util.*
+import java.util.HashMap
+import java.util.UUID
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 
@@ -14,7 +15,7 @@ import kotlin.reflect.full.createInstance
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-@Suppress("unused")
+@Suppress("unused", "UNCHECKED_CAST")
 class ActivityControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
@@ -90,8 +91,8 @@ class ActivityControlTowerManager {
     }
 
     companion object {
-        private val ControlTower_ID_KEY = "ControlTower_id"
-        private val ControlTower_STATE_KEY = "ControlTower_state"
+        private const val ControlTower_ID_KEY = "ControlTower_id"
+        private const val ControlTower_STATE_KEY = "ControlTower_state"
 
         val instance = ActivityControlTowerManager()
     }

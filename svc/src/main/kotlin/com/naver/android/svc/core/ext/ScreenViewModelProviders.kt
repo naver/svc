@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import com.naver.android.svc.core.screen.Screen
-import java.lang.IllegalStateException
 
 /**
  * provide Proviers for Screen

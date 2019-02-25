@@ -26,7 +26,7 @@ class StatisticViews : ActionViews<StatisticViewsAction>() {
     override val layoutResId = R.layout.fragment_statistic
 
     override fun onCreated() {
-        rootView.name.setOnClickListener{ viewsAction.onNameClicked() }
+        rootView.name.setOnClickListener { viewsAction.onNameClicked() }
         rootView.statistic_icon.setColorFilter(Color.WHITE)
     }
 

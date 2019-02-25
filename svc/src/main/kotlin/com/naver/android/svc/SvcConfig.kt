@@ -16,6 +16,6 @@
 
 package com.naver.android.svc
 
-object SvcConfig{
+object SvcConfig {
     var debugMode = false
 }

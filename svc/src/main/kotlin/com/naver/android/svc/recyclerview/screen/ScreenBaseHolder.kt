@@ -1,4 +1,3 @@
-
 package com.naver.android.svc.recyclerview.screen
 
 import android.content.Context

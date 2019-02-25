@@ -34,11 +34,12 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
+@Suppress("PrivatePropertyName")
 abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogPlug {
 
     private val CONTROLTOWER_KEY = "controlTower"
-    var CLASS_SIMPLE_NAME = javaClass.simpleName
-    val TAG: String = CLASS_SIMPLE_NAME
+    private var CLASS_SIMPLE_NAME = javaClass.simpleName
+    private val TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
     lateinit var controlTower: ControlTower

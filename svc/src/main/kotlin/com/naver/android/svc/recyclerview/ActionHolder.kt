@@ -17,7 +17,6 @@
 package com.naver.android.svc.recyclerview
 
 import android.view.ViewGroup
-import com.naver.android.svc.core.screen.Screen
 
 /**
  * holder with user interaction(click or swipe etc.)

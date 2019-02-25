@@ -49,6 +49,6 @@ class MainControlTower : ControlTower(), MainViewsAction {
     }
 
     override fun onClickStatistic() {
-        this. mainScreen.changeScreen(MainTab.STATISTIC)
+        this.mainScreen.changeScreen(MainTab.STATISTIC)
     }
 }

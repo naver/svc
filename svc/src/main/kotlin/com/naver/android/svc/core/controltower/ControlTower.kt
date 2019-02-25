@@ -38,7 +38,7 @@ import com.naver.android.svc.core.views.Views
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
-abstract class ControlTower: LifecycleObserver, Toastable {
+abstract class ControlTower : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -66,14 +66,14 @@ abstract class ControlTower: LifecycleObserver, Toastable {
     /**
      * get SvcActivity using smart cast
      */
-    fun <T: Screen<Views>> getScreen(): T {
+    fun <T : Screen<Views>> getScreen(): T {
         return baseScreen as T
     }
 
     /**
      * get Views using smart cast
      */
-    fun <T: Views> getViews(): T {
+    fun <T : Views> getViews(): T {
         return baseViews as T
     }
 

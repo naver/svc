@@ -18,7 +18,6 @@ package com.naver.android.svc.sample.customview
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
 import android.util.AttributeSet
 import android.view.LayoutInflater
 

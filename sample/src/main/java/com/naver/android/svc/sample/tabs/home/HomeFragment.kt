@@ -8,7 +8,7 @@ import com.naver.android.svc.sample.tabs.common.CommonViews
  * @author bs.nam@navercorp.com
  */
 @RequireControlTower(HomeControlTower::class)
-class HomeFragment: SvcFragment<CommonViews>() {
+class HomeFragment : SvcFragment<CommonViews>() {
 
     override fun createViews() = CommonViews()
 }

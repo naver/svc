@@ -5,7 +5,8 @@ import com.naver.android.svc.core.screen.SvcDialogFragment
 import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
-import java.util.*
+import java.util.HashMap
+import java.util.UUID
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 

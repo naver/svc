@@ -34,11 +34,12 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
+@Suppress("PrivatePropertyName")
 abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
     private val CONTROLTOWER_KEY = "controlTower"
-    val CLASS_SIMPLE_NAME = javaClass.simpleName
-    var TAG: String = CLASS_SIMPLE_NAME
+    private val CLASS_SIMPLE_NAME = javaClass.simpleName
+    private var TAG: String = CLASS_SIMPLE_NAME
 
     companion object {
         const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"

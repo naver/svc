@@ -34,10 +34,11 @@ import com.naver.android.svc.core.screen.Screen
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
+@Suppress("PrivatePropertyName")
 abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProvider {
 
-    val CLASS_SIMPLE_NAME = javaClass.simpleName
-    var TAG: String = CLASS_SIMPLE_NAME
+    private val CLASS_SIMPLE_NAME = javaClass.simpleName
+    private var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
     lateinit var screen: Screen<*>
@@ -63,7 +64,6 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
             action()
         }
     }
-
 
 
     //------LifeCycle START------

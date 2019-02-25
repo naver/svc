@@ -25,6 +25,6 @@ class CommonControlTower : ControlTower() {
     override fun onCreated() {
         this.commonViews = getViews()
 
-        this.commonViews .setExtraString("CommonControlTower")
+        this.commonViews.setExtraString("CommonControlTower")
     }
 }
