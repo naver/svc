@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.BuildConfig
+import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.FragmentControlTowerManager
 import com.naver.android.svc.core.qualifiers.RequireControlTower
@@ -57,9 +58,18 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
     override val screenFragmentManager: FragmentManager?
         get() = this.fragmentManager
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // create ControlTower
+        assignControlTower(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // create ControlTower
+        assignControlTower(null)
     }
 
     private fun addExtraTagId() {
@@ -76,10 +86,6 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        // create ControlTower
-        assignControlTower(null)
-
         // initialize SVC
         initializeSVC(this, views, controlTower)
 
@@ -107,6 +113,12 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
             return true
         }
         return false
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val bundle = Bundle()
+        FragmentControlTowerManager.instance.save(this.controlTower, bundle)
     }
 
     /**

@@ -27,6 +27,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
+import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
 import com.naver.android.svc.core.qualifiers.RequireControlTower
@@ -57,12 +58,23 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // create ControlTower
+        assignControlTower(savedInstanceState)
+
         if (!::dialogListener.isInitialized) {
             dismissAllowingStateLoss()
             return
         }
 
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // create ControlTower
+        assignControlTower(null)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -76,10 +88,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        // create ControlTower
-        assignControlTower(null)
-
         // initialize SVC
         initializeSVC(this, views, controlTower)
 
@@ -122,6 +130,12 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
 
     override fun dismiss() {
         dismissAllowingStateLoss()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val bundle = Bundle()
+        DialogFragmentControlTowerManager.instance.save(this.controlTower, bundle)
     }
 
     /**

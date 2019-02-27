@@ -41,7 +41,7 @@ import com.naver.android.svc.core.views.Views
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
-@Suppress("UNCHECKED_CAST", "unused")
+@Suppress("UNCHECKED_CAST", "unused", "MemberVisibilityCanBePrivate")
 abstract class ControlTower : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName

@@ -76,7 +76,7 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         setContentView(views.layoutResId)
 
         // create ControlTower
-        assignControlTower(null)
+        assignControlTower(savedInstanceState)
 
         // initialize SVC
         initializeSVC(this, views, controlTower)
@@ -89,6 +89,13 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // create ControlTower
+        assignControlTower(null)
     }
 
     override fun onDestroy() {
@@ -105,6 +112,12 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val bundle = Bundle()
+        ActivityControlTowerManager.instance.save(this.controlTower, bundle)
     }
 
     /**
