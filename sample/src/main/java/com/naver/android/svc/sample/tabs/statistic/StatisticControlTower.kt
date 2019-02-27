@@ -21,7 +21,8 @@ import com.naver.android.svc.core.qualifiers.InjectView
 
 class StatisticControlTower : ControlTower(), StatisticViewsAction {
 
-    @InjectView lateinit var statisticViews: StatisticViews
+    @InjectView
+    lateinit var statisticViews: StatisticViews
 
     override fun onNameClicked() {
         showToast("NameClicked")

@@ -31,7 +31,7 @@ class DialogFragmentControlTowerManager {
     }
 
     private fun <T : ControlTower> create(fragment: SvcDialogFragment<*, *>, ControlTowerClass: KClass<T>, views: Views,
-                                         id: String): ControlTower {
+                                          id: String): ControlTower {
 
         val fragmentControlTower: ControlTower
 

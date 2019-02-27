@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 NAVER Corp.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,8 +35,7 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/gnb_height"
-        />
+        android:layout_marginBottom="@dimen/gnb_height" />
 
     <com.naver.android.svc.sample.customview.GnbView
         android:id="@+id/gnb"

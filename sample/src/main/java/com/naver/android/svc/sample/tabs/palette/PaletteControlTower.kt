@@ -23,7 +23,8 @@ import com.naver.android.svc.sample.tabs.common.CommonViews
 
 class PaletteControlTower : ControlTower() {
 
-    @InjectView lateinit var commonViews: CommonViews
+    @InjectView
+    lateinit var commonViews: CommonViews
 
     override fun onCreated() {
         this.commonViews.setExtraString("PaletteControlTower")

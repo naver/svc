@@ -10,7 +10,8 @@ import com.naver.android.svc.sample.tabs.common.CommonViewsAction
  */
 class HomeControlTower : ControlTower(), CommonViewsAction {
 
-    @InjectView lateinit var commonViews: CommonViews
+    @InjectView
+    lateinit var commonViews: CommonViews
 
     override fun onCreated() {
         this.commonViews.setExtraString("HomeControlTower")

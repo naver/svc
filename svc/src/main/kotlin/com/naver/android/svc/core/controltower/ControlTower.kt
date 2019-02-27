@@ -136,7 +136,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
 
     private fun injectMembers() {
         val fields = javaClass.declaredFields
-        for(field in fields) {
+        for (field in fields) {
             val injectScreen = field.getAnnotation(InjectScreen::class.java)
             injectScreen?.let {
                 field.isAccessible = true

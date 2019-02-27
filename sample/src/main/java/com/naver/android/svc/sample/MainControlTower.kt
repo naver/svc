@@ -22,7 +22,8 @@ import com.naver.android.svc.sample.tabs.MainTab
 
 class MainControlTower : ControlTower(), MainViewsAction {
 
-    @InjectScreen lateinit var mainScreen: MainActivity
+    @InjectScreen
+    lateinit var mainScreen: MainActivity
 
     override fun onClickHome() {
         this.mainScreen.changeScreen(MainTab.HOME)

@@ -21,7 +21,8 @@ import com.naver.android.svc.core.qualifiers.InjectView
 
 class CommonControlTower : ControlTower() {
 
-    @InjectView lateinit var commonViews: CommonViews
+    @InjectView
+    lateinit var commonViews: CommonViews
 
     override fun onCreated() {
         this.commonViews.setExtraString("CommonControlTower")
