@@ -27,7 +27,6 @@ import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.qualifiers.RequireControlTower
-import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -75,8 +74,8 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
 
-        // create ControlTower
-        assignControlTower(savedInstanceState)
+        // assigns controlTower
+        assignControlTower()
 
         // initialize SVC
         initializeSVC(this, views, controlTower)
@@ -89,13 +88,6 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        // create ControlTower
-        assignControlTower(null)
     }
 
     override fun onDestroy() {
@@ -114,23 +106,16 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         super.onBackPressed()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val bundle = Bundle()
-        ActivityControlTowerManager.instance.save(this.controlTower, bundle)
-    }
-
     /**
      * assign ControlTower
      */
-    private fun assignControlTower(controlTowerBundle: Bundle?) {
+    private fun assignControlTower() {
         val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = ActivityControlTowerManager.instance.fetch(this,
                     controlTowerClass,
-                    views,
-                    BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
+                    views)
         }
     }
 

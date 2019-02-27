@@ -27,11 +27,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
-import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
 import com.naver.android.svc.core.qualifiers.RequireControlTower
-import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -59,8 +57,8 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // create ControlTower
-        assignControlTower(savedInstanceState)
+        // assigns ControlTower
+        assignControlTower()
 
         if (!::dialogListener.isInitialized) {
             dismissAllowingStateLoss()
@@ -68,13 +66,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
         }
 
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        // create ControlTower
-        assignControlTower(null)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -132,23 +123,16 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
         dismissAllowingStateLoss()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val bundle = Bundle()
-        DialogFragmentControlTowerManager.instance.save(this.controlTower, bundle)
-    }
-
     /**
      * assign ControlTower
      */
-    private fun assignControlTower(controlTowerBundle: Bundle?) {
+    private fun assignControlTower() {
         val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = DialogFragmentControlTowerManager.instance.fetch(this,
                     controlTowerClass,
-                    views,
-                    BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
+                    views)
         } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
     }
 

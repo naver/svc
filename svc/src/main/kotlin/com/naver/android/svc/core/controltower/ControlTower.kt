@@ -17,10 +17,8 @@
 package com.naver.android.svc.core.controltower
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -49,7 +47,6 @@ abstract class ControlTower : LifecycleObserver, Toastable {
 
     lateinit var baseScreen: Screen<Views>
     lateinit var baseViews: Views
-    var savedInstanceState: Bundle? = null
 
     private var activity: FragmentActivity? = null
 
@@ -60,11 +57,10 @@ abstract class ControlTower : LifecycleObserver, Toastable {
      * create ControlTower
      * called automatically by ControlTowerManger
      */
-    fun onCreateControlTower(@NonNull screen: Screen<Views>, @NonNull views: Views, @Nullable savedInstanceState: Bundle?) {
+    fun onCreateControlTower(@NonNull screen: Screen<Views>, @NonNull views: Views) {
         this.baseScreen = screen
         this.baseViews = views
         this.activity = screen.hostActivity
-        this.savedInstanceState = savedInstanceState
 
         // dependency injection to field members.
         injectMembers()

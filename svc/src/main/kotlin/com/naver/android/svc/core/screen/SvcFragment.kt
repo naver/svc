@@ -24,11 +24,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.BuildConfig
-import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.FragmentControlTowerManager
 import com.naver.android.svc.core.qualifiers.RequireControlTower
-import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -61,15 +59,8 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // create ControlTower
-        assignControlTower(savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        // create ControlTower
-        assignControlTower(null)
+        // assigns ControlTower
+        assignControlTower()
     }
 
     private fun addExtraTagId() {
@@ -115,23 +106,16 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
         return false
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val bundle = Bundle()
-        FragmentControlTowerManager.instance.save(this.controlTower, bundle)
-    }
-
     /**
      * assign ControlTower
      */
-    private fun assignControlTower(controlTowerBundle: Bundle?) {
+    private fun assignControlTower() {
         val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = FragmentControlTowerManager.instance.fetch(this,
                     controlTowerClass,
-                    views,
-                    BundleUtils.maybeGetBundle(controlTowerBundle, CONTROLTOWER_KEY))
+                    views)
         } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
     }
 

@@ -1,8 +1,6 @@
 package com.naver.android.svc.core.controltower
 
-import android.os.Bundle
 import com.naver.android.svc.core.screen.SvcDialogFragment
-import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
 import java.util.HashMap
@@ -21,26 +19,19 @@ class DialogFragmentControlTowerManager {
 
     fun <T : ControlTower> fetch(fragment: SvcDialogFragment<*, *>,
                                  controlTowerClass: KClass<T>,
-                                 views: Views,
-                                 savedInstanceState: Bundle?): T {
-        val id = fetchId(savedInstanceState)
+                                 views: Views): T {
+        val id = fetchId(controlTowerClass.java)
         var fragmentControlTower: ControlTower? = this.controlTowers[id]
 
         if (fragmentControlTower == null) {
-            fragmentControlTower = create(fragment, controlTowerClass, views, savedInstanceState, id!!)
+            fragmentControlTower = create(fragment, controlTowerClass, views, id!!)
         }
 
         return fragmentControlTower as T
     }
 
-    fun save(fragmentControlTower: ControlTower, envelope: Bundle) {
-        envelope.putString(ControlTower_ID_KEY, findIdForControlTower(fragmentControlTower))
-        val state = Bundle()
-        envelope.putBundle(ControlTower_STATE_KEY, state)
-    }
-
     private fun <T : ControlTower> create(fragment: SvcDialogFragment<*, *>, ControlTowerClass: KClass<T>, views: Views,
-                                          savedInstanceState: Bundle?, id: String): ControlTower {
+                                         id: String): ControlTower {
 
         val fragmentControlTower: ControlTower
 
@@ -57,7 +48,7 @@ class DialogFragmentControlTowerManager {
         }
 
         this.controlTowers[id] = fragmentControlTower
-        fragmentControlTower.onCreateControlTower(fragment, views, BundleUtils.maybeGetBundle(savedInstanceState, ControlTower_STATE_KEY))
+        fragmentControlTower.onCreateControlTower(fragment, views)
         return fragmentControlTower
     }
 
@@ -73,11 +64,8 @@ class DialogFragmentControlTowerManager {
         }
     }
 
-    private fun fetchId(savedInstanceState: Bundle?): String? {
-        return if (savedInstanceState != null)
-            savedInstanceState.getString(ControlTower_STATE_KEY)
-        else
-            UUID.randomUUID().toString()
+    private fun fetchId(modelClass: Class<*>): String? {
+        return "$ControlTower_ID_KEY:${getCanonicalName(modelClass)}"
     }
 
     private fun findIdForControlTower(fragmentControlTower: ControlTower): String {
@@ -90,9 +78,12 @@ class DialogFragmentControlTowerManager {
         throw RuntimeException("cannot find ControlTower in map!")
     }
 
+    private fun getCanonicalName(clazz: Class<*>): String {
+        return clazz.canonicalName ?: UUID.randomUUID().toString()
+    }
+
     companion object {
         private const val ControlTower_ID_KEY = "ControlTower_id"
-        private const val ControlTower_STATE_KEY = "ControlTower_state"
 
         val instance = DialogFragmentControlTowerManager()
     }

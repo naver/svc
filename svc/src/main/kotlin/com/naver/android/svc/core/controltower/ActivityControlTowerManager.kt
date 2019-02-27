@@ -1,8 +1,7 @@
 package com.naver.android.svc.core.controltower
 
-import android.os.Bundle
+import android.util.Log
 import com.naver.android.svc.core.screen.SvcActivity
-import com.naver.android.svc.core.utils.BundleUtils
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
 import java.util.HashMap
@@ -21,31 +20,25 @@ class ActivityControlTowerManager {
 
     fun <T : ControlTower> fetch(activity: SvcActivity<*>,
                                  controlTowerClass: KClass<T>,
-                                 views: Views,
-                                 savedInstanceState: Bundle?): T {
-        val id = fetchId(savedInstanceState)
+                                 views: Views): T {
+        val id = fetchId(controlTowerClass.java)
         var activityControlTower: ControlTower? = this.controlTowers[id]
 
         if (activityControlTower == null) {
-            activityControlTower = create(activity, controlTowerClass, views, savedInstanceState, id!!)
+            activityControlTower = create(activity, controlTowerClass, views, id!!)
         }
 
         return activityControlTower as T
     }
 
-    fun save(activityControlTower: ControlTower, envelope: Bundle) {
-        envelope.putString(ControlTower_ID_KEY, findIdForControlTower(activityControlTower))
-        val state = Bundle()
-        envelope.putBundle(ControlTower_STATE_KEY, state)
-    }
-
     private fun <T : ControlTower> create(activity: SvcActivity<*>, ControlTowerClass: KClass<T>, views: Views,
-                                          savedInstanceState: Bundle?, id: String): ControlTower {
+                                          id: String): ControlTower {
 
         val activityControlTower: ControlTower
 
         try {
             activityControlTower = ControlTowerClass.createInstance()
+            Log.e("Test", "${fetchId(ControlTowerClass.java)} created")
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {
@@ -57,12 +50,13 @@ class ActivityControlTowerManager {
         }
 
         this.controlTowers[id] = activityControlTower
-        activityControlTower.onCreateControlTower(activity, views, BundleUtils.maybeGetBundle(savedInstanceState, ControlTower_STATE_KEY))
+        activityControlTower.onCreateControlTower(activity, views)
         return activityControlTower
     }
 
     fun destroy(activityControlTower: ControlTower) {
         activityControlTower.onDestroy()
+        Log.e("Test", "${fetchId(activityControlTower::class.java)} destroyed")
 
         val iterator = this.controlTowers.entries.iterator()
         while (iterator.hasNext()) {
@@ -73,11 +67,8 @@ class ActivityControlTowerManager {
         }
     }
 
-    private fun fetchId(savedInstanceState: Bundle?): String? {
-        return if (savedInstanceState != null)
-            savedInstanceState.getString(ControlTower_STATE_KEY)
-        else
-            UUID.randomUUID().toString()
+    private fun fetchId(modelClass: Class<*>): String? {
+        return "$ControlTower_ID_KEY:${getCanonicalName(modelClass)}"
     }
 
     private fun findIdForControlTower(activityControlTower: ControlTower): String {
@@ -90,9 +81,12 @@ class ActivityControlTowerManager {
         throw RuntimeException("cannot find ControlTower in map!")
     }
 
+    private fun getCanonicalName(clazz: Class<*>): String {
+        return clazz.canonicalName ?: UUID.randomUUID().toString()
+    }
+
     companion object {
         private const val ControlTower_ID_KEY = "ControlTower_id"
-        private const val ControlTower_STATE_KEY = "ControlTower_state"
 
         val instance = ActivityControlTowerManager()
     }
