@@ -29,6 +29,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
+import com.naver.android.svc.core.controltower.FragmentControlTowerManager
 import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.views.Views
 
@@ -90,6 +91,13 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
         super.onDestroy()
         lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
+
+        // destroy controlTower
+        fragmentManager?.let {
+            if (!it.isStateSaved) {
+                FragmentControlTowerManager.instance.destroy(controlTower)
+            }
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

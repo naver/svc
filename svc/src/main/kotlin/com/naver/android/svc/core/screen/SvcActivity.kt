@@ -96,7 +96,9 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         lifecycle.removeObserver(views)
 
         // destroy controlTower
-        ActivityControlTowerManager.instance.destroy(controlTower)
+        if (!isChangingConfigurations) {
+            ActivityControlTowerManager.instance.destroy(controlTower)
+        }
     }
 
     override fun onBackPressed() {
