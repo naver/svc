@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.recyclerview
+package com.naver.android.svc.recyclerview.screen
 
-import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.naver.android.svc.core.screen.Screen
 
-abstract class ScreenActionHolder<out Action>(layoutId: Int, parent: ViewGroup, screen: Screen<*, *>, val action: Action) : ScreenBaseHolder(layoutId, parent, screen)
+/**
+ * @author bs.nam@navercorp.com 2017. 8. 16..
+ */
+abstract class ScreenActionAdapter<VH : RecyclerView.ViewHolder, out Action>(screen: Screen<*>, val action: Action) : ScreenBaseAdapter<VH>(screen)

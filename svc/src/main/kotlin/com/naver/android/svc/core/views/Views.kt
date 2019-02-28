@@ -16,15 +16,16 @@
 
 package com.naver.android.svc.core.views
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
-import android.support.annotation.LayoutRes
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
+import com.naver.android.svc.core.common.ContextHolder
 import com.naver.android.svc.core.common.ResourceProvider
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.Screen
@@ -33,13 +34,14 @@ import com.naver.android.svc.core.screen.Screen
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class Views : LifecycleObserver, Toastable, ResourceProvider {
+@Suppress("PrivatePropertyName")
+abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProvider {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
-    lateinit var screen: Screen<*, *>
+    lateinit var screen: Screen<*>
 
     override val context: Context?
         get() = if (isInitialized) rootView.context else null
@@ -62,7 +64,6 @@ abstract class Views : LifecycleObserver, Toastable, ResourceProvider {
             action()
         }
     }
-
 
 
     //------LifeCycle START------

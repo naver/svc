@@ -17,9 +17,9 @@
 
 package com.naver.android.svc.core.screen
 
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
 import android.view.View
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 
 /**
  * @author bs.nam@navercorp.com

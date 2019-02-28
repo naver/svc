@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample
+package com.naver.android.svc.recyclerview.screen
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import android.view.ViewGroup
+import com.naver.android.svc.core.screen.Screen
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
-}
+abstract class ScreenActionHolder<in T, out Action>(layoutId: Int, parent: ViewGroup, screen: Screen<*>, val action: Action) : ScreenBaseHolder<T>(layoutId, parent, screen)

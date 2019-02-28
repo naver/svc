@@ -25,7 +25,7 @@ import android.content.Context
 interface ContextHolder {
     val context: Context?
 
-    fun getAvaiableContext(): Context? {
+    fun getAvailableContext(): Context? {
         var context = context
         if (context == null) {
             context = getMainApplicationContext()

@@ -16,14 +16,13 @@
 
 package com.naver.android.svc.recyclerview
 
-import android.support.v7.widget.RecyclerView
-import com.naver.android.svc.core.screen.Screen
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class BaseAdapter<VH : RecyclerView.ViewHolder>(val screen: Screen<*, *>) : RecyclerView.Adapter<VH>() {
+abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
     final override fun onBindViewHolder(holder: VH, position: Int) {
         if (holder.adapterPosition == RecyclerView.NO_POSITION) {
             return

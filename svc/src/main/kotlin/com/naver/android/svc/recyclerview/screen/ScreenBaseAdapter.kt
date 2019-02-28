@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc;
+package com.naver.android.svc.recyclerview.screen
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import androidx.recyclerview.widget.RecyclerView
+import com.naver.android.svc.core.screen.Screen
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @author bs.nam@navercorp.com 2017. 8. 16..
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+
+abstract class ScreenBaseAdapter<VH : RecyclerView.ViewHolder>(val screen: Screen<*>) : RecyclerView.Adapter<VH>() {
+    final override fun onBindViewHolder(holder: VH, position: Int) {
+        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+            return
+        }
+        onBindHolder(holder, holder.adapterPosition)
     }
+
+    abstract fun onBindHolder(holder: VH, adapterPosition: Int)
 }

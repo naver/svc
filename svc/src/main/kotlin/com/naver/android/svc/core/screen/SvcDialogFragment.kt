@@ -17,32 +17,35 @@
 package com.naver.android.svc.core.screen
 
 import android.app.Dialog
-import android.arch.lifecycle.LifecycleOwner
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
+import com.naver.android.svc.core.controltower.FragmentControlTowerManager
+import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * you should set dialogListener after you create dialog instance.
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
+abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V> {
 
+    private val CONTROLTOWER_KEY = "controlTower"
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    lateinit var controlTower: ControlTower
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -54,6 +57,10 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // assigns ControlTower
+        assignControlTower()
+
         if (!::dialogListener.isInitialized) {
             dismissAllowingStateLoss()
             return
@@ -63,7 +70,7 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         views.rootView.setOnClickListener {
             dismissAllowingStateLoss()
@@ -73,6 +80,7 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // initialize SVC
         initializeSVC(this, views, controlTower)
 
         lifecycle.addObserver(views)
@@ -83,6 +91,13 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
         super.onDestroy()
         lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
+
+        // destroy controlTower
+        fragmentManager?.let {
+            if (!it.isStateSaved) {
+                FragmentControlTowerManager.instance.destroy(controlTower)
+            }
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -115,6 +130,20 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
     override fun dismiss() {
         dismissAllowingStateLoss()
     }
+
+    /**
+     * assign ControlTower
+     */
+    private fun assignControlTower() {
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+        annotation?.let {
+            val controlTowerClass = it.value
+            this.controlTower = DialogFragmentControlTowerManager.instance.fetch(this,
+                    controlTowerClass,
+                    views)
+        } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
+    }
+
 
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached

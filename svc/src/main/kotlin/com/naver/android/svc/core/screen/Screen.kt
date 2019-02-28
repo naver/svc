@@ -16,10 +16,10 @@
 
 package com.naver.android.svc.core.screen
 
-import android.arch.lifecycle.LifecycleOwner
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.views.ActionViews
 import com.naver.android.svc.core.views.Views
@@ -28,7 +28,7 @@ import com.naver.android.svc.core.views.ViewsAction
 /**
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
-interface Screen<out V : Views, out C> : LifecycleOwner {
+interface Screen<out V : Views> : LifecycleOwner {
     /**
      * every screen can access to their host Activity.
      *
@@ -45,12 +45,11 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
     fun getParentFragment(): Fragment?
 
     fun createViews(): V
-    fun createControlTower(): C
 
     /**
      * add dependency of screen and viewsAction
      */
-    fun <V : Views, C : ControlTower<*, *>> initializeSVC(screen: Screen<*, *>, views: V, ct: C) {
+    fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*>, views: V, ct: C) {
         views.apply {
             views.screen = screen
 
@@ -59,6 +58,4 @@ interface Screen<out V : Views, out C> : LifecycleOwner {
             }
         }
     }
-
-
 }

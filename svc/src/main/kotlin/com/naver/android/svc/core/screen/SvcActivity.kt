@@ -19,26 +19,29 @@ package com.naver.android.svc.core.screen
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.qualifiers.RequireControlTower
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogPlug {
+@Suppress("PrivatePropertyName")
+abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogPlug {
 
-    var CLASS_SIMPLE_NAME = javaClass.simpleName
-    val TAG: String = CLASS_SIMPLE_NAME
+    private val CONTROLTOWER_KEY = "controlTower"
+    private var CLASS_SIMPLE_NAME = javaClass.simpleName
+    private val TAG: String = CLASS_SIMPLE_NAME
 
     val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    lateinit var controlTower: ControlTower
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -70,6 +73,11 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(views.layoutResId)
+
+        // assigns controlTower
+        assignControlTower()
+
+        // initialize SVC
         initializeSVC(this, views, controlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
@@ -86,6 +94,11 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         super.onDestroy()
         lifecycle.removeObserver(controlTower)
         lifecycle.removeObserver(views)
+
+        // destroy controlTower
+        if (!isChangingConfigurations) {
+            ActivityControlTowerManager.instance.destroy(controlTower)
+        }
     }
 
     override fun onBackPressed() {
@@ -93,6 +106,19 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
             return
         }
         super.onBackPressed()
+    }
+
+    /**
+     * assign ControlTower
+     */
+    private fun assignControlTower() {
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+        annotation?.let {
+            val controlTowerClass = it.value
+            this.controlTower = ActivityControlTowerManager.instance.fetch(this,
+                    controlTowerClass,
+                    views)
+        }
     }
 
     override val isActive: Boolean

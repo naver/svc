@@ -17,14 +17,19 @@
 package com.naver.android.svc.sample.tabs.search
 
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.qualifiers.InjectView
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
 /**
  * if your controlTower class name is too long,
  * maybe you should Abbreviate name as "CT"
  */
-class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, views: CommonViews) : ControlTower<ReallyLongScreenNameSearchFragment, CommonViews>(screen, views) {
+class ReallyLongScreenNameSearchCT : ControlTower() {
+
+    @InjectView
+    lateinit var commonViews: CommonViews
+
     override fun onCreated() {
-        views.setExtraString("ReallyLongScreenNameSearchCT")
+        this.commonViews.setExtraString("ReallyLongScreenNameSearchCT")
     }
 }

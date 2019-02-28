@@ -16,6 +16,6 @@
 
 package com.naver.android.svc.sample.tabs
 
-enum class MainTab{
+enum class MainTab {
     HOME, PAPER, SEARCH, PALETTE, STATISTIC
 }

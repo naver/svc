@@ -16,14 +16,17 @@
 
 package com.naver.android.svc.core.controltower
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
-import android.support.v4.app.FragmentActivity
 import android.util.Log
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
+import com.naver.android.svc.core.qualifiers.InjectScreen
+import com.naver.android.svc.core.qualifiers.InjectView
 import com.naver.android.svc.core.screen.Screen
 import com.naver.android.svc.core.views.Views
 
@@ -36,18 +39,47 @@ import com.naver.android.svc.core.views.Views
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
-abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, val views: V) : LifecycleObserver, Toastable {
+@Suppress("UNCHECKED_CAST", "unused", "MemberVisibilityCanBePrivate")
+abstract class ControlTower : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    val activity: FragmentActivity? = screen.hostActivity
+    lateinit var baseScreen: Screen<Views>
+    lateinit var baseViews: Views
+
+    private var activity: FragmentActivity? = null
 
     override val context: Context?
-        get() = screen.hostActivity
+        get() = baseScreen.hostActivity
 
+    /**
+     * create ControlTower
+     * called automatically by ControlTowerManger
+     */
+    fun onCreateControlTower(@NonNull screen: Screen<Views>, @NonNull views: Views) {
+        this.baseScreen = screen
+        this.baseViews = views
+        this.activity = screen.hostActivity
 
-    //------LifeCycle START------
+        // dependency injection to field members.
+        injectMembers()
+    }
+
+    /**
+     * get SvcActivity using smart cast
+     */
+    private fun <T : Screen<Views>> getScreen(): T {
+        return baseScreen as T
+    }
+
+    /**
+     * get Views using smart cast
+     */
+    private fun <T : Views> getViews(): T {
+        return baseViews as T
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun logOnCreate() {
         if (SvcConfig.debugMode) {
@@ -55,11 +87,9 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
         }
     }
 
-    /**
-     * is called after views inflated
-     */
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    abstract fun onCreated()
+    open fun onCreated() {
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     open fun onStarted() {
@@ -96,8 +126,6 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
         }
     }
 
-    //------LifeCycle END------
-
     fun finishActivity() {
         activity?.finish()
     }
@@ -106,4 +134,20 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
         return false
     }
 
+    private fun injectMembers() {
+        val fields = javaClass.declaredFields
+        for (field in fields) {
+            val injectScreen = field.getAnnotation(InjectScreen::class.java)
+            injectScreen?.let {
+                field.isAccessible = true
+                field.set(this, getScreen())
+            }
+
+            val injectView = field.getAnnotation(InjectView::class.java)
+            injectView?.let {
+                field.isAccessible = true
+                field.set(this, getViews())
+            }
+        }
+    }
 }
