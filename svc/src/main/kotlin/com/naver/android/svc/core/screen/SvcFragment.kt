@@ -97,9 +97,7 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
         // destroy controlTower
         fragmentManager?.let {
-            if (!it.isStateSaved) {
-                FragmentControlTowerManager.instance.destroy(controlTower)
-            }
+            FragmentControlTowerManager.instance.destroy(controlTower)
         }
     }
 

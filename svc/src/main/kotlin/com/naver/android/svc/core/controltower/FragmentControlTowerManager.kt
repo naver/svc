@@ -21,7 +21,7 @@ class FragmentControlTowerManager {
     fun <T : ControlTower> fetch(fragment: SvcFragment<*>,
                                  controlTowerClass: KClass<T>,
                                  views: Views): T {
-        val id = fetchId(controlTowerClass.java)
+        val id = fetchId(fragment.javaClass)
         var fragmentControlTower: ControlTower? = this.controlTowers[id]
 
         if (fragmentControlTower == null) {
@@ -38,7 +38,7 @@ class FragmentControlTowerManager {
 
         try {
             fragmentControlTower = ControlTowerClass.createInstance()
-            Log.e("Test", "${fetchId(ControlTowerClass.java)} created")
+            Log.e("Test", "${fetchId(fragment.javaClass)} created")
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {
@@ -56,13 +56,13 @@ class FragmentControlTowerManager {
 
     fun destroy(fragmentControlTower: ControlTower) {
         fragmentControlTower.onDestroy()
-        Log.e("Test", "${fetchId(fragmentControlTower::class.java)} destroyed")
 
         val iterator = this.controlTowers.entries.iterator()
         while (iterator.hasNext()) {
             val entry = iterator.next()
             if (fragmentControlTower == entry.value) {
                 iterator.remove()
+                Log.e("Test", "${entry.key} destroyed")
             }
         }
     }

@@ -21,7 +21,7 @@ class ActivityControlTowerManager {
     fun <T : ControlTower> fetch(activity: SvcActivity<*>,
                                  controlTowerClass: KClass<T>,
                                  views: Views): T {
-        val id = fetchId(controlTowerClass.java)
+        val id = fetchId(activity.javaClass)
         var activityControlTower: ControlTower? = this.controlTowers[id]
 
         if (activityControlTower == null) {
@@ -38,7 +38,7 @@ class ActivityControlTowerManager {
 
         try {
             activityControlTower = ControlTowerClass.createInstance()
-            Log.e("Test", "${fetchId(ControlTowerClass.java)} created")
+            Log.e("Test", "${fetchId(activity.javaClass)} created")
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {
@@ -56,13 +56,13 @@ class ActivityControlTowerManager {
 
     fun destroy(activityControlTower: ControlTower) {
         activityControlTower.onDestroy()
-        Log.e("Test", "${fetchId(activityControlTower::class.java)} destroyed")
 
         val iterator = this.controlTowers.entries.iterator()
         while (iterator.hasNext()) {
             val entry = iterator.next()
             if (activityControlTower == entry.value) {
                 iterator.remove()
+                Log.e("Test", "${entry.key} destroyed")
             }
         }
     }

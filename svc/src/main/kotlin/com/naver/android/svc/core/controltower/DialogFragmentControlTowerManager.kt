@@ -1,5 +1,6 @@
 package com.naver.android.svc.core.controltower
 
+import android.util.Log
 import com.naver.android.svc.core.screen.SvcDialogFragment
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
@@ -20,7 +21,7 @@ class DialogFragmentControlTowerManager {
     fun <T : ControlTower> fetch(fragment: SvcDialogFragment<*, *>,
                                  controlTowerClass: KClass<T>,
                                  views: Views): T {
-        val id = fetchId(controlTowerClass.java)
+        val id = fetchId(fragment.javaClass)
         var fragmentControlTower: ControlTower? = this.controlTowers[id]
 
         if (fragmentControlTower == null) {
@@ -37,6 +38,7 @@ class DialogFragmentControlTowerManager {
 
         try {
             fragmentControlTower = ControlTowerClass.createInstance()
+            Log.e("Test", "${fetchId(fragment.javaClass)} created")
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {
@@ -60,6 +62,7 @@ class DialogFragmentControlTowerManager {
             val entry = iterator.next()
             if (fragmentControlTower == entry.value) {
                 iterator.remove()
+                Log.e("Test", "${entry.key} destroyed")
             }
         }
     }
