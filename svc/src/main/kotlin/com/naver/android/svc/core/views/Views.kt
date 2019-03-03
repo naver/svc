@@ -49,7 +49,7 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
     abstract val layoutResId: Int
 
     val isInitialized: Boolean
-        get() = ::rootView.isInitialized
+        get() = ::rootView.isInitialized && ::screen.isInitialized
 
     val isDestroyed: Boolean
         get() = !isInitialized
