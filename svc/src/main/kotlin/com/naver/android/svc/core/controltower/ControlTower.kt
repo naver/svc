@@ -23,8 +23,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.naver.android.annotation.InjectScreen
-import com.naver.android.annotation.InjectView
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.Screen
