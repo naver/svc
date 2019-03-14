@@ -19,8 +19,8 @@ package com.naver.android.svc.sample.tabs.palette
 import android.util.Log
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.screen.DialogSupportScreen
-import com.naver.android.svc.sample.dialog.action1.SampleActionDialog
-import com.naver.android.svc.sample.dialog.action1.SampleActionDialogListener
+import com.naver.android.svc.sample.dialog.action.SampleActionDialog
+import com.naver.android.svc.sample.dialog.action.SampleActionDialogListener
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 

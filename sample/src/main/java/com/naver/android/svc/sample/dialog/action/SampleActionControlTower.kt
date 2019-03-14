@@ -1,8 +1,13 @@
-package com.naver.android.svc.sample.dialog.action1
+package com.naver.android.svc.sample.dialog.action
 
 import com.naver.android.svc.core.controltower.ControlTower
 
 /**
+ * If you think this SampleActionControlTower is just passing events and doing nothing
+ * just remove this useless ControlTower And ViewsAction.
+ * Check: SampleListenerDialog
+ *
+ * @see com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
  * @author bs.nam@navercorp.com
  */
 class SampleActionControlTower(screen: SampleActionDialog, views: SampleActionViews) : ControlTower<SampleActionDialog, SampleActionViews>(screen, views), SampleActionViewsAction {
@@ -16,9 +21,7 @@ class SampleActionControlTower(screen: SampleActionDialog, views: SampleActionVi
         screen.dismiss()
 
         /**
-         * if you think this SampleActionControlTower is just pass the event and doing nothing.
-         * Just remove this useless ControlTower And Views
-         * Look At SampleActionDialog2
+
          */
     }
 }

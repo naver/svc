@@ -18,8 +18,8 @@ package com.naver.android.svc.sample.tabs.search
 
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.screen.DialogSupportScreen
-import com.naver.android.svc.sample.dialog.action2.SampleActionDialog2
-import com.naver.android.svc.sample.dialog.action2.SampleActionDialogListener2
+import com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
+import com.naver.android.svc.sample.dialog.listener.SampleListenerDialogListener
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
@@ -33,11 +33,11 @@ class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, v
     private var isToggled = false
 
     override fun onCreated() {
-        views.setExtraString("SampleActionDialog2")
+        views.setExtraString("Open SampleListenerDialog")
     }
 
     override fun onClickExtra() {
-        val dialog = SampleActionDialog2.newInstance(object : SampleActionDialogListener2 {
+        val dialog = SampleListenerDialog.newInstance(object : SampleListenerDialogListener {
             override fun clickDialog() {
                 views.setExtraString(isToggled.toString())
                 isToggled = !isToggled

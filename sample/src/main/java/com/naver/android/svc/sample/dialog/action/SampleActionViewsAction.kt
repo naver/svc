@@ -1,4 +1,4 @@
-package com.naver.android.svc.sample.dialog.action1
+package com.naver.android.svc.sample.dialog.action
 
 import com.naver.android.svc.core.views.ViewsAction
 
