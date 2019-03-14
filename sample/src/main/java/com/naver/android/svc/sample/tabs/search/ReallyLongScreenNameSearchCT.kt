@@ -33,7 +33,7 @@ class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, v
     private var isToggled = false
 
     override fun onCreated() {
-        views.setName("SearchFragment-CommonViews")
+        views.setName("SearchFragment\nCommonViews")
         views.setExtraName("Open SampleListenerDialog")
     }
 

@@ -52,6 +52,9 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
     lateinit var dialogListener: DL
 
+    open val isFullScreenSupport = false
+    open val dialogBackgroundColor = Color.TRANSPARENT
+
     override var statusbarColor: Int? = null
         set(value) {
             field = value
@@ -69,11 +72,17 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
             return
         }
 
-        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        if (isFullScreenSupport) {
+            setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        if (isFullScreenSupport) {
+            dialog.window.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
+        } else if (dialogBackgroundColor != Color.TRANSPARENT) {
+            throw IllegalStateException("you should override isFullScreenSupport as true for change dialogBackgroundColor")
+        }
 
         views.rootView.setOnClickListener {
             dismissAllowingStateLoss()
