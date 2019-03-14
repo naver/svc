@@ -44,7 +44,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    lateinit var baseScreen: Screen<Views>
+    lateinit var baseScreen: Screen<*>
     lateinit var baseViews: Views
 
     private var activity: FragmentActivity? = null
@@ -60,23 +60,6 @@ abstract class ControlTower : LifecycleObserver, Toastable {
         this.baseScreen = screen
         this.baseViews = views
         this.activity = screen.hostActivity
-
-        // dependency injection to field members.
-        injectMembers()
-    }
-
-    /**
-     * get SvcActivity using smart cast
-     */
-    private fun <T : Screen<Views>> getScreen(): T {
-        return baseScreen as T
-    }
-
-    /**
-     * get Views using smart cast
-     */
-    private fun <T : Views> getViews(): T {
-        return baseViews as T
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -131,22 +114,5 @@ abstract class ControlTower : LifecycleObserver, Toastable {
 
     open fun onBackPressed(): Boolean {
         return false
-    }
-
-    private fun injectMembers() {
-        val fields = javaClass.declaredFields
-        for (field in fields) {
-            val injectScreen = field.getAnnotation(InjectScreen::class.java)
-            injectScreen?.let {
-                field.isAccessible = true
-                field.set(this, getScreen())
-            }
-
-            val injectView = field.getAnnotation(InjectView::class.java)
-            injectView?.let {
-                field.isAccessible = true
-                field.set(this, getViews())
-            }
-        }
     }
 }

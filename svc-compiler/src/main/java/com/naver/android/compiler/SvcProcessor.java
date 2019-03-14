@@ -1,8 +1,12 @@
 package com.naver.android.compiler;
 
 import com.google.auto.service.AutoService;
+import com.google.common.base.VerifyException;
 import com.naver.android.annotation.RequireControlTower;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 
@@ -13,7 +17,7 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -27,6 +31,7 @@ public class SvcProcessor extends AbstractProcessor {
   @Override
   public synchronized void init(ProcessingEnvironment processingEnvironment) {
     super.init(processingEnvironment);
+    this.messager = processingEnv.getMessager();
   }
 
   @Override
@@ -63,16 +68,35 @@ public class SvcProcessor extends AbstractProcessor {
   }
 
   private void processControlTower(TypeElement annotatedType) {
+    try {
+      ControlTowerAnnotatedClass annotatedClazz =
+          new ControlTowerAnnotatedClass(annotatedType, processingEnv.getElementUtils());
+      PackageElement packageElement =
+          processingEnv.getElementUtils().getPackageOf(annotatedClazz.annotatedElement);
+      String packageName =
+          packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
+      generateProccessControlTower(packageName, annotatedClazz);
+    } catch (VerifyException e) {
+      showProcessErrorLog(e.getMessage(), annotatedType);
+    }
+  }
 
+  private void generateProccessControlTower(
+      String packageName,
+      ControlTowerAnnotatedClass annotatedClazz) {
+    try {
+      ControlTowerGenerator controlTowerGenerator =
+          new ControlTowerGenerator(packageName, annotatedClazz);
+      TypeSpec controlTowerClazz = controlTowerGenerator.generate();
+      JavaFile.builder(packageName, controlTowerClazz).build().writeTo(processingEnv.getFiler());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void checkTypeValidation(TypeElement annotatedType) throws IllegalAccessException {
     if (!annotatedType.getKind().isClass()) {
       throw new IllegalAccessException("Only classes can be annotated with @PreferenceRoom");
-    } else if (annotatedType.getModifiers().contains(Modifier.FINAL)) {
-      showProcessErrorLog("class modifier should not be final", annotatedType);
-    } else if (annotatedType.getModifiers().contains(Modifier.PRIVATE)) {
-      showProcessErrorLog("class modifier should not be private", annotatedType);
     }
   }
 
