@@ -17,10 +17,28 @@
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.core.screen.DialogSupportScreen
 import com.naver.android.svc.core.screen.Screen
+import com.naver.android.svc.sample.dialog.action2.SampleActionDialog2
+import com.naver.android.svc.sample.dialog.action2.SampleActionDialogListener2
 
-class CommonControlTower(screen: Screen<CommonViews, *>, views: CommonViews) : ControlTower<Screen<CommonViews, *>, CommonViews>(screen, views) {
+class CommonControlTower(screen: Screen<CommonViews, *>, views: CommonViews) : ControlTower<Screen<CommonViews, *>, CommonViews>(screen, views),
+        CommonViewsAction {
+
+    private var isToggled = false
+
     override fun onCreated() {
-        views.setExtraString("CommonControlTower")
+        views.setExtraString("Open SampleActionDialog2")
+    }
+
+    override fun onClickExtra() {
+        val dialog = SampleActionDialog2.newInstance(object : SampleActionDialogListener2 {
+            override fun clickDialog() {
+                views.setExtraString(isToggled.toString())
+                isToggled = !isToggled
+            }
+        })
+
+        (screen as? DialogSupportScreen)?.showDialog(dialog)
     }
 }

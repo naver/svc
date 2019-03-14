@@ -27,6 +27,9 @@ class CommonViews : ActionViews<CommonViewsAction>() {
     val extra by lazy { rootView.extra }
 
     override fun onCreated() {
+        extra.setOnClickListener {
+            viewsAction.onClickExtra()
+        }
     }
 
     fun setExtraString(extraName: String) {

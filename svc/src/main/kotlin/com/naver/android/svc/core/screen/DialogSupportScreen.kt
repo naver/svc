@@ -24,9 +24,8 @@ import android.view.View
 /**
  * @author bs.nam@navercorp.com
  */
-interface DialogPlug {
+interface DialogSupportScreen {
     val fragmentManagerForDialog: FragmentManager?
-
 
     fun showDialog(dialogFragment: DialogFragment) {
         val supportFragmentManager = fragmentManagerForDialog ?: return

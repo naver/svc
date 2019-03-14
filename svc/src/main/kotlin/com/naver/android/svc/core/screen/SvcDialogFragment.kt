@@ -17,11 +17,11 @@
 package com.naver.android.svc.core.screen
 
 import android.app.Dialog
+import android.app.DialogFragment
 import android.arch.lifecycle.LifecycleOwner
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
@@ -36,7 +36,7 @@ import com.naver.android.svc.core.views.Views
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V, C> {
+abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : SafeDialogFragment(), LifecycleOwner, Screen<V, C> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
@@ -52,18 +52,23 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
     lateinit var dialogListener: DL
 
+    open val isFullScreenSupport = false
+    open val dialogBackgroundColor = Color.TRANSPARENT
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!::dialogListener.isInitialized) {
             dismissAllowingStateLoss()
             return
         }
-
-        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        if (isFullScreenSupport) {
+            setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen)
+        }
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        if (isFullScreenSupport) {
+            dialog.window.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
+        }
 
         views.rootView.setOnClickListener {
             dismissAllowingStateLoss()

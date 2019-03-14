@@ -32,7 +32,7 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogPlug {
+abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogSupportScreen {
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName
     val TAG: String = CLASS_SIMPLE_NAME

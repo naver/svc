@@ -19,5 +19,5 @@ package com.naver.android.svc.sample.tabs.common
 import com.naver.android.svc.core.views.ViewsAction
 
 interface CommonViewsAction : ViewsAction {
-    //something
+    fun onClickExtra()
 }
