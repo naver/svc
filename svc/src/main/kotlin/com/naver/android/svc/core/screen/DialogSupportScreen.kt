@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentManager
 /**
  * @author bs.nam@navercorp.com
  */
-interface DialogPlug {
+interface DialogSupportScreen {
     val fragmentManagerForDialog: FragmentManager?
 
     fun showDialog(dialogFragment: SafeDialogFragment) {

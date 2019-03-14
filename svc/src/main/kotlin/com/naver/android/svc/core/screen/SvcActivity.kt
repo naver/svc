@@ -16,10 +16,7 @@
 
 package com.naver.android.svc.core.screen
 
-import android.annotation.TargetApi
-import android.os.Build
 import android.os.Bundle
-import android.view.Window
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
@@ -34,7 +31,7 @@ import com.naver.android.svc.core.views.Views
 
 abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(),
         Screen<V, C>,
-        DialogPlug,
+        DialogSupportScreen,
         StatusbarChanger{
 
     var CLASS_SIMPLE_NAME = javaClass.simpleName

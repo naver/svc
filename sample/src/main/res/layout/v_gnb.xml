@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2018 NAVER Corp.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +21,23 @@
     android:layout_height="@dimen/gnb_height"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <ImageView
+        android:id="@+id/gnb_home"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:padding="@dimen/gnb_image_padding"
+        android:src="@drawable/home"
+        app:layout_constraintEnd_toStartOf="@id/gnb_palete"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/gnb_palete"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:padding="@dimen/gnb_image_padding"
-        android:src="@drawable/palete"
+        android:src="@drawable/palette"
         app:layout_constraintEnd_toStartOf="@id/gnb_search"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/gnb_home" />
 
     <ImageView
         android:id="@+id/gnb_search"

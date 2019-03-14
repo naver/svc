@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.common
+package com.naver.android.svc.sample.tabs.search
 
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.screen.DialogSupportScreen
-import com.naver.android.svc.core.screen.Screen
 import com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
 import com.naver.android.svc.sample.dialog.listener.SampleListenerDialogListener
+import com.naver.android.svc.sample.tabs.common.CommonViews
+import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
-class CommonControlTower(screen: Screen<CommonViews, *>, views: CommonViews) : ControlTower<Screen<CommonViews, *>, CommonViews>(screen, views),
+/**
+ * if your controlTower class name is too long,
+ * maybe you should Abbreviate name as "CT"
+ */
+class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, views: CommonViews) : ControlTower<ReallyLongScreenNameSearchFragment, CommonViews>(screen, views),
         CommonViewsAction {
 
     private var isToggled = false
 
     override fun onCreated() {
+        views.setName("SearchFragment-CommonViews")
         views.setExtraName("Open SampleListenerDialog")
     }
 

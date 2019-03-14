@@ -18,5 +18,6 @@
 <resources>
     <dimen name="gnb_height">52dp</dimen>
     <dimen name="gnb_image_padding">7dp</dimen>
-    <dimen name="text_big">40dp</dimen>
+    <dimen name="text_big">40sp</dimen>
+    <dimen name="text_small">20sp</dimen>
 </resources>

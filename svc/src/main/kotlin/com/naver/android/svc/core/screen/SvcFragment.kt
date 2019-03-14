@@ -34,7 +34,7 @@ import com.naver.android.svc.core.views.Views
 
 abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment(),
         Screen<V, C>,
-        DialogPlug,
+        DialogSupportScreen,
         StatusbarChanger {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName

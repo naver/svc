@@ -45,7 +45,7 @@ class GnbView @JvmOverloads constructor(
         }
 
         gnb_paper.setOnClickListener {
-            onClickGnbListener?.onClickScroll()
+            onClickGnbListener?.onClickPaper()
         }
     }
 }

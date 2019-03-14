@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package com.naver.android.svc.sample.tabs.search
+package com.naver.android.svc.sample.tabs.common
 
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.sample.tabs.common.CommonViews
+import com.naver.android.svc.core.views.ViewsAction
 
-class SearchControlTower(screen: SearchFragment, views: CommonViews) : ControlTower<SearchFragment, CommonViews>(screen, views) {
-    override fun onCreated() {
-        views.setExtraString("SearchControlTower")
-    }
+interface CommonViewsAction : ViewsAction {
+    fun onClickExtra()
 }
