@@ -24,9 +24,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.controltower.ActivityControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -36,7 +36,6 @@ import com.naver.android.svc.core.views.Views
 @Suppress("PrivatePropertyName")
 abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogPlug {
 
-    private val CONTROLTOWER_KEY = "controlTower"
     private var CLASS_SIMPLE_NAME = javaClass.simpleName
     private val TAG: String = CLASS_SIMPLE_NAME
 
@@ -108,11 +107,9 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         super.onBackPressed()
     }
 
-    /**
-     * assign ControlTower
-     */
+    /** assign ControlTower. */
     private fun assignControlTower() {
-        val annotation = javaClass.getAnnotation(com.naver.android.annotation.RequireControlTower::class.java)
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = ActivityControlTowerManager.instance.fetch(this,

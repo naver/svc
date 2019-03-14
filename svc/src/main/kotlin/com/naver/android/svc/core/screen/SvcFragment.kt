@@ -23,10 +23,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.BuildConfig
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.FragmentControlTowerManager
-import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -36,7 +36,6 @@ import com.naver.android.svc.core.views.Views
 @Suppress("PrivatePropertyName")
 abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
-    private val CONTROLTOWER_KEY = "controlTower"
     private val CLASS_SIMPLE_NAME = javaClass.simpleName
     private var TAG: String = CLASS_SIMPLE_NAME
 
@@ -108,11 +107,9 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
         return false
     }
 
-    /**
-     * assign ControlTower
-     */
+    /** assign ControlTower. */
     private fun assignControlTower() {
-        val annotation = javaClass.getAnnotation(com.naver.android.annotation.RequireControlTower::class.java)
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = FragmentControlTowerManager.instance.fetch(this,
@@ -120,7 +117,6 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
                     views)
         } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
     }
-
 
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached

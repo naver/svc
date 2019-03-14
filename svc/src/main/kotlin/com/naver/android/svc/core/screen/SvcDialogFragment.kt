@@ -27,10 +27,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
 import com.naver.android.svc.core.controltower.FragmentControlTowerManager
-import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -38,9 +38,9 @@ import com.naver.android.svc.core.views.Views
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
+@Suppress("PropertyName", "unused")
 abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), LifecycleOwner, Screen<V> {
 
-    private val CONTROLTOWER_KEY = "controlTower"
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
@@ -105,7 +105,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
         val dialog = super.onCreateDialog(savedInstanceState)
 
         dialog.setOnKeyListener { _, keyCode, _ ->
-
             if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
                 if (!onBackPressed()) {
                     dismissAllowingStateLoss()
@@ -113,10 +112,8 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
                 true
             } else {
                 false
-
             }
         }
-
         return dialog
     }
 
@@ -131,11 +128,9 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
         dismissAllowingStateLoss()
     }
 
-    /**
-     * assign ControlTower
-     */
+    /** assign ControlTower. */
     private fun assignControlTower() {
-        val annotation = javaClass.getAnnotation(com.naver.android.annotation.RequireControlTower::class.java)
+        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = DialogFragmentControlTowerManager.instance.fetch(this,
@@ -143,7 +138,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
                     views)
         } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
     }
-
 
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
