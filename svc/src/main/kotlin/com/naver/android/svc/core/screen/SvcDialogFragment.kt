@@ -82,6 +82,8 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
+        views.changeIsFirstOnCreateFalse()
+        controlTower.changeIsFirstOnCreateFalse()
     }
 
     override fun onDestroy() {

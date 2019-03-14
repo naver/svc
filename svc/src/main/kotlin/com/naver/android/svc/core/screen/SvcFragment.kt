@@ -80,6 +80,8 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
 
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
+        views.changeIsFirstOnCreateFalse()
+        controlTower.changeIsFirstOnCreateFalse()
     }
 
     override fun onDestroy() {

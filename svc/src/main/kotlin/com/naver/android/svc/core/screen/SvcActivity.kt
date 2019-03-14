@@ -80,6 +80,8 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
+        views.changeIsFirstOnCreateFalse()
+        controlTower.changeIsFirstOnCreateFalse()
     }
 
     override fun onDestroy() {

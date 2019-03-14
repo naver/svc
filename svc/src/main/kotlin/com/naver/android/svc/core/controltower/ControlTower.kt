@@ -46,6 +46,9 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
     override val context: Context?
         get() = screen.hostActivity
 
+    var isFirstOnCreate = true
+        private set
+
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -104,6 +107,10 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
 
     open fun onBackPressed(): Boolean {
         return false
+    }
+
+    internal fun changeIsFirstOnCreateFalse() {
+        isFirstOnCreate = false
     }
 
 }

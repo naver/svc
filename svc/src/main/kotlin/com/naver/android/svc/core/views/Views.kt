@@ -49,10 +49,13 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
     abstract val layoutResId: Int
 
     val isInitialized: Boolean
-        get() = ::rootView.isInitialized
+        get() = ::rootView.isInitialized && ::screen.isInitialized
 
     val isDestroyed: Boolean
         get() = !isInitialized
+
+    var isFirstOnCreate = true
+        private set
 
     inline fun withRootView(action: View.() -> Unit) {
         if (!isInitialized) {
@@ -63,8 +66,6 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
             action()
         }
     }
-
-
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -144,6 +145,10 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
 
     open fun onBackPressed(): Boolean {
         return false
+    }
+
+    internal fun changeIsFirstOnCreateFalse() {
+        isFirstOnCreate = false
     }
 
     fun <T : View> findViewById(id: Int): T? {
