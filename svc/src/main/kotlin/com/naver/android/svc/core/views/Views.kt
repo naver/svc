@@ -128,6 +128,13 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
         rootView.postDelayed(runnable, delayMillis.toLong())
     }
 
+    fun postDelayed(delayMillis: Int, runnable: () -> Unit) {
+        if (!isInitialized) {
+            return
+        }
+        rootView.postDelayed(runnable, delayMillis.toLong())
+    }
+
     fun removeCallbacks(runnable: Runnable) {
         if (!isInitialized) {
             return
