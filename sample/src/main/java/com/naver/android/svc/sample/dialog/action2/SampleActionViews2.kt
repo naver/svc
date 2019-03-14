@@ -12,10 +12,16 @@ class SampleActionViews2 : Views() {
 
     override val layoutResId = R.layout.dialog_sample_action
 
+    /**
+     * use casting just for reduce boiling plate code files and classes
+     */
+    private val dialog = screen as SampleActionDialog2
+
     override fun onCreated() {
         rootView.btn_click.setOnClickListener {
-            (screen as SampleActionDialog2).dialogListener.clickDialog()
-            (screen as SampleActionDialog2).dismiss()
+            dialog.dialogListener.clickDialog()
+            dialog.dismiss()
         }
     }
+
 }
