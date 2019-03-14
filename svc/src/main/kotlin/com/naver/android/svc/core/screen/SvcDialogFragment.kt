@@ -79,7 +79,7 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (isFullScreenSupport) {
-            dialog.window.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
         } else if (dialogBackgroundColor != Color.TRANSPARENT) {
             throw IllegalStateException("you should override isFullScreenSupport as true for change dialogBackgroundColor")
         }

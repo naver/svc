@@ -56,15 +56,14 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(views.layoutResId)
         initializeSVC(this, views, controlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
         views.rootView = rootView
-
         statusbarColor = statusbarColor
 
-        super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
     }
