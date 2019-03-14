@@ -1,6 +1,6 @@
 package com.naver.android.svc.sample.tabs.home
 
-import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.common.CommonViews
 

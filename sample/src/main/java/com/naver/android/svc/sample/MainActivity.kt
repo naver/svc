@@ -18,7 +18,7 @@ package com.naver.android.svc.sample
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.screen.SvcActivity
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab

@@ -1,7 +1,7 @@
 package com.naver.android.svc.sample.tabs.home
 
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectView
+import com.naver.android.annotation.InjectView
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 

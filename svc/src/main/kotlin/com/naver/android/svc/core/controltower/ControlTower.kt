@@ -23,13 +23,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.naver.android.annotation.InjectScreen
+import com.naver.android.annotation.InjectView
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
-import com.naver.android.svc.core.qualifiers.InjectScreen
-import com.naver.android.svc.core.qualifiers.InjectView
 import com.naver.android.svc.core.screen.Screen
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * Control Tower receives events from many different environment and manage the main business logic.

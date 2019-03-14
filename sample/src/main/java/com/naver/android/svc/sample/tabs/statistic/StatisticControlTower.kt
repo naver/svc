@@ -17,7 +17,7 @@
 package com.naver.android.svc.sample.tabs.statistic
 
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectView
+import com.naver.android.annotation.InjectView
 
 class StatisticControlTower : ControlTower(), StatisticViewsAction {
 

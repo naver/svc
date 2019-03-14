@@ -17,7 +17,7 @@
 package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectScreen
+import com.naver.android.annotation.InjectScreen
 import com.naver.android.svc.sample.tabs.MainTab
 
 class MainControlTower : ControlTower(), MainViewsAction {

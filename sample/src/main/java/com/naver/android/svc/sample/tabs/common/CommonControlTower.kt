@@ -17,7 +17,7 @@
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectView
+import com.naver.android.annotation.InjectView
 
 class CommonControlTower : ControlTower() {
 

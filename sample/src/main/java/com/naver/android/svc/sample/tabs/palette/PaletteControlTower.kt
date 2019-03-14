@@ -18,7 +18,7 @@ package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectView
+import com.naver.android.annotation.InjectView
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
 class PaletteControlTower : ControlTower() {

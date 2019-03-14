@@ -19,10 +19,14 @@ class FragmentControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
     fun <T : ControlTower> fetch(fragment: SvcFragment<*>,
-                                 controlTowerClass: KClass<T>,
+                                 controlTowerClass: KClass<*>,
                                  views: Views): T {
         val id = fetchId(fragment.javaClass)
         var fragmentControlTower: ControlTower? = this.controlTowers[id]
+
+        if (controlTowerClass !is ControlTower) {
+            RuntimeException("controlTower class(${controlTowerClass.simpleName}) should extends ControlTower class.")
+        }
 
         if (fragmentControlTower == null) {
             fragmentControlTower = create(fragment, controlTowerClass, views, id!!)
@@ -31,14 +35,16 @@ class FragmentControlTowerManager {
         return fragmentControlTower as T
     }
 
-    private fun <T : ControlTower> create(fragment: SvcFragment<*>, ControlTowerClass: KClass<T>, views: Views,
+    private fun create(fragment: SvcFragment<*>, ControlTowerClass: KClass<*>, views: Views,
                                           id: String): ControlTower {
 
         val fragmentControlTower: ControlTower
 
         try {
-            fragmentControlTower = ControlTowerClass.createInstance()
+            fragmentControlTower = ControlTowerClass.createInstance() as ControlTower
             Log.e("Test", "${fetchId(fragment.javaClass)} created")
+        } catch (exception: ClassCastException) {
+            throw RuntimeException(exception)
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {

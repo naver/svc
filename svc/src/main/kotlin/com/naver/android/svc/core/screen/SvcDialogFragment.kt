@@ -30,7 +30,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.controltower.DialogFragmentControlTowerManager
 import com.naver.android.svc.core.controltower.FragmentControlTowerManager
-import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -135,7 +135,7 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
      * assign ControlTower
      */
     private fun assignControlTower() {
-        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+        val annotation = javaClass.getAnnotation(com.naver.android.annotation.RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
             this.controlTower = DialogFragmentControlTowerManager.instance.fetch(this,

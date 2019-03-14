@@ -19,10 +19,14 @@ class ActivityControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
     fun <T : ControlTower> fetch(activity: SvcActivity<*>,
-                                 controlTowerClass: KClass<T>,
+                                 controlTowerClass: KClass<*>,
                                  views: Views): T {
         val id = fetchId(activity.javaClass)
         var activityControlTower: ControlTower? = this.controlTowers[id]
+
+        if (controlTowerClass !is ControlTower) {
+            RuntimeException("controlTower class(${controlTowerClass.simpleName}) should extends ControlTower class.")
+        }
 
         if (activityControlTower == null) {
             activityControlTower = create(activity, controlTowerClass, views, id!!)
@@ -31,14 +35,16 @@ class ActivityControlTowerManager {
         return activityControlTower as T
     }
 
-    private fun <T : ControlTower> create(activity: SvcActivity<*>, ControlTowerClass: KClass<T>, views: Views,
+    private fun create(activity: SvcActivity<*>, ControlTowerClass: KClass<*>, views: Views,
                                           id: String): ControlTower {
 
         val activityControlTower: ControlTower
 
         try {
-            activityControlTower = ControlTowerClass.createInstance()
+            activityControlTower = ControlTowerClass.createInstance() as ControlTower
             Log.e("Test", "${fetchId(activity.javaClass)} created")
+        } catch (exception: ClassCastException) {
+            throw RuntimeException(exception)
         } catch (exception: IllegalAccessException) {
             throw RuntimeException(exception)
         } catch (exception: InvocationTargetException) {

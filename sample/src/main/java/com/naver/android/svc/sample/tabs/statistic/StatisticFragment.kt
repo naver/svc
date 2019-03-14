@@ -16,7 +16,7 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.core.screen.SvcFragment
 
 @RequireControlTower(StatisticControlTower::class)
