@@ -49,13 +49,13 @@ task clean(type: Delete) {
 
 ext {
     packageName = 'com.naver.android.svc'
-    defaultRepoUrl = 'https://github.com/BansookNam/svc.git'
-    defaultUrl = 'https://github.com/BansookNam/svc'
+    defaultRepoUrl = 'https://github.com/naver/svc.git'
+    defaultUrl = 'https://github.com/naver/svc'
     repoName = 'SVC'
     moduleName = 'svc'
     desc = 'Easy and intuitive pattern for Android'
 
-    libVersionName = "0.0.2-alpha14"
+    libVersionName = "0.1.0-beta1"
     libVersionCode = 1
     MIN_SDK_VERSION = 16
 
