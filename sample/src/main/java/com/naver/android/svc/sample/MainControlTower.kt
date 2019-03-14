@@ -16,32 +16,27 @@
 
 package com.naver.android.svc.sample
 
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.annotation.InjectScreen
 import com.naver.android.svc.sample.tabs.MainTab
 
-class MainControlTower : ControlTower(), MainViewsAction {
-
-    @InjectScreen
-    lateinit var mainScreen: MainActivity
+class MainControlTower : SVC_MainActivityControlTower(), MainViewsAction {
 
     override fun onClickHome() {
-        this.mainScreen.changeScreen(MainTab.HOME)
+        screen.changeScreen(MainTab.HOME)
     }
 
     override fun onClickPaper() {
-        this.mainScreen.changeScreen(MainTab.PAPER)
+        screen.changeScreen(MainTab.PAPER)
     }
 
     override fun onClickPalette() {
-        this.mainScreen.changeScreen(MainTab.PALETTE)
+        screen.changeScreen(MainTab.PALETTE)
     }
 
     override fun onClickSearch() {
-        this.mainScreen.changeScreen(MainTab.SEARCH)
+        screen.changeScreen(MainTab.SEARCH)
     }
 
     override fun onClickStatistic() {
-        this.mainScreen.changeScreen(MainTab.STATISTIC)
+        screen.changeScreen(MainTab.STATISTIC)
     }
 }

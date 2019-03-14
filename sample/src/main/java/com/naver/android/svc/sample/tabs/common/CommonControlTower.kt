@@ -16,15 +16,11 @@
 
 package com.naver.android.svc.sample.tabs.common
 
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.annotation.InjectView
+import com.naver.android.svc.sample.tabs.paper.SVC_PaperFragmentControlTower
 
-class CommonControlTower : ControlTower() {
-
-    @InjectView
-    lateinit var commonViews: CommonViews
+class CommonControlTower : SVC_PaperFragmentControlTower() {
 
     override fun onCreated() {
-        this.commonViews.setExtraString("CommonControlTower")
+        view.setExtraString("CommonControlTower")
     }
 }

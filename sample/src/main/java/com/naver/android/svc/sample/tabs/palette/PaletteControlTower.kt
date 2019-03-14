@@ -17,17 +17,11 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.annotation.InjectView
-import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaletteControlTower : ControlTower() {
-
-    @InjectView
-    lateinit var commonViews: CommonViews
+class PaletteControlTower : SVC_PaletteFragmentControlTower() {
 
     override fun onCreated() {
-        this.commonViews.setExtraString("PaletteControlTower")
+        view.setExtraString("PaletteControlTower")
     }
 
     override fun onStop() {

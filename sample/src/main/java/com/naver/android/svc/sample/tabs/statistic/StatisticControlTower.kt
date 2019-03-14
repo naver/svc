@@ -16,20 +16,14 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.annotation.InjectView
-
-class StatisticControlTower : ControlTower(), StatisticViewsAction {
-
-    @InjectView
-    lateinit var statisticViews: StatisticViews
+class StatisticControlTower : SVC_StatisticFragmentControlTower(), StatisticViewsAction {
 
     override fun onNameClicked() {
         showToast("NameClicked")
     }
 
     override fun onCreated() {
-        this.statisticViews.setName(this.statisticViews.javaClass.simpleName)
-        this.statisticViews.setExtra(javaClass.simpleName)
+        view.setName(view.javaClass.simpleName)
+        view.setExtra(javaClass.simpleName)
     }
 }
