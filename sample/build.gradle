@@ -46,3 +46,5 @@ dependencies {
     implementation project(":svc")
     kapt project(":svc-compiler")
 }
+
+apply from: '../spotless.gradle'

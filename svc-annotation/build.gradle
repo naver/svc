@@ -2,3 +2,5 @@ apply plugin: 'java-library'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
+
+apply from: '../spotless.gradle'
