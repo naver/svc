@@ -120,5 +120,4 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
 
     override val isActive: Boolean
         get() = !isFinishing
-
 }

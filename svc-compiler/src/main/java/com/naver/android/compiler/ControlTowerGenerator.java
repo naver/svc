@@ -11,11 +11,11 @@ import javax.lang.model.element.Modifier;
 public class ControlTowerGenerator {
 
   private final String packageName;
-  private final ControlTowerAnnotatedClass annotatedClazz;
+  private final RequireControlTowerAnnotatedClass annotatedClazz;
 
   public ControlTowerGenerator(
       String packageName,
-      ControlTowerAnnotatedClass annotatedClazz) {
+      RequireControlTowerAnnotatedClass annotatedClazz) {
     this.packageName = packageName;
     this.annotatedClazz = annotatedClazz;
   }
