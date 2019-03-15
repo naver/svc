@@ -15,7 +15,7 @@ import kotlin.reflect.full.createInstance
  */
 
 @Suppress("unused", "UNCHECKED_CAST")
-class ActivityControlTowerManager {
+class ControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
     fun <T : ControlTower> fetch(screen: Screen<*>,
@@ -94,6 +94,6 @@ class ActivityControlTowerManager {
     companion object {
         private const val ControlTower_ID_KEY = "ControlTower_id"
 
-        val instance = ActivityControlTowerManager()
+        val instance = ControlTowerManager()
     }
 }

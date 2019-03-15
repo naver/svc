@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.naver.android.annotation.RequireControlTower
-import com.naver.android.svc.core.controltower.ActivityControlTowerManager
+import com.naver.android.svc.core.controltower.ControlTowerManager
 import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.views.Views
 
@@ -71,6 +71,7 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(views.layoutResId)
 
         // assigns controlTower
@@ -84,7 +85,6 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
 
         setStatusBarBGColor(statusbarColor)
 
-        super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
     }
@@ -96,7 +96,7 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
 
         // destroy controlTower
         if (!isChangingConfigurations) {
-            ActivityControlTowerManager.instance.destroy(controlTower)
+            ControlTowerManager.instance.destroy(controlTower)
         }
     }
 
@@ -112,7 +112,7 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
         val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
-            this.controlTower = ActivityControlTowerManager.instance.fetch(this,
+            this.controlTower = ControlTowerManager.instance.fetch(this,
                     controlTowerClass,
                     views)
         }

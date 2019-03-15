@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentManager
 import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.BuildConfig
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.controltower.FragmentControlTowerManager
+import com.naver.android.svc.core.controltower.ControlTowerManager
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -96,7 +96,7 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
         // destroy controlTower
         fragmentManager?.let {
-            FragmentControlTowerManager.instance.destroy(controlTower)
+            ControlTowerManager.instance.destroy(controlTower)
         }
     }
 
@@ -112,7 +112,7 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
         val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
         annotation?.let {
             val controlTowerClass = it.value
-            this.controlTower = FragmentControlTowerManager.instance.fetch(this,
+            this.controlTower = ControlTowerManager.instance.fetch(this,
                     controlTowerClass,
                     views)
         } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
