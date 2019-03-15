@@ -1,7 +1,7 @@
 package com.naver.android.svc.core.controltower
 
 import android.util.Log
-import com.naver.android.svc.core.screen.SvcActivity
+import com.naver.android.svc.core.screen.Screen
 import com.naver.android.svc.core.views.Views
 import java.lang.reflect.InvocationTargetException
 import java.util.HashMap
@@ -18,10 +18,10 @@ import kotlin.reflect.full.createInstance
 class ActivityControlTowerManager {
     private val controlTowers = HashMap<String, ControlTower>()
 
-    fun <T : ControlTower> fetch(activity: SvcActivity<*>,
+    fun <T : ControlTower> fetch(screen: Screen<*>,
                                  controlTowerClass: KClass<*>,
                                  views: Views): T {
-        val id = fetchId(activity.javaClass)
+        val id = fetchId(screen.javaClass)
         var activityControlTower: ControlTower? = this.controlTowers[id]
 
         if (controlTowerClass !is ControlTower) {
@@ -29,20 +29,20 @@ class ActivityControlTowerManager {
         }
 
         if (activityControlTower == null) {
-            activityControlTower = create(activity, controlTowerClass, views, id!!)
+            activityControlTower = create(screen, controlTowerClass, views, id!!)
         }
 
         return activityControlTower as T
     }
 
-    private fun create(activity: SvcActivity<*>, ControlTowerClass: KClass<*>, views: Views,
-                                          id: String): ControlTower {
+    private fun create(screen: Screen<*>, ControlTowerClass: KClass<*>, views: Views,
+                       id: String): ControlTower {
 
         val activityControlTower: ControlTower
 
         try {
             activityControlTower = ControlTowerClass.createInstance() as ControlTower
-            Log.e("Test", "${fetchId(activity.javaClass)} created")
+            Log.e("Test", "${fetchId(screen.javaClass)} created")
         } catch (exception: ClassCastException) {
             throw RuntimeException(exception)
         } catch (exception: IllegalAccessException) {
@@ -56,7 +56,7 @@ class ActivityControlTowerManager {
         }
 
         this.controlTowers[id] = activityControlTower
-        activityControlTower.onCreateControlTower(activity, views)
+        activityControlTower.onCreateControlTower(screen, views)
         return activityControlTower
     }
 

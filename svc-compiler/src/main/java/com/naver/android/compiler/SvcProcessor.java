@@ -96,7 +96,7 @@ public class SvcProcessor extends AbstractProcessor {
 
   private void checkTypeValidation(TypeElement annotatedType) throws IllegalAccessException {
     if (!annotatedType.getKind().isClass()) {
-      throw new IllegalAccessException("Only classes can be annotated with @PreferenceRoom");
+      throw new IllegalAccessException("Only classes can be annotated with @RequireControlTower.");
     }
   }
 
