@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.svc.core.views.ViewsAction
 
 interface CommonViewsAction : ViewsAction {
-    //something
+  //something
 }

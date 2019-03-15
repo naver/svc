@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.search
 
 import com.naver.android.annotation.ControlTower
@@ -25,7 +24,7 @@ import com.naver.android.annotation.ControlTower
 @ControlTower
 class ReallyLongScreenNameSearchCT : SVC_ReallyLongScreenNameSearchFragmentControlTower() {
 
-    override fun onCreated() {
-        view.setExtraString("ReallyLongScreenNameSearchCT")
-    }
+  override fun onCreated() {
+    view.setExtraString("ReallyLongScreenNameSearchCT")
+  }
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample
 
 import com.naver.android.annotation.ControlTower
@@ -22,23 +21,23 @@ import com.naver.android.svc.sample.tabs.MainTab
 @ControlTower
 class MainControlTower : SVC_MainActivityControlTower(), MainViewsAction {
 
-    override fun onClickHome() {
-        screen.changeScreen(MainTab.HOME)
-    }
+  override fun onClickHome() {
+    screen.changeScreen(MainTab.HOME)
+  }
 
-    override fun onClickPaper() {
-        screen.changeScreen(MainTab.PAPER)
-    }
+  override fun onClickPaper() {
+    screen.changeScreen(MainTab.PAPER)
+  }
 
-    override fun onClickPalette() {
-        screen.changeScreen(MainTab.PALETTE)
-    }
+  override fun onClickPalette() {
+    screen.changeScreen(MainTab.PALETTE)
+  }
 
-    override fun onClickSearch() {
-        screen.changeScreen(MainTab.SEARCH)
-    }
+  override fun onClickSearch() {
+    screen.changeScreen(MainTab.SEARCH)
+  }
 
-    override fun onClickStatistic() {
-        screen.changeScreen(MainTab.STATISTIC)
-    }
+  override fun onClickStatistic() {
+    screen.changeScreen(MainTab.STATISTIC)
+  }
 }

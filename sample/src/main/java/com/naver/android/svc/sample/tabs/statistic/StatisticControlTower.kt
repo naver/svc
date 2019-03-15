@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.statistic
 
 import com.naver.android.annotation.ControlTower
@@ -21,12 +20,12 @@ import com.naver.android.annotation.ControlTower
 @ControlTower
 class StatisticControlTower : SVC_StatisticFragmentControlTower(), StatisticViewsAction {
 
-    override fun onNameClicked() {
-        showToast("NameClicked")
-    }
+  override fun onNameClicked() {
+    showToast("NameClicked")
+  }
 
-    override fun onCreated() {
-        view.setName(view.javaClass.simpleName)
-        view.setExtra(javaClass.simpleName)
-    }
+  override fun onCreated() {
+    view.setName(view.javaClass.simpleName)
+    view.setExtra(javaClass.simpleName)
+  }
 }

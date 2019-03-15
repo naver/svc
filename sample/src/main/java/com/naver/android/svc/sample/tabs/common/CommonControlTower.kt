@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.annotation.ControlTower
@@ -22,7 +21,7 @@ import com.naver.android.svc.sample.tabs.paper.SVC_PaperFragmentControlTower
 @ControlTower
 class CommonControlTower : SVC_PaperFragmentControlTower() {
 
-    override fun onCreated() {
-        view.setExtraString("CommonControlTower")
-    }
+  override fun onCreated() {
+    view.setExtraString("CommonControlTower")
+  }
 }

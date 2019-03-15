@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
@@ -22,12 +21,12 @@ import com.naver.android.annotation.ControlTower
 @ControlTower
 class PaletteControlTower : SVC_PaletteFragmentControlTower() {
 
-    override fun onCreated() {
-        view.setExtraString("PaletteControlTower")
-    }
+  override fun onCreated() {
+    view.setExtraString("PaletteControlTower")
+  }
 
-    override fun onStop() {
-        Log.d(TAG, "override onStop")
-        super.onStop()
-    }
+  override fun onStop() {
+    Log.d(TAG, "override onStop")
+    super.onStop()
+  }
 }

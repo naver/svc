@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
@@ -23,12 +22,12 @@ import androidx.recyclerview.widget.RecyclerView
  */
 
 abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
-    final override fun onBindViewHolder(holder: VH, position: Int) {
-        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
-            return
-        }
-        onBindHolder(holder, holder.adapterPosition)
+  final override fun onBindViewHolder(holder: VH, position: Int) {
+    if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+      return
     }
+    onBindHolder(holder, holder.adapterPosition)
+  }
 
-    abstract fun onBindHolder(holder: VH, adapterPosition: Int)
+  abstract fun onBindHolder(holder: VH, adapterPosition: Int)
 }
