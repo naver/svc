@@ -16,8 +16,10 @@
 
 package com.naver.android.svc.sample.tabs.common
 
+import com.naver.android.annotation.ControlTower
 import com.naver.android.svc.sample.tabs.paper.SVC_PaperFragmentControlTower
 
+@ControlTower
 class CommonControlTower : SVC_PaperFragmentControlTower() {
 
     override fun onCreated() {

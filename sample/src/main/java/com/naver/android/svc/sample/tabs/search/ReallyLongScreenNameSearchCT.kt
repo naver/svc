@@ -16,10 +16,13 @@
 
 package com.naver.android.svc.sample.tabs.search
 
+import com.naver.android.annotation.ControlTower
+
 /**
  * if your controlTower class name is too long,
  * maybe you should Abbreviate name as "CT"
  */
+@ControlTower
 class ReallyLongScreenNameSearchCT : SVC_ReallyLongScreenNameSearchFragmentControlTower() {
 
     override fun onCreated() {

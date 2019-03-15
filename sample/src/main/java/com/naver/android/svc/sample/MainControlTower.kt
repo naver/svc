@@ -16,8 +16,10 @@
 
 package com.naver.android.svc.sample
 
+import com.naver.android.annotation.ControlTower
 import com.naver.android.svc.sample.tabs.MainTab
 
+@ControlTower
 class MainControlTower : SVC_MainActivityControlTower(), MainViewsAction {
 
     override fun onClickHome() {

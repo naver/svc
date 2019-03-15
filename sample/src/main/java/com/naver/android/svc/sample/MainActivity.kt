@@ -18,8 +18,9 @@ package com.naver.android.svc.sample
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.naver.android.annotation.OwnSvcActivity
 import com.naver.android.annotation.RequireControlTower
-import com.naver.android.svc.core.screen.SvcActivity
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab
 import com.naver.android.svc.sample.tabs.home.HomeFragment
@@ -28,16 +29,16 @@ import com.naver.android.svc.sample.tabs.paper.PaperFragment
 import com.naver.android.svc.sample.tabs.search.ReallyLongScreenNameSearchFragment
 import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
+@OwnSvcActivity
+@RequireViews(MainViews::class)
 @RequireControlTower(MainControlTower::class)
-class MainActivity : SvcActivity<MainViews>() {
+class MainActivity : SVC_MainActivity() {
     private val fragmentMap = mapOf<MainTab, Fragment>(
             MainTab.HOME to HomeFragment(),
             MainTab.PAPER to PaperFragment(),
             MainTab.PALETTE to PaletteFragment(),
             MainTab.SEARCH to ReallyLongScreenNameSearchFragment(),
             MainTab.STATISTIC to StatisticFragment())
-
-    override fun createViews() = MainViews()
 
     fun changeScreen(tab: MainTab) {
         val fragment = fragmentMap[tab]

@@ -16,6 +16,9 @@
 
 package com.naver.android.svc.sample.tabs.statistic
 
+import com.naver.android.annotation.ControlTower
+
+@ControlTower
 class StatisticControlTower : SVC_StatisticFragmentControlTower(), StatisticViewsAction {
 
     override fun onNameClicked() {

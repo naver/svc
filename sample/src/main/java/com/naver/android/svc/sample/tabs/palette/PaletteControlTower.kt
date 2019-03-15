@@ -17,7 +17,9 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
+import com.naver.android.annotation.ControlTower
 
+@ControlTower
 class PaletteControlTower : SVC_PaletteFragmentControlTower() {
 
     override fun onCreated() {
