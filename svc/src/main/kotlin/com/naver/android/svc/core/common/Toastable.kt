@@ -22,13 +22,13 @@ import android.widget.Toast
  * @author bs.nam@navercorp.com
  */
 interface Toastable {
-  val context: Context?
+    val context: Context?
 
-  fun showToast(message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-  }
+    fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 
-  fun showToast(resId: Int) {
-    Toast.makeText(context, resId, Toast.LENGTH_SHORT).show()
-  }
+    fun showToast(resId: Int) {
+        Toast.makeText(context, resId, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -25,23 +25,23 @@ import com.naver.android.svc.sample.tabs.MainTab
 @RequireScreen(MainActivity::class)
 class MainControlTower : SVC_MainControlTower(), MainViewsAction {
 
-  override fun onClickHome() {
-    screen.changeScreen(MainTab.HOME)
-  }
+    override fun onClickHome() {
+        screen.changeScreen(MainTab.HOME)
+    }
 
-  override fun onClickPaper() {
-    screen.changeScreen(MainTab.PAPER)
-  }
+    override fun onClickPaper() {
+        screen.changeScreen(MainTab.PAPER)
+    }
 
-  override fun onClickPalette() {
-    screen.changeScreen(MainTab.PALETTE)
-  }
+    override fun onClickPalette() {
+        screen.changeScreen(MainTab.PALETTE)
+    }
 
-  override fun onClickSearch() {
-    screen.changeScreen(MainTab.SEARCH)
-  }
+    override fun onClickSearch() {
+        screen.changeScreen(MainTab.SEARCH)
+    }
 
-  override fun onClickStatistic() {
-    screen.changeScreen(MainTab.STATISTIC)
-  }
+    override fun onClickStatistic() {
+        screen.changeScreen(MainTab.STATISTIC)
+    }
 }

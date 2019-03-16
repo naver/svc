@@ -77,6 +77,8 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : SafeDialogFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // initialize SVC
+        initializeSVC(this, views, controlTower)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
         views.changeIsFirstOnCreateFalse()
@@ -90,8 +92,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : SafeDialogFragment()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // initialize SVC
-        initializeSVC(this, views, controlTower)
         views.rootView = LayoutInflater.from(context).inflate(views.layoutResId, null) as ViewGroup
         val dialog = super.onCreateDialog(savedInstanceState)
 

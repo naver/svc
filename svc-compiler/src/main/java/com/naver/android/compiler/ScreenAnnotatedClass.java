@@ -33,85 +33,87 @@ import com.squareup.javapoet.TypeName;
 @SuppressWarnings("WeakerAccess")
 public class ScreenAnnotatedClass {
 
-  public final TypeElement annotatedElement;
-  public final String packageName;
-  public final String clazzName;
-  public ClassName baseView;
-  public String baseViewName;
-  public ClassName controlTower;
-  public String controlTowerName;
+    public final TypeElement annotatedElement;
+    public final String packageName;
+    public final String clazzName;
+    public ClassName baseView;
+    public String baseViewName;
+    public ClassName controlTower;
+    public String controlTowerName;
     public ClassName dialogListener;
     public String dialogListenerName;
-  public String viewsMetaData;
-  public TypeName superClass;
+    public String viewsMetaData;
+    public TypeName superClass;
 
-  public ScreenAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
-      throws VerifyException {
-    PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
-    this.packageName =
-        packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
-    this.annotatedElement = annotatedElement;
-    this.clazzName = annotatedElement.getSimpleName().toString();
+    public ScreenAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
+        throws VerifyException {
+        PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
+        this.packageName =
+            packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
+        this.annotatedElement = annotatedElement;
+        this.clazzName = annotatedElement.getSimpleName().toString();
 
-    RequireViews requireViews = annotatedElement.getAnnotation(RequireViews.class);
-    int packageIndexViews = requireViews.toString().lastIndexOf("=");
-    String viewsPackage =
-        requireViews
-            .toString()
-            .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
-
-    int indexView = viewsPackage.lastIndexOf(".");
-    if (indexView == -1) indexView = viewsPackage.lastIndexOf("\\.");
-
-    this.baseViewName = viewsPackage.substring(indexView + 1);
-    this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName);
-
-    RequireControlTower requireControlTower =
-        annotatedElement.getAnnotation(RequireControlTower.class);
-    int packageIndexS0 = requireControlTower.toString().lastIndexOf("=");
-    String controlTowerPackage =
-        requireControlTower
-            .toString()
-            .substring(packageIndexS0 + 1, requireControlTower.toString().length() - 1);
-
-    int indexCT = controlTowerPackage.lastIndexOf(".");
-    if (indexCT == -1) indexCT = controlTowerPackage.lastIndexOf("\\.");
-
-    this.controlTowerName = controlTowerPackage.substring(indexCT + 1);
-    this.controlTower = ClassName.get(controlTowerPackage.substring(0, indexCT), controlTowerName);
-
-    SvcActivity svcActivity = annotatedElement.getAnnotation(SvcActivity.class);
-    SvcFragment svcFragment = annotatedElement.getAnnotation(SvcFragment.class);
-    SvcDialogFragment svcDialogFragment = annotatedElement.getAnnotation(SvcDialogFragment.class);
-
-    if (svcActivity != null) {
-      ClassName svcActivityClassName =
-          ClassName.get("com.naver.android.svc.core.screen", "SvcActivity");
-      this.superClass = ParameterizedTypeName.get(svcActivityClassName, baseView);
-    } else if (svcFragment != null) {
-      ClassName svcFragmentClassName =
-          ClassName.get("com.naver.android.svc.core.screen", "SvcFragment");
-      this.superClass = ParameterizedTypeName.get(svcFragmentClassName, baseView);
-    } else if (svcDialogFragment != null) {
-
-        RequireListener requireListener =
-            annotatedElement.getAnnotation(RequireListener.class);
-        int indexOf0 = requireListener.toString().lastIndexOf("=");
-        String listenerPackage =
-            requireListener
+        RequireViews requireViews = annotatedElement.getAnnotation(RequireViews.class);
+        int packageIndexViews = requireViews.toString().lastIndexOf("=");
+        String viewsPackage =
+            requireViews
                 .toString()
-                .substring(indexOf0 + 1, requireListener.toString().length() - 1);
+                .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
 
-        int indexListener = listenerPackage.lastIndexOf(".");
-        if (indexListener == -1)
-            indexListener = listenerPackage.lastIndexOf("\\.");
+        int indexView = viewsPackage.lastIndexOf(".");
+        if (indexView == -1)
+            indexView = viewsPackage.lastIndexOf("\\.");
 
-        this.dialogListenerName = listenerPackage.substring(indexListener + 1);
-        this.dialogListener = ClassName.get(listenerPackage.substring(0, indexListener), dialogListenerName);
+        this.baseViewName = viewsPackage.substring(indexView + 1);
+        this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName);
 
-      ClassName svcDialogFragmentClassName =
-          ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment");
-      this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, baseView, dialogListener);
+        RequireControlTower requireControlTower =
+            annotatedElement.getAnnotation(RequireControlTower.class);
+        int packageIndexS0 = requireControlTower.toString().lastIndexOf("=");
+        String controlTowerPackage =
+            requireControlTower
+                .toString()
+                .substring(packageIndexS0 + 1, requireControlTower.toString().length() - 1);
+
+        int indexCT = controlTowerPackage.lastIndexOf(".");
+        if (indexCT == -1)
+            indexCT = controlTowerPackage.lastIndexOf("\\.");
+
+        this.controlTowerName = controlTowerPackage.substring(indexCT + 1);
+        this.controlTower = ClassName.get(controlTowerPackage.substring(0, indexCT), controlTowerName);
+
+        SvcActivity svcActivity = annotatedElement.getAnnotation(SvcActivity.class);
+        SvcFragment svcFragment = annotatedElement.getAnnotation(SvcFragment.class);
+        SvcDialogFragment svcDialogFragment = annotatedElement.getAnnotation(SvcDialogFragment.class);
+
+        if (svcActivity != null) {
+            ClassName svcActivityClassName =
+                ClassName.get("com.naver.android.svc.core.screen", "SvcActivity");
+            this.superClass = ParameterizedTypeName.get(svcActivityClassName, baseView);
+        } else if (svcFragment != null) {
+            ClassName svcFragmentClassName =
+                ClassName.get("com.naver.android.svc.core.screen", "SvcFragment");
+            this.superClass = ParameterizedTypeName.get(svcFragmentClassName, baseView);
+        } else if (svcDialogFragment != null) {
+
+            RequireListener requireListener =
+                annotatedElement.getAnnotation(RequireListener.class);
+            int indexOf0 = requireListener.toString().lastIndexOf("=");
+            String listenerPackage =
+                requireListener
+                    .toString()
+                    .substring(indexOf0 + 1, requireListener.toString().length() - 1);
+
+            int indexListener = listenerPackage.lastIndexOf(".");
+            if (indexListener == -1)
+                indexListener = listenerPackage.lastIndexOf("\\.");
+
+            this.dialogListenerName = listenerPackage.substring(indexListener + 1);
+            this.dialogListener = ClassName.get(listenerPackage.substring(0, indexListener), dialogListenerName);
+
+            ClassName svcDialogFragmentClassName =
+                ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment");
+            this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, baseView, dialogListener);
+        }
     }
-  }
 }

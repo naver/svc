@@ -28,43 +28,43 @@ import com.naver.android.svc.core.views.ViewsAction
  * @author bs.nam@navercorp.com 2018. 2. 21..
  */
 interface Screen<out V : Views> : LifecycleOwner {
-  /**
-   * every screen can access to their host Activity.
-   *
-   * I had to change name "activity" as "hostActivity"
-   * because fragment's getActivity() method is final method
-   */
-  val hostActivity: FragmentActivity?
+    /**
+     * every screen can access to their host Activity.
+     *
+     * I had to change name "activity" as "hostActivity"
+     * because fragment's getActivity() method is final method
+     */
+    val hostActivity: FragmentActivity?
 
-  val screenFragmentManager: FragmentManager?
+    val screenFragmentManager: FragmentManager?
 
-  val isActive: Boolean
+    val isActive: Boolean
 
-  fun getChildFragmentManager(): FragmentManager
-  fun getParentFragment(): Fragment?
+    fun getChildFragmentManager(): FragmentManager
+    fun getParentFragment(): Fragment?
 
-  fun createViews(): V
-  fun createControlTower(): ControlTower
+    fun createViews(): V
+    fun createControlTower(): ControlTower
 
-  val controlTower: ControlTower
-  val views: V
+    val controlTower: ControlTower
+    val views: V
 
-  /**
-   * add dependency of Screen, Views, ControlTower and ViewsAction
-   */
-  fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*>, views: V, ct: C) {
-    views.apply {
-      views.screen = screen
+    /**
+     * add dependency of Screen, Views, ControlTower and ViewsAction
+     */
+    fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*>, views: V, ct: C) {
+        views.apply {
+            views.screen = screen
 
-      if (this is ActionViews<*> && ct is ViewsAction) {
-        setAction(ct)
-      }
+            if (this is ActionViews<*> && ct is ViewsAction) {
+                setAction(ct)
+            }
+        }
+
+        ct.apply {
+            baseScreen = screen
+            baseViews = views
+            activity = screen.hostActivity
+        }
     }
-
-    ct.apply {
-      baseScreen = screen
-      baseViews = views
-      activity = screen.hostActivity
-    }
-  }
 }

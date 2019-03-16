@@ -21,127 +21,127 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainViews : ActionViews<MainViewsAction>() {
 
-  override val layoutResId = R.layout.activity_main
+    override val layoutResId = R.layout.activity_main
 
-  override fun onCreated() {
+    override fun onCreated() {
 
-    /**
-     * case 1. you can call screen method directly with casting.
-     * it's okay if you are using MainViews in one Screen (in this case MainActivity)
-     * with casting you don't need to define viewsAction or make ControlTower.
-     * If you think making viewsAction and ControlTower is waste of time (for simple screen) just cast screen like below
-     * But not recommended way.
-     */
-    val mainActivity = screen as MainActivity
-    rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
+        /**
+         * case 1. you can call screen method directly with casting.
+         * it's okay if you are using MainViews in one Screen (in this case MainActivity)
+         * with casting you don't need to define viewsAction or make ControlTower.
+         * If you think making viewsAction and ControlTower is waste of time (for simple screen) just cast screen like below
+         * But not recommended way.
+         */
+        val mainActivity = screen as MainActivity
+        rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
 
-      override fun onClickHome() {
-        mainActivity.changeScreen(MainTab.HOME)
-      }
+            override fun onClickHome() {
+                mainActivity.changeScreen(MainTab.HOME)
+            }
 
-      override fun onClickPalette() {
-        mainActivity.changeScreen(MainTab.PALETTE)
-      }
+            override fun onClickPalette() {
+                mainActivity.changeScreen(MainTab.PALETTE)
+            }
 
-      override fun onClickPaper() {
-        mainActivity.changeScreen(MainTab.PAPER)
-      }
+            override fun onClickPaper() {
+                mainActivity.changeScreen(MainTab.PAPER)
+            }
 
-      override fun onClickSearch() {
-        mainActivity.changeScreen(MainTab.SEARCH)
-      }
+            override fun onClickSearch() {
+                mainActivity.changeScreen(MainTab.SEARCH)
+            }
 
-      override fun onClickStatistic() {
-        mainActivity.changeScreen(MainTab.STATISTIC)
-      }
+            override fun onClickStatistic() {
+                mainActivity.changeScreen(MainTab.STATISTIC)
+            }
+        }
+
+        /**
+         * case 2. when you want delegate event totally to ControlTower
+         */
+        rootView.gnb.onClickGnbListener = viewsAction
+
+        /**
+         * case 3. when you don't want to delegate to ControlTower for those events
+         * in this case you don't need to make or define MainViewsAction methods
+         */
+        rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
+            override fun onClickHome() {
+                //do stuff
+                this@MainViews.onClickHome()
+            }
+
+            override fun onClickPalette() {
+                //do stuff
+                this@MainViews.onClickPalette()
+            }
+
+            override fun onClickPaper() {
+                //do stuff
+                this@MainViews.onClickPaper()
+            }
+
+            override fun onClickSearch() {
+                //do stuff
+                this@MainViews.onClickSearch()
+            }
+
+            override fun onClickStatistic() {
+                //do stuff
+                this@MainViews.onClickStatistic()
+                //do stuff
+            }
+        }
+
+        /**
+         * case 4. when you have something to do in Views then call viewsAction
+         */
+        rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
+
+            override fun onClickHome() {
+                //do stuff
+                viewsAction.onClickHome()
+            }
+
+            override fun onClickPalette() {
+                //do stuff
+                viewsAction.onClickPalette()
+            }
+
+            override fun onClickPaper() {
+                //do stuff
+                viewsAction.onClickPaper()
+            }
+
+            override fun onClickSearch() {
+                //do stuff
+                viewsAction.onClickSearch()
+            }
+
+            override fun onClickStatistic() {
+                //do stuff
+                viewsAction.onClickStatistic()
+            }
+        }
     }
 
-    /**
-     * case 2. when you want delegate event totally to ControlTower
-     */
-    rootView.gnb.onClickGnbListener = viewsAction
-
-    /**
-     * case 3. when you don't want to delegate to ControlTower for those events
-     * in this case you don't need to make or define MainViewsAction methods
-     */
-    rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-      override fun onClickHome() {
+    private fun onClickHome() {
         //do stuff
-        this@MainViews.onClickHome()
-      }
-
-      override fun onClickPalette() {
-        //do stuff
-        this@MainViews.onClickPalette()
-      }
-
-      override fun onClickPaper() {
-        //do stuff
-        this@MainViews.onClickPaper()
-      }
-
-      override fun onClickSearch() {
-        //do stuff
-        this@MainViews.onClickSearch()
-      }
-
-      override fun onClickStatistic() {
-        //do stuff
-        this@MainViews.onClickStatistic()
-        //do stuff
-      }
     }
 
-    /**
-     * case 4. when you have something to do in Views then call viewsAction
-     */
-    rootView.gnb.onClickGnbListener = object : OnClickGnbListener {
-
-      override fun onClickHome() {
+    private fun onClickPalette() {
         //do stuff
-        viewsAction.onClickHome()
-      }
-
-      override fun onClickPalette() {
-        //do stuff
-        viewsAction.onClickPalette()
-      }
-
-      override fun onClickPaper() {
-        //do stuff
-        viewsAction.onClickPaper()
-      }
-
-      override fun onClickSearch() {
-        //do stuff
-        viewsAction.onClickSearch()
-      }
-
-      override fun onClickStatistic() {
-        //do stuff
-        viewsAction.onClickStatistic()
-      }
     }
-  }
 
-  private fun onClickHome() {
-    //do stuff
-  }
+    private fun onClickPaper() {
+        //do stuff
+    }
 
-  private fun onClickPalette() {
-    //do stuff
-  }
+    private fun onClickSearch() {
+        //do stuff
+    }
 
-  private fun onClickPaper() {
-    //do stuff
-  }
-
-  private fun onClickSearch() {
-    //do stuff
-  }
-
-  private fun onClickStatistic() {
-    //do stuff
-  }
+    private fun onClickStatistic() {
+        //do stuff
+    }
 }

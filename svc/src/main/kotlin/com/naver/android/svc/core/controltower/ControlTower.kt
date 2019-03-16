@@ -38,79 +38,79 @@ import com.naver.android.svc.core.views.Views
 @Suppress("UNCHECKED_CAST", "unused", "MemberVisibilityCanBePrivate")
 abstract class ControlTower : LifecycleObserver, Toastable {
 
-  val CLASS_SIMPLE_NAME = javaClass.simpleName
-  var TAG: String = CLASS_SIMPLE_NAME
+    val CLASS_SIMPLE_NAME = javaClass.simpleName
+    var TAG: String = CLASS_SIMPLE_NAME
 
-  lateinit var baseScreen: Screen<*>
-  lateinit var baseViews: Views
+    lateinit var baseScreen: Screen<*>
+    lateinit var baseViews: Views
 
-  var activity: FragmentActivity? = null
+    var activity: FragmentActivity? = null
 
-  override val context: Context?
-    get() = baseScreen.hostActivity
+    override val context: Context?
+        get() = baseScreen.hostActivity
 
     var isFirstOnCreate = true
         private set
 
-  /**
-   * create ControlTower
-   * called automatically by ControlTowerManger
-   */
-  fun <V : Views> onCreateControlTower(@NonNull screen: Screen<V>, @NonNull views: V) {
-    this.baseScreen = screen
-    this.baseViews = views
-    this.activity = screen.hostActivity
-  }
-
-  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-  private fun logOnCreate() {
-    if (SvcConfig.debugMode) {
-      Log.d(TAG, "onCreate")
+    /**
+     * create ControlTower
+     * called automatically by ControlTowerManger
+     */
+    fun <V : Views> onCreateControlTower(@NonNull screen: Screen<V>, @NonNull views: V) {
+        this.baseScreen = screen
+        this.baseViews = views
+        this.activity = screen.hostActivity
     }
-  }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-  open fun onCreated() {
-  }
-
-  @OnLifecycleEvent(Lifecycle.Event.ON_START)
-  open fun onStarted() {
-    if (SvcConfig.debugMode) {
-      Log.d(TAG, "onStarted")
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    private fun logOnCreate() {
+        if (SvcConfig.debugMode) {
+            Log.d(TAG, "onCreate")
+        }
     }
-  }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-  open fun onResumed() {
-    if (SvcConfig.debugMode) {
-      Log.d(TAG, "onResumed")
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    open fun onCreated() {
     }
-  }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-  open fun onPause() {
-    if (SvcConfig.debugMode) {
-      Log.d(TAG, "onPause")
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    open fun onStarted() {
+        if (SvcConfig.debugMode) {
+            Log.d(TAG, "onStarted")
+        }
     }
-  }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-  open fun onStop() {
-    if (SvcConfig.debugMode) {
-      Log.d(TAG, "onStop")
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    open fun onResumed() {
+        if (SvcConfig.debugMode) {
+            Log.d(TAG, "onResumed")
+        }
     }
-  }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-  open fun onDestroy() {
-    if (SvcConfig.debugMode) {
-      Log.d(TAG, "onDestroy")
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    open fun onPause() {
+        if (SvcConfig.debugMode) {
+            Log.d(TAG, "onPause")
+        }
     }
-  }
 
-  fun finishActivity() {
-    activity?.finish()
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    open fun onStop() {
+        if (SvcConfig.debugMode) {
+            Log.d(TAG, "onStop")
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    open fun onDestroy() {
+        if (SvcConfig.debugMode) {
+            Log.d(TAG, "onDestroy")
+        }
+    }
+
+    fun finishActivity() {
+        activity?.finish()
+    }
 
     open fun onBackPressed(): Boolean {
         return false

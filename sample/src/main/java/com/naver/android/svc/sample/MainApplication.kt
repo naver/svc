@@ -20,9 +20,9 @@ import com.naver.android.svc.SvcConfig
 
 class MainApplication : Application() {
 
-  override fun onCreate() {
-    super.onCreate()
+    override fun onCreate() {
+        super.onCreate()
 
-    SvcConfig.debugMode = true
-  }
+        SvcConfig.debugMode = true
+    }
 }

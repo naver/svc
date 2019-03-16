@@ -51,10 +51,6 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogSupport
     override val screenFragmentManager: FragmentManager?
         get() = this.fragmentManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     private fun addExtraTagId() {
         val extraId = arguments?.getString(EXTRA_TAG_ID)
         extraId?.apply {

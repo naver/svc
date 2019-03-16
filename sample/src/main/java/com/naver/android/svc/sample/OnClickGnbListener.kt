@@ -16,9 +16,9 @@
 package com.naver.android.svc.sample
 
 interface OnClickGnbListener {
-  fun onClickHome()
-  fun onClickPalette()
-  fun onClickPaper()
-  fun onClickSearch()
-  fun onClickStatistic()
+    fun onClickHome()
+    fun onClickPalette()
+    fun onClickPaper()
+    fun onClickSearch()
+    fun onClickStatistic()
 }

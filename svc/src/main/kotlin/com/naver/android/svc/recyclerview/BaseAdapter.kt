@@ -22,12 +22,12 @@ import androidx.recyclerview.widget.RecyclerView
  */
 
 abstract class BaseAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
-  final override fun onBindViewHolder(holder: VH, position: Int) {
-    if (holder.adapterPosition == RecyclerView.NO_POSITION) {
-      return
+    final override fun onBindViewHolder(holder: VH, position: Int) {
+        if (holder.adapterPosition == RecyclerView.NO_POSITION) {
+            return
+        }
+        onBindHolder(holder, holder.adapterPosition)
     }
-    onBindHolder(holder, holder.adapterPosition)
-  }
 
-  abstract fun onBindHolder(holder: VH, adapterPosition: Int)
+    abstract fun onBindHolder(holder: VH, adapterPosition: Int)
 }

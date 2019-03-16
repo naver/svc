@@ -21,24 +21,24 @@ import android.content.Context
  * @author bs.nam@navercorp.com
  */
 interface ContextHolder {
-  val context: Context?
+    val context: Context?
 
-  fun getAvailableContext(): Context? {
-    var context = context
-    if (context == null) {
-      context = getMainApplicationContext()
+    fun getAvailableContext(): Context? {
+        var context = context
+        if (context == null) {
+            context = getMainApplicationContext()
+        }
+        return context
     }
-    return context
-  }
 
-  /**
-   * when use getDimen or getString in contructor
-   * there is no context before inflating and setting rootView
-   *
-   * to use getDimen or getString in constructor
-   * you can override this function on your "ContextHolder implemented Class"
-   */
-  open fun getMainApplicationContext(): Context? {
-    return null
-  }
+    /**
+     * when use getDimen or getString in contructor
+     * there is no context before inflating and setting rootView
+     *
+     * to use getDimen or getString in constructor
+     * you can override this function on your "ContextHolder implemented Class"
+     */
+    open fun getMainApplicationContext(): Context? {
+        return null
+    }
 }

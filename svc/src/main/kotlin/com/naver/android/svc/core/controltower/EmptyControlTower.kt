@@ -20,6 +20,6 @@ package com.naver.android.svc.core.controltower
  */
 @Suppress("unused", "UNUSED_PARAMETER")
 class EmptyControlTower : ControlTower() {
-  override fun onCreated() {
-  }
+    override fun onCreated() {
+    }
 }

@@ -27,13 +27,13 @@ import com.naver.android.svc.core.screen.Screen
  * @author bs.nam@navercorp.com
  */
 class ScreenViewModelProviers {
-  companion object {
-    fun of(screen: Screen<*>): ViewModelProvider {
-      return when (screen) {
-        is Fragment -> ViewModelProviders.of(screen)
-        is FragmentActivity -> ViewModelProviders.of(screen)
-        else -> throw IllegalStateException("screen should be Fragment or FragmentActivity")
-      }
+    companion object {
+        fun of(screen: Screen<*>): ViewModelProvider {
+            return when (screen) {
+                is Fragment -> ViewModelProviders.of(screen)
+                is FragmentActivity -> ViewModelProviders.of(screen)
+                else -> throw IllegalStateException("screen should be Fragment or FragmentActivity")
+            }
+        }
     }
-  }
 }

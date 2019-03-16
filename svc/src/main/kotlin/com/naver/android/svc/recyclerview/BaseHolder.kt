@@ -26,10 +26,10 @@ import com.naver.android.svc.core.common.ResourceProvider
  */
 
 abstract class BaseHolder<in T>(layoutId: Int, parent: ViewGroup)
-  : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)), ResourceProvider {
+    : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)), ResourceProvider {
 
-  override val context: Context?
-    get() = itemView.context
+    override val context: Context?
+        get() = itemView.context
 
-  abstract fun bindView(item: T, position: Int)
+    abstract fun bindView(item: T, position: Int)
 }
