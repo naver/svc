@@ -55,12 +55,12 @@ ext {
     moduleName = 'svc'
     desc = 'Easy and intuitive pattern for Android'
 
-    libVersionName = "0.1.0-beta1"
+    libVersionName = "1.0.0-android-28"
     libVersionCode = 1
     MIN_SDK_VERSION = 16
 
-    TARGET_SDK_VERSION = 27
-    COMPILE_SDK_VERSION = 27
+    TARGET_SDK_VERSION = 28
+    COMPILE_SDK_VERSION = 28
 
-    support_library_version = '27.1.1'
+    support_library_version = '28.0.0'
 }

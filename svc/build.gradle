@@ -114,13 +114,13 @@ artifacts {
 
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     sourceSets{ main.java.srcDirs += 'src/main/kotlin' }
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode libVersionCode
         versionName libVersionName
 
@@ -142,8 +142,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
 
