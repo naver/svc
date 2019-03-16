@@ -13,35 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.screen
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.BuildConfig
-import com.naver.android.svc.core.controltower.ControlTower
 import com.naver.android.svc.core.views.Views
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment(), Screen<V, C>, DialogSupportScreen {
+@Suppress("PrivatePropertyName")
+abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogSupportScreen {
 
-    val CLASS_SIMPLE_NAME = javaClass.simpleName
-    var TAG: String = CLASS_SIMPLE_NAME
+    private val CLASS_SIMPLE_NAME = javaClass.simpleName
+    private var TAG: String = CLASS_SIMPLE_NAME
 
     companion object {
         const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
     }
 
-    val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    override val views by lazy { createViews() }
+    override val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -51,12 +50,6 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
 
     override val screenFragmentManager: FragmentManager?
         get() = this.fragmentManager
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        addExtraTagId()
-        super.onCreate(savedInstanceState)
-    }
 
     private fun addExtraTagId() {
         val extraId = arguments?.getString(EXTRA_TAG_ID)
@@ -72,7 +65,10 @@ abstract class SvcFragment<out V : Views, out C : ControlTower<*, *>> : Fragment
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // initialize SVC
         initializeSVC(this, views, controlTower)
+
+        addExtraTagId()
 
         if (!views.isInitialized) {
             views.rootView = view as ViewGroup

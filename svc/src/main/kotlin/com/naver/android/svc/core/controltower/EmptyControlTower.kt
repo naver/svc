@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.controltower
-
-import com.naver.android.svc.core.screen.Screen
-import com.naver.android.svc.core.views.Views
 
 /**
  * ControlTower which has no logics
  */
-class EmptyControlTower<out S : Screen<V, *>, out V : Views>(screen: S, views: V) : ControlTower<S, V>(screen, views) {
+@Suppress("unused", "UNUSED_PARAMETER")
+class EmptyControlTower : ControlTower() {
     override fun onCreated() {
     }
 }

@@ -1,15 +1,18 @@
 package com.naver.android.svc.sample.dialog.listener
 
+import com.naver.android.annotation.RequireControlTower
+import com.naver.android.annotation.RequireListener
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.core.controltower.EmptyControlTower
-import com.naver.android.svc.core.screen.SvcDialogFragment
 
 /**
  * @author bs.nam@navercorp.com
  */
-class SampleListenerDialog : SvcDialogFragment<SampleListenerViews, EmptyControlTower<*,*>, SampleListenerDialogListener>() {
-
-    override fun createControlTower() = EmptyControlTower(this, views)
-    override fun createViews() = SampleListenerViews()
+@com.naver.android.annotation.SvcDialogFragment
+@RequireViews(SampleListenerViews::class)
+@RequireControlTower(EmptyControlTower::class)
+@RequireListener(SampleListenerDialogListener::class)
+class SampleListenerDialog : SVC_SampleListenerDialog() {
 
     companion object {
         fun newInstance(listener: SampleListenerDialogListener): SampleListenerDialog {

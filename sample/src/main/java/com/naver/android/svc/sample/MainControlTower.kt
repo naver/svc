@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample
 
-import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.sample.tabs.MainTab
 
-class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainViewsAction {
-
-    override fun onCreated() {
-        screen.changeScreen(MainTab.HOME)
-    }
+@ControlTower
+@RequireViews(MainViews::class)
+@RequireScreen(MainActivity::class)
+class MainControlTower : SVC_MainControlTower(), MainViewsAction {
 
     override fun onClickHome() {
         screen.changeScreen(MainTab.HOME)

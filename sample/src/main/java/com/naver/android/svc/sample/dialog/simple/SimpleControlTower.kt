@@ -1,11 +1,15 @@
 package com.naver.android.svc.sample.dialog.simple
 
-import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 
 /**
  * @author bs.nam@navercorp.com
  */
-class SimpleControlTower(screen: SimpleDialog, views: SimpleViews) : ControlTower<SimpleDialog, SimpleViews>(screen, views) {
+@com.naver.android.annotation.ControlTower
+@RequireScreen(SimpleDialog::class)
+@RequireViews(SimpleViews::class)
+class SimpleControlTower : SVC_SimpleControlTower() {
 
     override fun onCreated() {
     }

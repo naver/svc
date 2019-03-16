@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.customview
 
 import android.content.Context
@@ -23,7 +22,9 @@ import com.naver.android.svc.sample.R
 import kotlinx.android.synthetic.main.v_gnb.view.*
 
 class GnbView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : CustomViewTemplate(context, attrs, defStyleAttr) {
 
     override val layoutId

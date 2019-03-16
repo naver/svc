@@ -1,6 +1,7 @@
 package com.naver.android.svc.sample.dialog.action
 
-import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 
 /**
  * If you think this SampleActionControlTower is just passing events and doing nothing
@@ -10,7 +11,10 @@ import com.naver.android.svc.core.controltower.ControlTower
  * @see com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
  * @author bs.nam@navercorp.com
  */
-class SampleActionControlTower(screen: SampleActionDialog, views: SampleActionViews) : ControlTower<SampleActionDialog, SampleActionViews>(screen, views), SampleActionViewsAction {
+@com.naver.android.annotation.ControlTower
+@RequireScreen(SampleActionDialog::class)
+@RequireViews(SampleActionViews::class)
+class SampleActionControlTower : SVC_SampleActionControlTower(), SampleActionViewsAction {
 
     override fun onCreated() {
     }
@@ -19,9 +23,5 @@ class SampleActionControlTower(screen: SampleActionDialog, views: SampleActionVi
         //do something
         screen.dialogListener.clickDialog()
         screen.dismiss()
-
-        /**
-
-         */
     }
 }

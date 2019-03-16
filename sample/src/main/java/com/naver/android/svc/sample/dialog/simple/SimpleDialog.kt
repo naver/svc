@@ -1,14 +1,18 @@
 package com.naver.android.svc.sample.dialog.simple
 
-import com.naver.android.svc.core.screen.SvcDialogFragment
+import com.naver.android.annotation.RequireControlTower
+import com.naver.android.annotation.RequireListener
+import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.SvcDialogFragment
 
 /**
  * @author bs.nam@navercorp.com
  */
-class SimpleDialog : SvcDialogFragment<SimpleViews, SimpleControlTower, Unit>() {
-
-    override fun createControlTower() = SimpleControlTower(this, views)
-    override fun createViews() = SimpleViews()
+@SvcDialogFragment
+@RequireViews(SimpleViews::class)
+@RequireControlTower(SimpleControlTower::class)
+@RequireListener(Unit::class)
+class SimpleDialog : SVC_SimpleDialog() {
 
     companion object {
         fun newInstance(): SimpleDialog {

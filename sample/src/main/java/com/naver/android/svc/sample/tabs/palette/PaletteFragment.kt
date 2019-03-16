@@ -13,13 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.palette
 
-import com.naver.android.svc.core.screen.SvcFragment
+import android.content.Intent
+import com.naver.android.annotation.RequireControlTower
+import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.SvcFragment
+import com.naver.android.svc.sample.MainActivity
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaletteFragment : SvcFragment<CommonViews, PaletteControlTower>() {
-    override fun createViews() = CommonViews()
-    override fun createControlTower() = PaletteControlTower(this, views)
+@SvcFragment
+@RequireViews(CommonViews::class)
+@RequireControlTower(PaletteControlTower::class)
+class PaletteFragment : SVC_PaletteFragment() {
+
+    fun startMainActivity() {
+        val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
+    }
 }

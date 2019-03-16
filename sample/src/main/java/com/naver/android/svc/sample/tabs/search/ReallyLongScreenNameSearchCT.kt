@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.search
 
-import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.core.screen.DialogSupportScreen
 import com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
 import com.naver.android.svc.sample.dialog.listener.SampleListenerDialogListener
@@ -27,23 +28,29 @@ import com.naver.android.svc.sample.tabs.common.CommonViewsAction
  * if your controlTower class name is too long,
  * maybe you should Abbreviate name as "CT"
  */
-class ReallyLongScreenNameSearchCT(screen: ReallyLongScreenNameSearchFragment, views: CommonViews) : ControlTower<ReallyLongScreenNameSearchFragment, CommonViews>(screen, views),
-        CommonViewsAction {
+@ControlTower
+@RequireViews(CommonViews::class)
+@RequireScreen(ReallyLongScreenNameSearchFragment::class)
+class ReallyLongScreenNameSearchCT : SVC_ReallyLongScreenNameSearchCT(), CommonViewsAction {
 
     private var isToggled = false
 
     override fun onCreated() {
-        views.setExtraString("Open SampleListenerDialog")
+        views.setNameText(screen.javaClass.simpleName)
+        views.setExtraText("Open SampleListenerDialog")
+    }
+
+    override fun onClickBtn() {
+        showToast("ReallyLongScreenNameSearchCT - onClickBtn")
     }
 
     override fun onClickExtra() {
         val dialog = SampleListenerDialog.newInstance(object : SampleListenerDialogListener {
             override fun clickDialog() {
-                views.setExtraString(isToggled.toString())
+                views.setExtraText(isToggled.toString())
                 isToggled = !isToggled
             }
         })
-
         (screen as? DialogSupportScreen)?.showDialog(dialog)
     }
 }

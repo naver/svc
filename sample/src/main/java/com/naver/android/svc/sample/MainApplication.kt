@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample
 
 import android.app.Application
@@ -26,5 +25,4 @@ class MainApplication : Application() {
 
         SvcConfig.debugMode = true
     }
-
 }

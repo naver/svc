@@ -13,14 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.paper
 
-import com.naver.android.svc.core.screen.SvcFragment
+import android.content.Intent
+import com.naver.android.annotation.RequireControlTower
+import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.SvcFragment
+import com.naver.android.svc.sample.tabs.common.CommonActivity
 import com.naver.android.svc.sample.tabs.common.CommonControlTower
+import com.naver.android.svc.sample.tabs.common.CommonScreen
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
-class PaperFragment : SvcFragment<CommonViews, CommonControlTower>() {
-    override fun createViews() = CommonViews()
-    override fun createControlTower() = CommonControlTower(this, views)
+@SvcFragment
+@RequireViews(CommonViews::class)
+@RequireControlTower(CommonControlTower::class)
+class PaperFragment : SVC_PaperFragment(), CommonScreen {
+
+    override fun startCommonActivity() {
+        val intent = Intent(activity, CommonActivity::class.java)
+        startActivity(intent)
+    }
 }

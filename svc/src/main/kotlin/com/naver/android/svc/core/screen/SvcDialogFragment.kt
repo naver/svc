@@ -13,36 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.screen
 
 import android.app.Dialog
-import android.app.DialogFragment
-import android.arch.lifecycle.LifecycleOwner
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.naver.android.svc.core.controltower.ControlTower
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LifecycleOwner
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * you should set dialogListener after you create dialog instance.
  * if your dialog has no interaction set Unit.INSTANCE at "dialogListener" field
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
-abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL : Any> : SafeDialogFragment(), LifecycleOwner, Screen<V, C> {
+@Suppress("PropertyName", "unused")
+abstract class SvcDialogFragment<out V : Views, DL : Any> : SafeDialogFragment(), LifecycleOwner, Screen<V> {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    override val views by lazy { createViews() }
+    override val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -65,9 +63,10 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
             setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen)
         }
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (isFullScreenSupport) {
-            dialog.window.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
         }
 
         views.rootView.setOnClickListener {
@@ -78,8 +77,8 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // initialize SVC
         initializeSVC(this, views, controlTower)
-
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
         views.changeIsFirstOnCreateFalse()
@@ -97,7 +96,6 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
         val dialog = super.onCreateDialog(savedInstanceState)
 
         dialog.setOnKeyListener { _, keyCode, _ ->
-
             if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
                 if (!onBackPressed()) {
                     dismissAllowingStateLoss()
@@ -105,10 +103,8 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
                 true
             } else {
                 false
-
             }
         }
-
         return dialog
     }
 
@@ -125,5 +121,4 @@ abstract class SvcDialogFragment<out V : Views, out C : ControlTower<*, *>, DL :
 
     override val isActive: Boolean
         get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
-
 }

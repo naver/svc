@@ -1,7 +1,8 @@
 package com.naver.android.svc.core.screen;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * @author bs.nam@navercorp.com
@@ -9,7 +10,7 @@ import android.support.v4.app.FragmentManager;
 public class SafeDialogFragment extends DialogFragment {
 
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(@NonNull FragmentManager manager, String tag) {
         try {
             super.show(manager, tag);
         } catch (IllegalStateException e) {

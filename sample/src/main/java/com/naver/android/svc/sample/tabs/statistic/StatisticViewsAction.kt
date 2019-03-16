@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.statistic
 
 import com.naver.android.svc.core.views.ViewsAction
 
 interface StatisticViewsAction : ViewsAction {
-    fun onTitleClicked()
-    fun onExtraClicked()
+    fun onClickName()
+    fun onClickExtra()
 }

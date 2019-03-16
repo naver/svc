@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.views
 
 abstract class ActionViews<VA : ViewsAction> : Views() {
     lateinit var viewsAction: VA
 
     fun setAction(viewsAction: ViewsAction) {
-        try{
-        @Suppress("UNCHECKED_CAST")
-        this.viewsAction = viewsAction as VA
-        }catch (e: Exception){
+        try {
+            @Suppress("UNCHECKED_CAST")
+            this.viewsAction = viewsAction as VA
+        } catch (e: Exception) {
             throw IllegalStateException("viewsAction type mismatch \n ${viewsAction.javaClass.simpleName} are using wrong viewsAction")
         }
     }

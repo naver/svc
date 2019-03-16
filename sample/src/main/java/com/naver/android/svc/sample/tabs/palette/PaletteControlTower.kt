@@ -13,30 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
-import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.core.screen.DialogSupportScreen
 import com.naver.android.svc.sample.dialog.action.SampleActionDialog
 import com.naver.android.svc.sample.dialog.action.SampleActionDialogListener
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
-class PaletteControlTower(screen: PaletteFragment, views: CommonViews) : ControlTower<PaletteFragment, CommonViews>(screen, views),
-        CommonViewsAction {
+
+@ControlTower
+@RequireViews(CommonViews::class)
+@RequireScreen(PaletteFragment::class)
+class PaletteControlTower : SVC_PaletteControlTower(), CommonViewsAction {
 
     private var isToggled = false
 
     override fun onCreated() {
-        views.setExtraString("Open SampleActionDialog1")
+        views.setNameText(screen.javaClass.simpleName)
+        views.setExtraText("Open SampleActionDialog1")
+        views.setButtonText("start MainActivity")
+    }
+
+    override fun onClickBtn() {
+        screen.startMainActivity()
     }
 
     override fun onClickExtra() {
         val dialog = SampleActionDialog.newInstance(object : SampleActionDialogListener {
             override fun clickDialog() {
-                views.setExtraString(isToggled.toString())
+                views.setExtraText(isToggled.toString())
                 isToggled = !isToggled
             }
         })
@@ -48,5 +58,4 @@ class PaletteControlTower(screen: PaletteFragment, views: CommonViews) : Control
         Log.d(TAG, "override onStop")
         super.onStop()
     }
-
 }

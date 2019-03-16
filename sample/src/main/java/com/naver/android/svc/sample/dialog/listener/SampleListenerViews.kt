@@ -14,8 +14,8 @@ class SampleListenerViews : Views() {
     /**
      * use casting just for reduce boiling plate code files and classes
      */
-    private val dialog = screen as SampleListenerDialog
-    private val dialogListener = dialog.dialogListener
+    private val dialog by lazy { screen as SampleListenerDialog }
+    private val dialogListener by lazy { dialog.dialogListener }
 
     override fun onCreated() {
         rootView.btn_click.setOnClickListener {

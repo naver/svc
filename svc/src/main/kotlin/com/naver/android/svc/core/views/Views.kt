@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.views
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
-import android.support.annotation.LayoutRes
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.ContextHolder
 import com.naver.android.svc.core.common.ResourceProvider
@@ -40,7 +39,7 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
     var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
-    lateinit var screen: Screen<*, *>
+    lateinit var screen: Screen<*>
 
     override val context: Context?
         get() = if (isInitialized) rootView.context else null
@@ -66,6 +65,7 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
             action()
         }
     }
+
 
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.statistic
 
 import android.graphics.Color
@@ -26,16 +25,16 @@ class StatisticViews : ActionViews<StatisticViewsAction>() {
     override val layoutResId = R.layout.fragment_statistic
 
     override fun onCreated() {
-        rootView.name.setOnClickListener{ viewsAction.onTitleClicked() }
-        rootView.extra.setOnClickListener{ viewsAction.onExtraClicked() }
+        rootView.tv_name.setOnClickListener { viewsAction.onClickName() }
+        rootView.tv_extra.setOnClickListener { viewsAction.onClickExtra() }
         rootView.statistic_icon.setColorFilter(Color.WHITE)
     }
 
     fun setName(name: String) {
-        rootView.name.text = name
+        rootView.tv_name.text = name
     }
 
     fun setExtra(extra: String) {
-        rootView.extra.text = extra
+        rootView.tv_extra.text = extra
     }
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.svc.core.views.ActionViews
@@ -24,15 +23,23 @@ class CommonViews : ActionViews<CommonViewsAction>() {
 
     override val layoutResId = R.layout.fragment_common
 
-    val extra by lazy { rootView.extra }
+    private val extra by lazy { rootView.tv_extra }
+    private val name by lazy { rootView.tv_name }
 
     override fun onCreated() {
-        extra.setOnClickListener {
-            viewsAction.onClickExtra()
-        }
+        extra.setOnClickListener { viewsAction.onClickExtra() }
+        rootView.btn_click.setOnClickListener { viewsAction.onClickBtn() }
     }
 
-    fun setExtraString(extraName: String) {
-        extra?.text = extraName
+    fun setNameText(name: String) {
+        this.name.text = name
+    }
+
+    fun setExtraText(extraName: String) {
+        this.extra.text = extraName
+    }
+
+    fun setButtonText(buttonText: String) {
+        rootView.btn_click.text = buttonText
     }
 }

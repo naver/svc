@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.naver.android.svc.recyclerview.screen
 
-package com.naver.android.svc.recyclerview
-
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.naver.android.svc.core.screen.Screen
 
 /**
  * @author bs.nam@navercorp.com 2017. 8. 16..
  */
 
-abstract class ScreenBaseAdapter<VH : RecyclerView.ViewHolder>(val screen: Screen<*, *>) : RecyclerView.Adapter<VH>() {
+abstract class ScreenBaseAdapter<VH : RecyclerView.ViewHolder>(val screen: Screen<*>) : RecyclerView.Adapter<VH>() {
     final override fun onBindViewHolder(holder: VH, position: Int) {
         if (holder.adapterPosition == RecyclerView.NO_POSITION) {
             return

@@ -13,32 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.screen
 
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
-import com.naver.android.svc.core.controltower.ControlTower
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
-abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompatActivity(), Screen<V, C>, DialogSupportScreen {
+@Suppress("PrivatePropertyName")
+abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogSupportScreen {
 
-    var CLASS_SIMPLE_NAME = javaClass.simpleName
-    val TAG: String = CLASS_SIMPLE_NAME
+    private var CLASS_SIMPLE_NAME = javaClass.simpleName
+    private val TAG: String = CLASS_SIMPLE_NAME
 
-    val views by lazy { createViews() }
-    val controlTower by lazy { createControlTower() }
+    override val views by lazy { createViews() }
+    override val controlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -69,7 +67,10 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(views.layoutResId)
+
+        // initialize SVC
         initializeSVC(this, views, controlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
@@ -77,7 +78,6 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
 
         setStatusBarBGColor(statusbarColor)
 
-        super.onCreate(savedInstanceState)
         lifecycle.addObserver(views)
         lifecycle.addObserver(controlTower)
         views.changeIsFirstOnCreateFalse()
@@ -97,7 +97,7 @@ abstract class SvcActivity<out V : Views, out C : ControlTower<*, *>> : AppCompa
         super.onBackPressed()
     }
 
+
     override val isActive: Boolean
         get() = !isFinishing
-
 }

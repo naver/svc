@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.views.ActionViews
@@ -47,7 +46,6 @@ class MainViews : ActionViews<MainViewsAction>() {
             override fun onClickPaper() {
                 mainActivity.changeScreen(MainTab.PAPER)
             }
-
 
             override fun onClickSearch() {
                 mainActivity.changeScreen(MainTab.SEARCH)

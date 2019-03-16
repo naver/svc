@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.controltower
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
-import android.support.v4.app.FragmentActivity
 import android.util.Log
+import androidx.annotation.NonNull
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.naver.android.svc.SvcConfig
 import com.naver.android.svc.core.common.Toastable
 import com.naver.android.svc.core.screen.Screen
 import com.naver.android.svc.core.views.Views
-
 
 /**
  * Control Tower receives events from many different environment and manage the main business logic.
@@ -36,21 +35,33 @@ import com.naver.android.svc.core.views.Views
  *
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
-abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, val views: V) : LifecycleObserver, Toastable {
+@Suppress("UNCHECKED_CAST", "unused", "MemberVisibilityCanBePrivate")
+abstract class ControlTower : LifecycleObserver, Toastable {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    val activity: FragmentActivity? = screen.hostActivity
+    lateinit var baseScreen: Screen<*>
+    lateinit var baseViews: Views
+
+    var activity: FragmentActivity? = null
 
     override val context: Context?
-        get() = screen.hostActivity
+        get() = baseScreen.hostActivity
 
     var isFirstOnCreate = true
         private set
 
+    /**
+     * create ControlTower
+     * called automatically by ControlTowerManger
+     */
+    fun <V : Views> onCreateControlTower(@NonNull screen: Screen<V>, @NonNull views: V) {
+        this.baseScreen = screen
+        this.baseViews = views
+        this.activity = screen.hostActivity
+    }
 
-    //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun logOnCreate() {
         if (SvcConfig.debugMode) {
@@ -58,11 +69,9 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
         }
     }
 
-    /**
-     * is called after views inflated
-     */
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    abstract fun onCreated()
+    open fun onCreated() {
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     open fun onStarted() {
@@ -98,8 +107,6 @@ abstract class ControlTower<out S : Screen<V, *>, out V : Views>(val screen: S, 
             Log.d(TAG, "onDestroy")
         }
     }
-
-    //------LifeCycle END------
 
     fun finishActivity() {
         activity?.finish()

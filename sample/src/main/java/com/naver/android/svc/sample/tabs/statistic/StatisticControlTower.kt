@@ -13,22 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 
-class StatisticControlTower(screen: StatisticFragment, views: StatisticViews) : ControlTower<StatisticFragment, StatisticViews>(screen, views), StatisticViewsAction {
-    override fun onTitleClicked() {
-        showToast("StatisticControlTower onTitleClicked")
-    }
-
-    override fun onExtraClicked() {
-        showToast("StatisticControlTower onExtraClicked")
-    }
+@ControlTower
+@RequireViews(StatisticViews::class)
+@RequireScreen(StatisticFragment::class)
+class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction {
 
     override fun onCreated() {
-        views.setName(views.javaClass.simpleName)
+        views.setName(screen.javaClass.simpleName)
         views.setExtra(javaClass.simpleName)
+    }
+
+    override fun onClickName() {
+        showToast("StatisticControlTower - Name Clicked")
+    }
+
+    override fun onClickExtra() {
+        showToast("StatisticControlTower - Extra Clicked")
     }
 }
