@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample
 
 import android.app.Application
@@ -21,10 +20,9 @@ import com.naver.android.svc.SvcConfig
 
 class MainApplication : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        SvcConfig.debugMode = true
-    }
-
+    SvcConfig.debugMode = true
+  }
 }

@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.paper
 
-import com.naver.android.svc.core.qualifiers.RequireControlTower
-import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.annotation.OwnSvcFragment
+import com.naver.android.annotation.RequireControlTower
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.sample.tabs.common.CommonControlTower
 import com.naver.android.svc.sample.tabs.common.CommonViews
+import com.naver.android.svc.sample.tabs.common.SVC_PaperFragment
 
+@OwnSvcFragment
+@RequireViews(CommonViews::class)
 @RequireControlTower(CommonControlTower::class)
-class PaperFragment : SvcFragment<CommonViews>() {
-    override fun createViews() = CommonViews()
-}
+class PaperFragment : SVC_PaperFragment()

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.qualifiers.RequireControlTower
-import com.naver.android.svc.core.screen.SvcFragment
+import com.naver.android.annotation.OwnSvcFragment
+import com.naver.android.annotation.RequireControlTower
+import com.naver.android.annotation.RequireViews
 
+@OwnSvcFragment
+@RequireViews(StatisticViews::class)
 @RequireControlTower(StatisticControlTower::class)
-class StatisticFragment : SvcFragment<StatisticViews>() {
-    override fun createViews() = StatisticViews()
-}
+class StatisticFragment : SVC_StatisticFragment()

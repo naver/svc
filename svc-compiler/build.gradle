@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation project(":svc-annotation")
+    implementation "com.google.auto.service:auto-service:1.0-rc4"
+    implementation "com.squareup:javapoet:1.11.1"
+}
+
+apply from: '../spotless.gradle'

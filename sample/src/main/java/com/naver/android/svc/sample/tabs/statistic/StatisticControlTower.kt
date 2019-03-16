@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectView
+import com.naver.android.annotation.ControlTower
 
-class StatisticControlTower : ControlTower(), StatisticViewsAction {
+@ControlTower
+class StatisticControlTower : SVC_StatisticFragmentControlTower(), StatisticViewsAction {
 
-    @InjectView
-    lateinit var statisticViews: StatisticViews
+  override fun onNameClicked() {
+    showToast("NameClicked")
+  }
 
-    override fun onNameClicked() {
-        showToast("NameClicked")
-    }
-
-    override fun onCreated() {
-        this.statisticViews.setName(this.statisticViews.javaClass.simpleName)
-        this.statisticViews.setExtra(javaClass.simpleName)
-    }
+  override fun onCreated() {
+    view.setName(view.javaClass.simpleName)
+    view.setExtra(javaClass.simpleName)
+  }
 }

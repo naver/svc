@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.core.screen
 
 import android.os.Bundle
@@ -23,10 +22,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.BuildConfig
 import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.controltower.FragmentControlTowerManager
-import com.naver.android.svc.core.qualifiers.RequireControlTower
+import com.naver.android.svc.core.controltower.ControlTowerManager
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -36,92 +35,88 @@ import com.naver.android.svc.core.views.Views
 @Suppress("PrivatePropertyName")
 abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
-    private val CONTROLTOWER_KEY = "controlTower"
-    private val CLASS_SIMPLE_NAME = javaClass.simpleName
-    private var TAG: String = CLASS_SIMPLE_NAME
+  private val CLASS_SIMPLE_NAME = javaClass.simpleName
+  private var TAG: String = CLASS_SIMPLE_NAME
 
-    companion object {
-        const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
+  companion object {
+    const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
+  }
+
+  val views by lazy { createViews() }
+  lateinit var controlTower: ControlTower
+
+  override val hostActivity: FragmentActivity?
+    get() = activity
+
+  override val fragmentManagerForDialog: FragmentManager?
+    get() = this.hostActivity?.supportFragmentManager
+
+  override val screenFragmentManager: FragmentManager?
+    get() = this.fragmentManager
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    // assigns ControlTower
+    assignControlTower()
+  }
+
+  private fun addExtraTagId() {
+    val extraId = arguments?.getString(EXTRA_TAG_ID)
+    extraId?.apply {
+      controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
+      views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
+    }
+  }
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    return if (views.isInitialized) views.rootView
+    else inflater.inflate(views.layoutResId, container, false) as ViewGroup?
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    // initialize SVC
+    initializeSVC(this, views, controlTower)
+
+    addExtraTagId()
+
+    if (!views.isInitialized) {
+      views.rootView = view as ViewGroup
     }
 
-    val views by lazy { createViews() }
-    lateinit var controlTower: ControlTower
+    lifecycle.addObserver(views)
+    lifecycle.addObserver(controlTower)
+  }
 
-    override val hostActivity: FragmentActivity?
-        get() = activity
+  override fun onDestroy() {
+    super.onDestroy()
+    lifecycle.removeObserver(controlTower)
+    lifecycle.removeObserver(views)
 
-    override val fragmentManagerForDialog: FragmentManager?
-        get() = this.hostActivity?.supportFragmentManager
-
-    override val screenFragmentManager: FragmentManager?
-        get() = this.fragmentManager
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // assigns ControlTower
-        assignControlTower()
+    // destroy controlTower
+    fragmentManager?.let {
+      ControlTowerManager.instance.destroy(controlTower)
     }
+  }
 
-    private fun addExtraTagId() {
-        val extraId = arguments?.getString(EXTRA_TAG_ID)
-        extraId?.apply {
-            controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
-            views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
-        }
+  open fun onBackPressed(): Boolean {
+    if (controlTower.onBackPressed() || views.onBackPressed()) {
+      return true
     }
+    return false
+  }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return if (views.isInitialized) views.rootView
-        else inflater.inflate(views.layoutResId, container, false) as ViewGroup?
-    }
+  /** assign ControlTower. */
+  private fun assignControlTower() {
+    val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
+    annotation?.let {
+      val controlTowerClass = it.value
+      this.controlTower = ControlTowerManager.instance.fetch(this,
+          controlTowerClass,
+          views)
+    } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // initialize SVC
-        initializeSVC(this, views, controlTower)
-
-        addExtraTagId()
-
-        if (!views.isInitialized) {
-            views.rootView = view as ViewGroup
-        }
-
-        lifecycle.addObserver(views)
-        lifecycle.addObserver(controlTower)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        lifecycle.removeObserver(controlTower)
-        lifecycle.removeObserver(views)
-
-        // destroy controlTower
-        fragmentManager?.let {
-            FragmentControlTowerManager.instance.destroy(controlTower)
-        }
-    }
-
-    open fun onBackPressed(): Boolean {
-        if (controlTower.onBackPressed() || views.onBackPressed()) {
-            return true
-        }
-        return false
-    }
-
-    /**
-     * assign ControlTower
-     */
-    private fun assignControlTower() {
-        val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
-        annotation?.let {
-            val controlTowerClass = it.value
-            this.controlTower = FragmentControlTowerManager.instance.fetch(this,
-                    controlTowerClass,
-                    views)
-        } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
-    }
-
-
-    override val isActive: Boolean
-        get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
+  override val isActive: Boolean
+    get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
 }

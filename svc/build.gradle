@@ -113,7 +113,6 @@ artifacts {
     archives sourcesJar
 }
 
-
 android {
     compileSdkVersion 28
 
@@ -128,11 +127,15 @@ android {
 }
 
 dependencies {
+    api project(":svc-annotation")
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     implementation "androidx.appcompat:appcompat:1.1.0-alpha02"
     implementation "androidx.recyclerview:recyclerview:1.1.0-alpha02"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02"
-
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03"
 }
+
+apply from: '../spotless.gradle'
+

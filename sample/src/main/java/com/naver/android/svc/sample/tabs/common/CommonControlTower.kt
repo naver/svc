@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.naver.android.svc.sample.tabs.common
 
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.qualifiers.InjectView
+import com.naver.android.annotation.ControlTower
+import com.naver.android.svc.sample.tabs.paper.SVC_PaperFragmentControlTower
 
-class CommonControlTower : ControlTower() {
+@ControlTower
+class CommonControlTower : SVC_PaperFragmentControlTower() {
 
-    @InjectView
-    lateinit var commonViews: CommonViews
-
-    override fun onCreated() {
-        this.commonViews.setExtraString("CommonControlTower")
-    }
+  override fun onCreated() {
+    view.setExtraString("CommonControlTower")
+  }
 }

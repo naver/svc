@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':sample', ':svc'
+include ':sample', ':svc', ':svc-compiler', ':svc-annotation'
