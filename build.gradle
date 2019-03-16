@@ -55,7 +55,7 @@ ext {
     moduleName = 'svc'
     desc = 'Easy and intuitive pattern for Android'
 
-    libVersionName = "1.0.0-generic-beta01"
+    libVersionName = "1.0.0-generic-beta02"
     libVersionCode = 1
 
     MIN_SDK_VERSION = 17
