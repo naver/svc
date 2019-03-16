@@ -15,19 +15,18 @@
  */
 package com.naver.android.compiler;
 
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-
 import com.google.common.base.VerifyException;
+import com.naver.android.annotation.RequireControlTower;
+import com.naver.android.annotation.RequireViews;
 import com.naver.android.annotation.SvcActivity;
 import com.naver.android.annotation.SvcDialogFragment;
 import com.naver.android.annotation.SvcFragment;
-import com.naver.android.annotation.RequireControlTower;
-import com.naver.android.annotation.RequireViews;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
 
 @SuppressWarnings("WeakerAccess")
 public class ScreenAnnotatedClass {

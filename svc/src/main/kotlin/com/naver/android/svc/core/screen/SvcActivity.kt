@@ -95,7 +95,6 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     super.onBackPressed()
   }
 
-
   override val isActive: Boolean
     get() = !isFinishing
 }

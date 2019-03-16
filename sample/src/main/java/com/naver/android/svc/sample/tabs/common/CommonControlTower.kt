@@ -19,7 +19,6 @@ import com.naver.android.annotation.ControlTower
 import com.naver.android.annotation.RequireScreen
 import com.naver.android.annotation.RequireViews
 
-
 @ControlTower
 @RequireViews(CommonViews::class)
 @RequireScreen(CommonScreen::class)

@@ -15,11 +15,10 @@
  */
 package com.naver.android.compiler;
 
-import javax.lang.model.element.Modifier;
-
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
+import javax.lang.model.element.Modifier;
 
 @SuppressWarnings({"WeakerAccess", "FieldCanBeLocal", "unused"})
 public class ControlTowerGenerator {
@@ -28,8 +27,7 @@ public class ControlTowerGenerator {
   private final String controlTowerName;
   private final ControlTowerAnnotatedClass annotatedClazz;
 
-  public ControlTowerGenerator(
-      String packageName, ControlTowerAnnotatedClass annotatedClazz) {
+  public ControlTowerGenerator(String packageName, ControlTowerAnnotatedClass annotatedClazz) {
     this.packageName = packageName;
     this.annotatedClazz = annotatedClazz;
     this.controlTowerName = annotatedClazz.clazzName;

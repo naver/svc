@@ -27,7 +27,7 @@ import com.naver.android.svc.sample.tabs.common.CommonViews
 @SvcFragment
 @RequireViews(CommonViews::class)
 @RequireControlTower(CommonControlTower::class)
-class PaperFragment : SVC_PaperFragment(), CommonScreen{
+class PaperFragment : SVC_PaperFragment(), CommonScreen {
 
   override fun startCommonActivity() {
     val intent = Intent(activity, CommonActivity::class.java)
