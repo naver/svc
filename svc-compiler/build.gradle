@@ -1,4 +1,116 @@
 apply plugin: 'java-library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+group = rootProject.ext.packageName
+version = rootProject.ext.libVersionName
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name name = rootProject.ext.compilerModuleName
+            description rootProject.ext.desc
+            url rootProject.ext.defaultUrl
+            inceptionYear '2018'
+
+            packaging 'jar'
+            groupId rootProject.ext.packageName
+            artifactId rootProject.ext.compilerModuleName
+            version rootProject.ext.libVersionName
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            scm {
+                connection rootProject.ext.defaultRepoUrl
+                developerConnection rootProject.ext.defaultRepoUrl
+                url rootProject.ext.defaultUrl
+            }
+
+            developers {
+                developer {
+                    id 'BansookNam'
+                    name 'BansookNam'
+                    email 'bs.nam@navercorp.com'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    user = properties.getProperty('bintrayUser')
+    key = properties.getProperty('bintrayApiKey')
+
+    println(user)
+    println(key)
+
+
+    configurations = ['archives']
+
+    publish = true
+
+    pkg {
+        repo = rootProject.ext.repoName
+        name = rootProject.ext.moduleName
+        userOrg = user
+        desc = rootProject.ext.desc
+        licenses = ['Apache-2.0']
+
+        vcsUrl = rootProject.ext.defaultRepoUrl
+        websiteUrl = rootProject.ext.defaultUrl
+
+        labels = ['jar', 'android', 'svc']
+        publicDownloadNumbers = true
+
+        githubRepo = 'BansookNam/svc'
+        githubReleaseNotesFile = 'CONTRIBUTING.md'
+
+        version {
+            name = rootProject.ext.libVersionName
+            desc = rootProject.ext.desc
+            released = new Date()
+            // Optional - Date of the version release. 2 possible values: date in the format of 'yyyy-MM-dd'T'HH:mm:ss.SSSZZ' OR a java.util.Date instance
+            vcsTag = rootProject.ext.libVersionName
+        }
+    }
+}
+
+/*
+ * Copyright 2018 NAVER Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// JCenter publish
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+
+artifacts {
+    archives sourcesJar
+}
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
