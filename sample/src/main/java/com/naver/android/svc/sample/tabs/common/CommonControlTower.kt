@@ -27,6 +27,7 @@ class CommonControlTower : SVC_CommonControlTower(), CommonViewsAction {
 
   override fun onCreated() {
     views.setExtraString("CommonControlTower")
+    views.setButtonText("Start CommonActivity")
   }
 
   override fun onClickBtn() {
