@@ -15,11 +15,12 @@
  */
 package com.naver.android.compiler;
 
+import javax.lang.model.element.Modifier;
+
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import javax.lang.model.element.Modifier;
 
 @SuppressWarnings({"WeakerAccess", "FieldCanBeLocal", "unused"})
 public class ControlTowerGenerator {
@@ -55,7 +56,7 @@ public class ControlTowerGenerator {
   }
 
   private MethodSpec getViewMethodSpec() {
-    return MethodSpec.methodBuilder("getView")
+    return MethodSpec.methodBuilder("getViews")
         .addModifiers(Modifier.PUBLIC)
         .addStatement("return ($L) getBaseViews()", annotatedClazz.baseView)
         .returns(annotatedClazz.baseView)
