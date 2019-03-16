@@ -22,6 +22,6 @@ import com.naver.android.svc.sample.tabs.paper.SVC_PaperFragmentControlTower
 class CommonControlTower : SVC_PaperFragmentControlTower() {
 
   override fun onCreated() {
-    view.setExtraString("CommonControlTower")
+    views.setExtraString("CommonControlTower")
   }
 }

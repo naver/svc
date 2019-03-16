@@ -25,6 +25,6 @@ import com.naver.android.annotation.ControlTower
 class ReallyLongScreenNameSearchCT : SVC_ReallyLongScreenNameSearchFragmentControlTower() {
 
   override fun onCreated() {
-    view.setExtraString("ReallyLongScreenNameSearchCT")
+    views.setExtraString("ReallyLongScreenNameSearchCT")
   }
 }

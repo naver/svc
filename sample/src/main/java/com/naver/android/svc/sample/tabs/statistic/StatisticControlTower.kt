@@ -25,7 +25,7 @@ class StatisticControlTower : SVC_StatisticFragmentControlTower(), StatisticView
   }
 
   override fun onCreated() {
-    view.setName(view.javaClass.simpleName)
-    view.setExtra(javaClass.simpleName)
+    views.setName(views.javaClass.simpleName)
+    views.setExtra(javaClass.simpleName)
   }
 }

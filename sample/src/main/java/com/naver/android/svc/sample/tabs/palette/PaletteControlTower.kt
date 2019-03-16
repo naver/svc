@@ -22,7 +22,7 @@ import com.naver.android.annotation.ControlTower
 class PaletteControlTower : SVC_PaletteFragmentControlTower() {
 
   override fun onCreated() {
-    view.setExtraString("PaletteControlTower")
+    views.setExtraString("PaletteControlTower")
   }
 
   override fun onStop() {
