@@ -64,6 +64,7 @@ interface Screen<out V : Views> : LifecycleOwner {
     ct.apply {
       baseScreen = screen
       baseViews = views
+      activity = screen.hostActivity
     }
   }
 }

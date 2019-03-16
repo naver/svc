@@ -16,10 +16,14 @@
 package com.naver.android.svc.sample
 
 import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.sample.tabs.MainTab
 
 @ControlTower
-class MainControlTower : SVC_MainActivityControlTower(), MainViewsAction {
+@RequireViews(MainViews::class)
+@RequireScreen(MainActivity::class)
+class MainControlTower : SVC_MainControlTower(), MainViewsAction {
 
   override fun onClickHome() {
     screen.changeScreen(MainTab.HOME)

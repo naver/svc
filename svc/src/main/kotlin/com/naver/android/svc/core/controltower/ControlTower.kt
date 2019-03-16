@@ -44,7 +44,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
   lateinit var baseScreen: Screen<*>
   lateinit var baseViews: Views
 
-  private var activity: FragmentActivity? = null
+  var activity: FragmentActivity? = null
 
   override val context: Context?
     get() = baseScreen.hostActivity
@@ -53,7 +53,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
    * create ControlTower
    * called automatically by ControlTowerManger
    */
-  fun onCreateControlTower(@NonNull screen: Screen<Views>, @NonNull views: Views) {
+  fun <V : Views> onCreateControlTower(@NonNull screen: Screen<V>, @NonNull views: V) {
     this.baseScreen = screen
     this.baseViews = views
     this.activity = screen.hostActivity

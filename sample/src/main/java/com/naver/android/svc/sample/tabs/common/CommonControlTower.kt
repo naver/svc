@@ -16,12 +16,20 @@
 package com.naver.android.svc.sample.tabs.common
 
 import com.naver.android.annotation.ControlTower
-import com.naver.android.svc.sample.tabs.paper.SVC_PaperFragmentControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
+
 
 @ControlTower
-class CommonControlTower : SVC_PaperFragmentControlTower() {
+@RequireViews(CommonViews::class)
+@RequireScreen(CommonScreen::class)
+class CommonControlTower : SVC_CommonControlTower(), CommonViewsAction {
 
   override fun onCreated() {
     views.setExtraString("CommonControlTower")
+  }
+
+  override fun onClickBtn() {
+    screen.startCommonActivity()
   }
 }

@@ -16,16 +16,24 @@
 package com.naver.android.svc.sample.tabs.statistic
 
 import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
 
 @ControlTower
-class StatisticControlTower : SVC_StatisticFragmentControlTower(), StatisticViewsAction {
-
-  override fun onNameClicked() {
-    showToast("NameClicked")
-  }
+@RequireViews(StatisticViews::class)
+@RequireScreen(StatisticFragment::class)
+class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction {
 
   override fun onCreated() {
     views.setName(views.javaClass.simpleName)
     views.setExtra(javaClass.simpleName)
+  }
+
+  override fun onClickName() {
+    showToast("Name Clicked")
+  }
+
+  override fun onClickExtra() {
+    showToast("Extra Clicked")
   }
 }

@@ -19,19 +19,20 @@ import javax.lang.model.element.Modifier;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 @SuppressWarnings({"WeakerAccess", "FieldCanBeLocal", "unused"})
 public class ControlTowerGenerator {
 
   private final String packageName;
-  private final RequireControlTowerAnnotatedClass annotatedClazz;
+  private final String controlTowerName;
+  private final ControlTowerAnnotatedClass annotatedClazz;
 
   public ControlTowerGenerator(
-      String packageName, RequireControlTowerAnnotatedClass annotatedClazz) {
+      String packageName, ControlTowerAnnotatedClass annotatedClazz) {
     this.packageName = packageName;
     this.annotatedClazz = annotatedClazz;
+    this.controlTowerName = annotatedClazz.clazzName;
   }
 
   public TypeSpec generate() {
@@ -50,8 +51,8 @@ public class ControlTowerGenerator {
   private MethodSpec getScreenMethodSpec() {
     return MethodSpec.methodBuilder("getScreen")
         .addModifiers(Modifier.PUBLIC)
-        .addStatement("return ($L) getBaseScreen()", annotatedClazz.annotatedElement)
-        .returns(TypeName.get(annotatedClazz.annotatedElement.asType()))
+        .addStatement("return ($L) getBaseScreen()", annotatedClazz.screen)
+        .returns(annotatedClazz.screen)
         .build();
   }
 
@@ -64,6 +65,6 @@ public class ControlTowerGenerator {
   }
 
   private String getControlTowerName() {
-    return "SVC_" + this.annotatedClazz.clazzName + "ControlTower";
+    return "SVC_" + controlTowerName;
   }
 }

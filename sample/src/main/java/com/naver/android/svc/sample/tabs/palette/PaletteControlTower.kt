@@ -17,12 +17,23 @@ package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
 import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.sample.tabs.common.CommonViews
+import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
 @ControlTower
-class PaletteControlTower : SVC_PaletteFragmentControlTower() {
+@RequireViews(CommonViews::class)
+@RequireScreen(PaletteFragment::class)
+class PaletteControlTower : SVC_PaletteControlTower(), CommonViewsAction {
 
   override fun onCreated() {
     views.setExtraString("PaletteControlTower")
+    views.setButtonText("start MainActivity")
+  }
+
+  override fun onClickBtn() {
+    screen.startMainActivity()
   }
 
   override fun onStop() {

@@ -16,15 +16,24 @@
 package com.naver.android.svc.sample.tabs.home
 
 import com.naver.android.annotation.ControlTower
+import com.naver.android.annotation.RequireScreen
+import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
 /**
  * @author bs.nam@navercorp.com
  */
 @ControlTower
-class HomeControlTower : SVC_HomeFragmentControlTower(), CommonViewsAction {
+@RequireViews(CommonViews::class)
+@RequireScreen(HomeFragment::class)
+class HomeControlTower : SVC_HomeControlTower(), CommonViewsAction {
 
   override fun onCreated() {
     views.setExtraString("HomeControlTower")
+  }
+
+  override fun onClickBtn() {
+    showToast("HomeControlTower - onClickBtn")
   }
 }

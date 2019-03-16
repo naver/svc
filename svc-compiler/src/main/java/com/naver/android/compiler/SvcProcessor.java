@@ -15,19 +15,12 @@
  */
 package com.naver.android.compiler;
 
-import static javax.tools.Diagnostic.Kind.ERROR;
-
-import com.google.auto.service.AutoService;
-import com.google.common.base.VerifyException;
-import com.naver.android.annotation.ControlTower;
-import com.naver.android.annotation.RequireControlTower;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -38,25 +31,38 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 
+import com.google.auto.service.AutoService;
+import com.google.common.base.VerifyException;
+import com.naver.android.annotation.ControlTower;
+import com.naver.android.annotation.SvcActivity;
+import com.naver.android.annotation.SvcDialogFragment;
+import com.naver.android.annotation.SvcFragment;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
+
+import static javax.tools.Diagnostic.Kind.ERROR;
+
 @SuppressWarnings("unused")
 @AutoService(Processor.class)
 public class SvcProcessor extends AbstractProcessor {
 
-  private Map<String, RequireControlTowerAnnotatedClass> annotatedRequireControlTowerMap;
+  private Map<String, ControlTowerAnnotatedClass> annotatedControlTowerMap;
   private Messager messager;
 
   @Override
   public synchronized void init(ProcessingEnvironment processingEnvironment) {
     super.init(processingEnvironment);
-    annotatedRequireControlTowerMap = new HashMap<>();
+    annotatedControlTowerMap = new HashMap<>();
     this.messager = processingEnv.getMessager();
   }
 
   @Override
   public Set<String> getSupportedAnnotationTypes() {
     Set<String> supportedTypes = new HashSet<>();
-    supportedTypes.add(RequireControlTower.class.getCanonicalName());
     supportedTypes.add(ControlTower.class.getCanonicalName());
+    supportedTypes.add(SvcFragment.class.getCanonicalName());
+    supportedTypes.add(SvcDialogFragment.class.getCanonicalName());
+    supportedTypes.add(SvcActivity.class.getCanonicalName());
     return supportedTypes;
   }
 
@@ -72,38 +78,62 @@ public class SvcProcessor extends AbstractProcessor {
       return true;
     }
 
-    roundEnvironment.getElementsAnnotatedWith(RequireControlTower.class).stream()
-        .map(annotatedType -> (TypeElement) annotatedType)
-        .forEach(
-            annotatedType -> {
-              try {
-                checkRequireControlTowerValidation(annotatedType);
-                processRequireControlTower(annotatedType);
-              } catch (IllegalAccessException e) {
-                showProcessErrorLog(e.getMessage(), annotatedType);
-              }
-            });
-
     roundEnvironment.getElementsAnnotatedWith(ControlTower.class).stream()
-        .map(annotatedType -> (TypeElement) annotatedType)
-        .forEach(
-            annotatedType -> {
-              try {
-                checkControlTowerValidation(annotatedType);
-                processControlTowers(annotatedType);
-              } catch (IllegalAccessException e) {
-                showProcessErrorLog(e.getMessage(), annotatedType);
-              }
-            });
+      .map(annotatedType -> (TypeElement) annotatedType)
+      .forEach(
+        annotatedType -> {
+          try {
+            checkIsClassType(annotatedType, "Only classes can be annotated with @ControlTower.");
+            processControlTower(annotatedType);
+          } catch (IllegalAccessException e) {
+            showProcessErrorLog(e.getMessage(), annotatedType);
+          }
+        });
+
+    roundEnvironment.getElementsAnnotatedWith(SvcActivity.class).stream()
+      .map(annotatedType -> (TypeElement) annotatedType)
+      .forEach(
+        annotatedType -> {
+          try {
+            checkIsClassType(annotatedType, "Only classes can be annotated with @SvcActivity.");
+            processScreen(annotatedType);
+          } catch (IllegalAccessException e) {
+            showProcessErrorLog(e.getMessage(), annotatedType);
+          }
+        });
+
+    roundEnvironment.getElementsAnnotatedWith(SvcFragment.class).stream()
+      .map(annotatedType -> (TypeElement) annotatedType)
+      .forEach(
+        annotatedType -> {
+          try {
+            checkIsClassType(annotatedType, "Only classes can be annotated with @SvcFragment.");
+            processScreen(annotatedType);
+          } catch (IllegalAccessException e) {
+            showProcessErrorLog(e.getMessage(), annotatedType);
+          }
+        });
+
+    roundEnvironment.getElementsAnnotatedWith(SvcDialogFragment.class).stream()
+      .map(annotatedType -> (TypeElement) annotatedType)
+      .forEach(
+        annotatedType -> {
+          try {
+            checkIsClassType(annotatedType, "Only classes can be annotated with @SvcDialogFragment.");
+            processScreen(annotatedType);
+          } catch (IllegalAccessException e) {
+            showProcessErrorLog(e.getMessage(), annotatedType);
+          }
+        });
 
     return true;
   }
 
-  private void processRequireControlTower(TypeElement annotatedType) {
+  private void processControlTower(TypeElement annotatedType) {
     try {
-      RequireControlTowerAnnotatedClass annotatedClazz =
-          new RequireControlTowerAnnotatedClass(annotatedType, processingEnv.getElementUtils());
-      this.annotatedRequireControlTowerMap.put(annotatedClazz.controlTowerName, annotatedClazz);
+      ControlTowerAnnotatedClass annotatedClazz =
+          new ControlTowerAnnotatedClass(annotatedType, processingEnv.getElementUtils());
+      this.annotatedControlTowerMap.put(annotatedClazz.clazzName, annotatedClazz);
       PackageElement packageElement =
           processingEnv.getElementUtils().getPackageOf(annotatedClazz.annotatedElement);
       String packageName =
@@ -114,27 +144,8 @@ public class SvcProcessor extends AbstractProcessor {
     }
   }
 
-  private void processControlTowers(TypeElement annotatedType) {
-    try {
-      RequireControlTowerAnnotatedClass requireControlTowerAnnotatedClass =
-          annotatedRequireControlTowerMap.get(annotatedType.getSimpleName().toString());
-      if (requireControlTowerAnnotatedClass != null) {
-        ControlTowerAnnotatedClass annotatedClazz =
-            new ControlTowerAnnotatedClass(annotatedType, processingEnv.getElementUtils());
-        PackageElement packageElement =
-            processingEnv.getElementUtils().getPackageOf(annotatedClazz.annotatedElement);
-        String packageName =
-            packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
-        generateProcessScreenExtends(
-            packageName, annotatedClazz, requireControlTowerAnnotatedClass);
-      }
-    } catch (VerifyException e) {
-      showProcessErrorLog(e.getMessage(), annotatedType);
-    }
-  }
-
   private void generateProcessControlTower(
-      String packageName, RequireControlTowerAnnotatedClass annotatedClazz) {
+      String packageName, ControlTowerAnnotatedClass annotatedClazz) {
     try {
       ControlTowerGenerator controlTowerGenerator =
           new ControlTowerGenerator(packageName, annotatedClazz);
@@ -145,32 +156,36 @@ public class SvcProcessor extends AbstractProcessor {
     }
   }
 
-  private void generateProcessScreenExtends(
-      String packageName,
-      ControlTowerAnnotatedClass controlTowerAnnotatedClass,
-      RequireControlTowerAnnotatedClass requireControlTowerAnnotatedClass) {
+  private void processScreen(TypeElement annotatedType) {
     try {
-      ScreenExtendsGenerator screenExtendsGenerator =
-          new ScreenExtendsGenerator(
-              packageName, controlTowerAnnotatedClass, requireControlTowerAnnotatedClass);
-      TypeSpec controlTowerClazz = screenExtendsGenerator.generate();
+      ScreenAnnotatedClass annotatedClazz =
+        new ScreenAnnotatedClass(annotatedType, processingEnv.getElementUtils());
+      PackageElement packageElement =
+        processingEnv.getElementUtils().getPackageOf(annotatedClazz.annotatedElement);
+      String packageName =
+        packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
+      generateScreen(packageName, annotatedClazz);
+    } catch (VerifyException e) {
+      showProcessErrorLog(e.getMessage(), annotatedType);
+    }
+  }
+
+  private void generateScreen(
+    String packageName, ScreenAnnotatedClass annotatedClazz) {
+    try {
+      ScreenExtendsGenerator controlTowerGenerator =
+        new ScreenExtendsGenerator(packageName, annotatedClazz);
+      TypeSpec controlTowerClazz = controlTowerGenerator.generate();
       JavaFile.builder(packageName, controlTowerClazz).build().writeTo(processingEnv.getFiler());
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private void checkRequireControlTowerValidation(TypeElement annotatedType)
+  private void checkIsClassType(TypeElement annotatedType, String errorMsg)
       throws IllegalAccessException {
     if (!annotatedType.getKind().isClass()) {
-      throw new IllegalAccessException("Only classes can be annotated with @RequireControlTower.");
-    }
-  }
-
-  private void checkControlTowerValidation(TypeElement annotatedType)
-      throws IllegalAccessException {
-    if (!annotatedType.getKind().isClass()) {
-      throw new IllegalAccessException("Only classes can be annotated with @ControlTower.");
+      throw new IllegalAccessException(errorMsg);
     }
   }
 

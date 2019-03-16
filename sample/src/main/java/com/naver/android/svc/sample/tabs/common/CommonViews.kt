@@ -26,9 +26,14 @@ class CommonViews : ActionViews<CommonViewsAction>() {
   val extra by lazy { rootView.extra }
 
   override fun onCreated() {
+    rootView.btn_click.setOnClickListener { viewsAction.onClickBtn() }
   }
 
   fun setExtraString(extraName: String) {
     extra?.text = extraName
+  }
+
+  fun setButtonText(buttonText: String) {
+    rootView.btn_click.text = buttonText
   }
 }

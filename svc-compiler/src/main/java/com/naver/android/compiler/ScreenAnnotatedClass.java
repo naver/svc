@@ -30,7 +30,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
 @SuppressWarnings("WeakerAccess")
-public class RequireControlTowerAnnotatedClass {
+public class ScreenAnnotatedClass {
 
   public final TypeElement annotatedElement;
   public final String packageName;
@@ -42,7 +42,7 @@ public class RequireControlTowerAnnotatedClass {
   public String viewsMetaData;
   public TypeName superClass;
 
-  public RequireControlTowerAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
+  public ScreenAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
       throws VerifyException {
     PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
     this.packageName =
