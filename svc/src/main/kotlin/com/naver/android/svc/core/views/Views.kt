@@ -39,7 +39,7 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
     var TAG: String = CLASS_SIMPLE_NAME
 
     lateinit var rootView: ViewGroup
-    lateinit var screen: Screen<*>
+    lateinit var screen: Screen
 
     override val context: Context?
         get() = if (isInitialized) rootView.context else null
