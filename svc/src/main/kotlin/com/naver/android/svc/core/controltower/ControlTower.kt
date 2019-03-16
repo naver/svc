@@ -17,7 +17,6 @@ package com.naver.android.svc.core.controltower
 
 import android.content.Context
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -41,7 +40,7 @@ abstract class ControlTower : LifecycleObserver, Toastable {
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    lateinit var baseScreen: Screen<*>
+    lateinit var baseScreen: Screen
     lateinit var baseViews: Views
 
     var activity: FragmentActivity? = null
@@ -51,16 +50,6 @@ abstract class ControlTower : LifecycleObserver, Toastable {
 
     var isFirstOnCreate = true
         private set
-
-    /**
-     * create ControlTower
-     * called automatically by ControlTowerManger
-     */
-    fun <V : Views> onCreateControlTower(@NonNull screen: Screen<V>, @NonNull views: V) {
-        this.baseScreen = screen
-        this.baseViews = views
-        this.activity = screen.hostActivity
-    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun logOnCreate() {

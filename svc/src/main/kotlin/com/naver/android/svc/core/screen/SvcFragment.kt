@@ -23,14 +23,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.naver.android.svc.BuildConfig
-import com.naver.android.svc.core.views.Views
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
 @Suppress("PrivatePropertyName")
-abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogSupportScreen {
+abstract class SvcFragment : Fragment(), Screen, DialogSupportScreen {
 
     private val CLASS_SIMPLE_NAME = javaClass.simpleName
     private var TAG: String = CLASS_SIMPLE_NAME
@@ -39,8 +38,8 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogSupport
         const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
     }
 
-    override val views by lazy { createViews() }
-    override val controlTower by lazy { createControlTower() }
+    override val baseViews by lazy { createViews() }
+    override val baseControlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -54,40 +53,40 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogSupport
     private fun addExtraTagId() {
         val extraId = arguments?.getString(EXTRA_TAG_ID)
         extraId?.apply {
-            controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
-            views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
+            baseControlTower.TAG = "${baseControlTower.CLASS_SIMPLE_NAME}_$this"
+            baseViews.TAG = "${baseViews.CLASS_SIMPLE_NAME}_$this"
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return if (views.isInitialized) views.rootView
-        else inflater.inflate(views.layoutResId, container, false) as ViewGroup?
+        return if (baseViews.isInitialized) baseViews.rootView
+        else inflater.inflate(baseViews.layoutResId, container, false) as ViewGroup?
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // initialize SVC
-        initializeSVC(this, views, controlTower)
+        initializeSVC(this, baseViews, baseControlTower)
 
         addExtraTagId()
 
-        if (!views.isInitialized) {
-            views.rootView = view as ViewGroup
+        if (!baseViews.isInitialized) {
+            baseViews.rootView = view as ViewGroup
         }
 
-        lifecycle.addObserver(views)
-        lifecycle.addObserver(controlTower)
-        views.changeIsFirstOnCreateFalse()
-        controlTower.changeIsFirstOnCreateFalse()
+        lifecycle.addObserver(baseViews)
+        lifecycle.addObserver(baseControlTower)
+        baseViews.changeIsFirstOnCreateFalse()
+        baseControlTower.changeIsFirstOnCreateFalse()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(controlTower)
-        lifecycle.removeObserver(views)
+        lifecycle.removeObserver(baseControlTower)
+        lifecycle.removeObserver(baseViews)
     }
 
     open fun onBackPressed(): Boolean {
-        if (controlTower.onBackPressed() || views.onBackPressed()) {
+        if (baseControlTower.onBackPressed() || baseViews.onBackPressed()) {
             return true
         }
         return false

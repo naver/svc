@@ -28,7 +28,7 @@ import com.naver.android.svc.core.screen.Screen
  */
 class ScreenViewModelProviers {
     companion object {
-        fun of(screen: Screen<*>): ViewModelProvider {
+        fun of(screen: Screen): ViewModelProvider {
             return when (screen) {
                 is Fragment -> ViewModelProviders.of(screen)
                 is FragmentActivity -> ViewModelProviders.of(screen)

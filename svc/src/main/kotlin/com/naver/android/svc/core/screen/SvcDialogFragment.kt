@@ -26,7 +26,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
-import com.naver.android.svc.core.views.Views
 
 /**
  * you should set dialogListener after you create dialog instance.
@@ -34,13 +33,13 @@ import com.naver.android.svc.core.views.Views
  * @author bs.nam@navercorp.com 2017. 11. 22..
  */
 @Suppress("PropertyName", "unused")
-abstract class SvcDialogFragment<out V : Views, DL : Any> : SafeDialogFragment(), LifecycleOwner, Screen<V> {
+abstract class SvcDialogFragment<DL : Any> : SafeDialogFragment(), LifecycleOwner, Screen {
 
     val CLASS_SIMPLE_NAME = javaClass.simpleName
     var TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val controlTower by lazy { createControlTower() }
+    override val baseViews by lazy { createViews() }
+    override val baseControlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = activity
@@ -69,30 +68,30 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : SafeDialogFragment()
             dialog?.window?.setBackgroundDrawable(ColorDrawable(dialogBackgroundColor))
         }
 
-        views.rootView.setOnClickListener {
+        baseViews.rootView.setOnClickListener {
             dismissAllowingStateLoss()
         }
 
-        return views.rootView
+        return baseViews.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // initialize SVC
-        initializeSVC(this, views, controlTower)
-        lifecycle.addObserver(views)
-        lifecycle.addObserver(controlTower)
-        views.changeIsFirstOnCreateFalse()
-        controlTower.changeIsFirstOnCreateFalse()
+        initializeSVC(this, baseViews, baseControlTower)
+        lifecycle.addObserver(baseViews)
+        lifecycle.addObserver(baseControlTower)
+        baseViews.changeIsFirstOnCreateFalse()
+        baseControlTower.changeIsFirstOnCreateFalse()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(controlTower)
-        lifecycle.removeObserver(views)
+        lifecycle.removeObserver(baseControlTower)
+        lifecycle.removeObserver(baseViews)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        views.rootView = LayoutInflater.from(context).inflate(views.layoutResId, null) as ViewGroup
+        baseViews.rootView = LayoutInflater.from(context).inflate(baseViews.layoutResId, null) as ViewGroup
         val dialog = super.onCreateDialog(savedInstanceState)
 
         dialog.setOnKeyListener { _, keyCode, _ ->
@@ -109,7 +108,7 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : SafeDialogFragment()
     }
 
     open fun onBackPressed(): Boolean {
-        if (controlTower.onBackPressed() || views.onBackPressed()) {
+        if (baseControlTower.onBackPressed() || baseViews.onBackPressed()) {
             return true
         }
         return false

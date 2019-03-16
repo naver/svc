@@ -89,11 +89,11 @@ public class ScreenAnnotatedClass {
         if (svcActivity != null) {
             ClassName svcActivityClassName =
                 ClassName.get("com.naver.android.svc.core.screen", "SvcActivity");
-            this.superClass = ParameterizedTypeName.get(svcActivityClassName, baseView);
+            this.superClass = svcActivityClassName;
         } else if (svcFragment != null) {
             ClassName svcFragmentClassName =
                 ClassName.get("com.naver.android.svc.core.screen", "SvcFragment");
-            this.superClass = ParameterizedTypeName.get(svcFragmentClassName, baseView);
+            this.superClass = svcFragmentClassName;
         } else if (svcDialogFragment != null) {
 
             RequireListener requireListener =
@@ -113,7 +113,7 @@ public class ScreenAnnotatedClass {
 
             ClassName svcDialogFragmentClassName =
                 ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment");
-            this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, baseView, dialogListener);
+            this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, dialogListener);
         }
     }
 }

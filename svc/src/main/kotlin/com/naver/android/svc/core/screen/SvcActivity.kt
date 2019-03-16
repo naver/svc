@@ -23,20 +23,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.naver.android.svc.core.views.Views
 
 /**
  * @author bs.nam@navercorp.com 2017. 6. 8..
  */
 
 @Suppress("PrivatePropertyName")
-abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogSupportScreen {
+abstract class SvcActivity : AppCompatActivity(), Screen, DialogSupportScreen {
 
     private var CLASS_SIMPLE_NAME = javaClass.simpleName
     private val TAG: String = CLASS_SIMPLE_NAME
 
-    override val views by lazy { createViews() }
-    override val controlTower by lazy { createControlTower() }
+    override val baseViews by lazy { createViews() }
+    //use base name for using casting as "controlTower" later
+    override val baseControlTower by lazy { createControlTower() }
 
     override val hostActivity: FragmentActivity?
         get() = this
@@ -68,30 +68,30 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(views.layoutResId)
+        setContentView(baseViews.layoutResId)
 
         // initialize SVC
-        initializeSVC(this, views, controlTower)
+        initializeSVC(this, baseViews, baseControlTower)
 
         val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
-        views.rootView = rootView
+        baseViews.rootView = rootView
 
         setStatusBarBGColor(statusbarColor)
 
-        lifecycle.addObserver(views)
-        lifecycle.addObserver(controlTower)
-        views.changeIsFirstOnCreateFalse()
-        controlTower.changeIsFirstOnCreateFalse()
+        lifecycle.addObserver(baseViews)
+        lifecycle.addObserver(baseControlTower)
+        baseViews.changeIsFirstOnCreateFalse()
+        baseControlTower.changeIsFirstOnCreateFalse()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(controlTower)
-        lifecycle.removeObserver(views)
+        lifecycle.removeObserver(baseControlTower)
+        lifecycle.removeObserver(baseViews)
     }
 
     override fun onBackPressed() {
-        if (controlTower.onBackPressed() || views.onBackPressed()) {
+        if (baseControlTower.onBackPressed() || baseViews.onBackPressed()) {
             return
         }
         super.onBackPressed()

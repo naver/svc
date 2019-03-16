@@ -49,9 +49,11 @@ ext {
     defaultUrl = 'https://github.com/naver/svc'
     repoName = 'SVC'
     moduleName = 'svc'
+    compilerModuleName = 'svc-compiler'
+    annotationModuleName = 'svc-annotation'
     desc = 'Easy and intuitive pattern for Android'
 
-    libVersionName = "1.0.0-beta01"
+    libVersionName = "1.0.0-beta07"
     libVersionCode = 1
     MIN_SDK_VERSION = 16
 
