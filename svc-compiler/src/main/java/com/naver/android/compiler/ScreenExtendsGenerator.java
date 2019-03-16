@@ -15,9 +15,10 @@
  */
 package com.naver.android.compiler;
 
+import javax.lang.model.element.Modifier;
+
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import javax.lang.model.element.Modifier;
 
 @SuppressWarnings({"WeakerAccess", "FieldCanBeLocal", "unused"})
 public class ScreenExtendsGenerator {
@@ -44,18 +45,20 @@ public class ScreenExtendsGenerator {
                     requireControlTowerAnnotatedClass.viewsMetaData))
             .addModifiers(Modifier.PUBLIC)
             .addModifiers(Modifier.ABSTRACT)
-            .addMethod(getControlTowerMethodSpec())
+          .addMethod(getCreateControlTowerMethodSpec())
             .addMethod(getCreateViewsMethodSpec())
             .superclass(this.requireControlTowerAnnotatedClass.superClass);
     return builder.build();
   }
 
-  private MethodSpec getControlTowerMethodSpec() {
-    return MethodSpec.methodBuilder("controlTower")
-        .addModifiers(Modifier.PUBLIC)
-        .addStatement("return ($L) controlTower", requireControlTowerAnnotatedClass.controlTower)
-        .returns(requireControlTowerAnnotatedClass.controlTower)
-        .build();
+  private MethodSpec getCreateControlTowerMethodSpec() {
+    return MethodSpec.methodBuilder("createControlTower")
+      .addAnnotation(Override.class)
+      .addModifiers(Modifier.PUBLIC)
+      .addStatement(
+        String.format("return new %s()", requireControlTowerAnnotatedClass.controlTowerName))
+      .returns(requireControlTowerAnnotatedClass.controlTower)
+      .build();
   }
 
   private MethodSpec getCreateViewsMethodSpec() {

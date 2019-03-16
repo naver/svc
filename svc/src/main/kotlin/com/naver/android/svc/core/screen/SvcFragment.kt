@@ -22,10 +22,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.naver.android.annotation.RequireControlTower
 import com.naver.android.svc.BuildConfig
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.controltower.ControlTowerManager
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -42,8 +39,8 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
     const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
   }
 
-  val views by lazy { createViews() }
-  lateinit var controlTower: ControlTower
+  override val views by lazy { createViews() }
+  override val controlTower by lazy { createControlTower() }
 
   override val hostActivity: FragmentActivity?
     get() = activity
@@ -56,9 +53,6 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    // assigns ControlTower
-    assignControlTower()
   }
 
   private fun addExtraTagId() {
@@ -92,11 +86,6 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
     super.onDestroy()
     lifecycle.removeObserver(controlTower)
     lifecycle.removeObserver(views)
-
-    // destroy controlTower
-    fragmentManager?.let {
-      ControlTowerManager.instance.destroy(controlTower)
-    }
   }
 
   open fun onBackPressed(): Boolean {
@@ -104,17 +93,6 @@ abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
       return true
     }
     return false
-  }
-
-  /** assign ControlTower. */
-  private fun assignControlTower() {
-    val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
-    annotation?.let {
-      val controlTowerClass = it.value
-      this.controlTower = ControlTowerManager.instance.fetch(this,
-          controlTowerClass,
-          views)
-    } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
   }
 
   override val isActive: Boolean

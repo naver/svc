@@ -23,9 +23,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.naver.android.annotation.RequireControlTower
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.controltower.ControlTowerManager
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -38,8 +35,8 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
   private var CLASS_SIMPLE_NAME = javaClass.simpleName
   private val TAG: String = CLASS_SIMPLE_NAME
 
-  val views by lazy { createViews() }
-  lateinit var controlTower: ControlTower
+  override val views by lazy { createViews() }
+  override val controlTower by lazy { createControlTower() }
 
   override val hostActivity: FragmentActivity?
     get() = this
@@ -73,9 +70,6 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     super.onCreate(savedInstanceState)
     setContentView(views.layoutResId)
 
-    // assigns controlTower
-    assignControlTower()
-
     // initialize SVC
     initializeSVC(this, views, controlTower)
 
@@ -92,11 +86,6 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     super.onDestroy()
     lifecycle.removeObserver(controlTower)
     lifecycle.removeObserver(views)
-
-    // destroy controlTower
-    if (!isChangingConfigurations) {
-      ControlTowerManager.instance.destroy(controlTower)
-    }
   }
 
   override fun onBackPressed() {
@@ -106,16 +95,6 @@ abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, Dial
     super.onBackPressed()
   }
 
-  /** assign ControlTower. */
-  private fun assignControlTower() {
-    val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
-    annotation?.let {
-      val controlTowerClass = it.value
-      this.controlTower = ControlTowerManager.instance.fetch(this,
-          controlTowerClass,
-          views)
-    }
-  }
 
   override val isActive: Boolean
     get() = !isFinishing

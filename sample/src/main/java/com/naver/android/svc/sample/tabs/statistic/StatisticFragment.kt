@@ -15,11 +15,11 @@
  */
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.annotation.OwnSvcFragment
+import com.naver.android.annotation.SvcFragment
 import com.naver.android.annotation.RequireControlTower
 import com.naver.android.annotation.RequireViews
 
-@OwnSvcFragment
+@SvcFragment
 @RequireViews(StatisticViews::class)
 @RequireControlTower(StatisticControlTower::class)
 class StatisticFragment : SVC_StatisticFragment()

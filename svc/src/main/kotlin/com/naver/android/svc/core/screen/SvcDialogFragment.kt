@@ -26,9 +26,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
-import com.naver.android.annotation.RequireControlTower
-import com.naver.android.svc.core.controltower.ControlTower
-import com.naver.android.svc.core.controltower.ControlTowerManager
 import com.naver.android.svc.core.views.Views
 
 /**
@@ -42,8 +39,8 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
   val CLASS_SIMPLE_NAME = javaClass.simpleName
   var TAG: String = CLASS_SIMPLE_NAME
 
-  val views by lazy { createViews() }
-  lateinit var controlTower: ControlTower
+  override val views by lazy { createViews() }
+  override val controlTower by lazy { createControlTower() }
 
   override val hostActivity: FragmentActivity?
     get() = activity
@@ -55,9 +52,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    // assigns ControlTower
-    assignControlTower()
 
     if (!::dialogListener.isInitialized) {
       dismissAllowingStateLoss()
@@ -89,13 +83,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
     super.onDestroy()
     lifecycle.removeObserver(controlTower)
     lifecycle.removeObserver(views)
-
-    // destroy controlTower
-    fragmentManager?.let {
-      if (!it.isStateSaved) {
-        ControlTowerManager.instance.destroy(controlTower)
-      }
-    }
   }
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -124,17 +111,6 @@ abstract class SvcDialogFragment<out V : Views, DL : Any> : DialogFragment(), Li
 
   override fun dismiss() {
     dismissAllowingStateLoss()
-  }
-
-  /** assign ControlTower. */
-  private fun assignControlTower() {
-    val annotation = javaClass.getAnnotation(RequireControlTower::class.java)
-    annotation?.let {
-      val controlTowerClass = it.value
-      this.controlTower = ControlTowerManager.instance.fetch(this,
-          controlTowerClass,
-          views)
-    } ?: throw IllegalAccessException("$javaClass missing RequireControlTower annotation")
   }
 
   override val isActive: Boolean

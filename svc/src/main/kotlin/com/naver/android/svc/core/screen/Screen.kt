@@ -44,9 +44,13 @@ interface Screen<out V : Views> : LifecycleOwner {
   fun getParentFragment(): Fragment?
 
   fun createViews(): V
+  fun createControlTower(): ControlTower
+
+  val controlTower: ControlTower
+  val views: V
 
   /**
-   * add dependency of screen and viewsAction
+   * add dependency of Screen, Views, ControlTower and ViewsAction
    */
   fun <V : Views, C : ControlTower> initializeSVC(screen: Screen<*>, views: V, ct: C) {
     views.apply {
@@ -55,6 +59,11 @@ interface Screen<out V : Views> : LifecycleOwner {
       if (this is ActionViews<*> && ct is ViewsAction) {
         setAction(ct)
       }
+    }
+
+    ct.apply {
+      baseScreen = screen
+      baseViews = views
     }
   }
 }

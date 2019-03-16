@@ -17,9 +17,9 @@ package com.naver.android.svc.sample
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.naver.android.annotation.OwnSvcActivity
 import com.naver.android.annotation.RequireControlTower
 import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.SvcActivity
 import com.naver.android.svc.core.screen.SvcFragment
 import com.naver.android.svc.sample.tabs.MainTab
 import com.naver.android.svc.sample.tabs.home.HomeFragment
@@ -28,7 +28,7 @@ import com.naver.android.svc.sample.tabs.paper.PaperFragment
 import com.naver.android.svc.sample.tabs.search.ReallyLongScreenNameSearchFragment
 import com.naver.android.svc.sample.tabs.statistic.StatisticFragment
 
-@OwnSvcActivity
+@SvcActivity
 @RequireViews(MainViews::class)
 @RequireControlTower(MainControlTower::class)
 class MainActivity : SVC_MainActivity() {

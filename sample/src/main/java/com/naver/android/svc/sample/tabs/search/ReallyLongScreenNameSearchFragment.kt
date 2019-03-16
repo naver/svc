@@ -15,12 +15,12 @@
  */
 package com.naver.android.svc.sample.tabs.search
 
-import com.naver.android.annotation.OwnSvcFragment
+import com.naver.android.annotation.SvcFragment
 import com.naver.android.annotation.RequireControlTower
 import com.naver.android.annotation.RequireViews
 import com.naver.android.svc.sample.tabs.common.CommonViews
 
-@OwnSvcFragment
+@SvcFragment
 @RequireViews(CommonViews::class)
 @RequireControlTower(ReallyLongScreenNameSearchCT::class)
 class ReallyLongScreenNameSearchFragment : SVC_ReallyLongScreenNameSearchFragment()

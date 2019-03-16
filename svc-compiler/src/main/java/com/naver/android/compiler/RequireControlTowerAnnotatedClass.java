@@ -15,18 +15,19 @@
  */
 package com.naver.android.compiler;
 
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
+
 import com.google.common.base.VerifyException;
-import com.naver.android.annotation.OwnSvcActivity;
-import com.naver.android.annotation.OwnSvcDialogFragment;
-import com.naver.android.annotation.OwnSvcFragment;
+import com.naver.android.annotation.SvcActivity;
+import com.naver.android.annotation.SvcDialogFragment;
+import com.naver.android.annotation.SvcFragment;
 import com.naver.android.annotation.RequireControlTower;
 import com.naver.android.annotation.RequireViews;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
 
 @SuppressWarnings("WeakerAccess")
 public class RequireControlTowerAnnotatedClass {
@@ -76,10 +77,9 @@ public class RequireControlTowerAnnotatedClass {
     this.controlTowerName = controlTowerPackage.substring(indexCT + 1);
     this.controlTower = ClassName.get(controlTowerPackage.substring(0, indexCT), controlTowerName);
 
-    OwnSvcActivity svcActivity = annotatedElement.getAnnotation(OwnSvcActivity.class);
-    OwnSvcFragment svcFragment = annotatedElement.getAnnotation(OwnSvcFragment.class);
-    OwnSvcDialogFragment svcDialogFragment =
-        annotatedElement.getAnnotation(OwnSvcDialogFragment.class);
+    SvcActivity svcActivity = annotatedElement.getAnnotation(SvcActivity.class);
+    SvcFragment svcFragment = annotatedElement.getAnnotation(SvcFragment.class);
+    SvcDialogFragment svcDialogFragment = annotatedElement.getAnnotation(SvcDialogFragment.class);
 
     if (svcActivity != null) {
       ClassName svcActivityClassName =
