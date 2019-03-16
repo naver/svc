@@ -24,16 +24,16 @@ import com.naver.android.annotation.RequireViews
 @RequireScreen(StatisticFragment::class)
 class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction {
 
-  override fun onCreated() {
-    views.setName(views.javaClass.simpleName)
-    views.setExtra(javaClass.simpleName)
-  }
+    override fun onCreated() {
+        views.setName(screen.javaClass.simpleName)
+        views.setExtra(javaClass.simpleName)
+    }
 
-  override fun onClickName() {
-    showToast("Name Clicked")
-  }
+    override fun onClickName() {
+        showToast("StatisticControlTower - Name Clicked")
+    }
 
-  override fun onClickExtra() {
-    showToast("Extra Clicked")
-  }
+    override fun onClickExtra() {
+        showToast("StatisticControlTower - Extra Clicked")
+    }
 }

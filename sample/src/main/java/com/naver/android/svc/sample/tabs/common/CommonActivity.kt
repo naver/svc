@@ -13,8 +13,8 @@ import com.naver.android.annotation.SvcActivity
 @RequireViews(CommonViews::class)
 class CommonActivity : SVC_CommonActivity(), CommonScreen {
 
-  override fun startCommonActivity() {
-    val intent = Intent(this, CommonActivity::class.java)
-    startActivity(intent)
-  }
+    override fun startCommonActivity() {
+        val intent = Intent(this, CommonActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -22,19 +22,19 @@ import kotlinx.android.synthetic.main.fragment_statistic.view.*
 
 class StatisticViews : ActionViews<StatisticViewsAction>() {
 
-  override val layoutResId = R.layout.fragment_statistic
+    override val layoutResId = R.layout.fragment_statistic
 
-  override fun onCreated() {
-    rootView.name.setOnClickListener { viewsAction.onClickName() }
-    rootView.extra.setOnClickListener { viewsAction.onClickExtra() }
-    rootView.statistic_icon.setColorFilter(Color.WHITE)
-  }
+    override fun onCreated() {
+        rootView.tv_name.setOnClickListener { viewsAction.onClickName() }
+        rootView.tv_extra.setOnClickListener { viewsAction.onClickExtra() }
+        rootView.statistic_icon.setColorFilter(Color.WHITE)
+    }
 
-  fun setName(name: String) {
-    rootView.name.text = name
-  }
+    fun setName(name: String) {
+        rootView.tv_name.text = name
+    }
 
-  fun setExtra(extra: String) {
-    rootView.extra.text = extra
-  }
+    fun setExtra(extra: String) {
+        rootView.tv_extra.text = extra
+    }
 }

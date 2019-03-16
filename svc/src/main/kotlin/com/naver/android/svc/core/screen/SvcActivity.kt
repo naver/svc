@@ -30,72 +30,74 @@ import com.naver.android.svc.core.views.Views
  */
 
 @Suppress("PrivatePropertyName")
-abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogPlug {
+abstract class SvcActivity<out V : Views> : AppCompatActivity(), Screen<V>, DialogSupportScreen {
 
-  private var CLASS_SIMPLE_NAME = javaClass.simpleName
-  private val TAG: String = CLASS_SIMPLE_NAME
+    private var CLASS_SIMPLE_NAME = javaClass.simpleName
+    private val TAG: String = CLASS_SIMPLE_NAME
 
-  override val views by lazy { createViews() }
-  override val controlTower by lazy { createControlTower() }
+    override val views by lazy { createViews() }
+    override val controlTower by lazy { createControlTower() }
 
-  override val hostActivity: FragmentActivity?
-    get() = this
+    override val hostActivity: FragmentActivity?
+        get() = this
 
-  override val fragmentManagerForDialog: FragmentManager?
-    get() = supportFragmentManager
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = supportFragmentManager
 
-  override val screenFragmentManager: FragmentManager?
-    get() = supportFragmentManager
+    override val screenFragmentManager: FragmentManager?
+        get() = supportFragmentManager
 
-  open var statusbarColor: Int? = null
+    open var statusbarColor: Int? = null
 
-  override fun getParentFragment(): Fragment? {
-    throw IllegalAccessError("Activity doesn't have parentFragment, If you want to use this method you should override this method and provide one")
-  }
-
-  override fun getChildFragmentManager(): FragmentManager {
-    throw IllegalAccessError("Activity doesn't have childFragmentManager, If you want to use this method you should override this method and provide one")
-  }
-
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  fun setStatusBarBGColor(bgColor: Int?) {
-    if (bgColor == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-      return
+    override fun getParentFragment(): Fragment? {
+        throw IllegalAccessError("Activity doesn't have parentFragment, If you want to use this method you should override this method and provide one")
     }
 
-    window.statusBarColor = bgColor
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(views.layoutResId)
-
-    // initialize SVC
-    initializeSVC(this, views, controlTower)
-
-    val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
-    views.rootView = rootView
-
-    setStatusBarBGColor(statusbarColor)
-
-    lifecycle.addObserver(views)
-    lifecycle.addObserver(controlTower)
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    lifecycle.removeObserver(controlTower)
-    lifecycle.removeObserver(views)
-  }
-
-  override fun onBackPressed() {
-    if (controlTower.onBackPressed() || views.onBackPressed()) {
-      return
+    override fun getChildFragmentManager(): FragmentManager {
+        throw IllegalAccessError("Activity doesn't have childFragmentManager, If you want to use this method you should override this method and provide one")
     }
-    super.onBackPressed()
-  }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    fun setStatusBarBGColor(bgColor: Int?) {
+        if (bgColor == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return
+        }
+
+        window.statusBarColor = bgColor
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(views.layoutResId)
+
+        // initialize SVC
+        initializeSVC(this, views, controlTower)
+
+        val rootView: FrameLayout = window.decorView.findViewById(android.R.id.content)
+        views.rootView = rootView
+
+        setStatusBarBGColor(statusbarColor)
+
+        lifecycle.addObserver(views)
+        lifecycle.addObserver(controlTower)
+        views.changeIsFirstOnCreateFalse()
+        controlTower.changeIsFirstOnCreateFalse()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(controlTower)
+        lifecycle.removeObserver(views)
+    }
+
+    override fun onBackPressed() {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
+            return
+        }
+        super.onBackPressed()
+    }
 
 
-  override val isActive: Boolean
-    get() = !isFinishing
+    override val isActive: Boolean
+        get() = !isFinishing
 }

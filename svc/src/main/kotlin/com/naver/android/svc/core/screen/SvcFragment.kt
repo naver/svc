@@ -30,71 +30,73 @@ import com.naver.android.svc.core.views.Views
  */
 
 @Suppress("PrivatePropertyName")
-abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogPlug {
+abstract class SvcFragment<out V : Views> : Fragment(), Screen<V>, DialogSupportScreen {
 
-  private val CLASS_SIMPLE_NAME = javaClass.simpleName
-  private var TAG: String = CLASS_SIMPLE_NAME
+    private val CLASS_SIMPLE_NAME = javaClass.simpleName
+    private var TAG: String = CLASS_SIMPLE_NAME
 
-  companion object {
-    const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
-  }
-
-  override val views by lazy { createViews() }
-  override val controlTower by lazy { createControlTower() }
-
-  override val hostActivity: FragmentActivity?
-    get() = activity
-
-  override val fragmentManagerForDialog: FragmentManager?
-    get() = this.hostActivity?.supportFragmentManager
-
-  override val screenFragmentManager: FragmentManager?
-    get() = this.fragmentManager
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
-
-  private fun addExtraTagId() {
-    val extraId = arguments?.getString(EXTRA_TAG_ID)
-    extraId?.apply {
-      controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
-      views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
-    }
-  }
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return if (views.isInitialized) views.rootView
-    else inflater.inflate(views.layoutResId, container, false) as ViewGroup?
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    // initialize SVC
-    initializeSVC(this, views, controlTower)
-
-    addExtraTagId()
-
-    if (!views.isInitialized) {
-      views.rootView = view as ViewGroup
+    companion object {
+        const val EXTRA_TAG_ID = BuildConfig.APPLICATION_ID + ".EXTRA_TAG_ID"
     }
 
-    lifecycle.addObserver(views)
-    lifecycle.addObserver(controlTower)
-  }
+    override val views by lazy { createViews() }
+    override val controlTower by lazy { createControlTower() }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    lifecycle.removeObserver(controlTower)
-    lifecycle.removeObserver(views)
-  }
+    override val hostActivity: FragmentActivity?
+        get() = activity
 
-  open fun onBackPressed(): Boolean {
-    if (controlTower.onBackPressed() || views.onBackPressed()) {
-      return true
+    override val fragmentManagerForDialog: FragmentManager?
+        get() = this.hostActivity?.supportFragmentManager
+
+    override val screenFragmentManager: FragmentManager?
+        get() = this.fragmentManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
-    return false
-  }
 
-  override val isActive: Boolean
-    get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
+    private fun addExtraTagId() {
+        val extraId = arguments?.getString(EXTRA_TAG_ID)
+        extraId?.apply {
+            controlTower.TAG = "${controlTower.CLASS_SIMPLE_NAME}_$this"
+            views.TAG = "${views.CLASS_SIMPLE_NAME}_$this"
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return if (views.isInitialized) views.rootView
+        else inflater.inflate(views.layoutResId, container, false) as ViewGroup?
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // initialize SVC
+        initializeSVC(this, views, controlTower)
+
+        addExtraTagId()
+
+        if (!views.isInitialized) {
+            views.rootView = view as ViewGroup
+        }
+
+        lifecycle.addObserver(views)
+        lifecycle.addObserver(controlTower)
+        views.changeIsFirstOnCreateFalse()
+        controlTower.changeIsFirstOnCreateFalse()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(controlTower)
+        lifecycle.removeObserver(views)
+    }
+
+    open fun onBackPressed(): Boolean {
+        if (controlTower.onBackPressed() || views.onBackPressed()) {
+            return true
+        }
+        return false
+    }
+
+    override val isActive: Boolean
+        get() = hostActivity != null && context != null && isAdded && !isRemoving && !isDetached
 }

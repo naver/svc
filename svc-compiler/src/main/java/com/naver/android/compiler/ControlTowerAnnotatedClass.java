@@ -28,55 +28,53 @@ import com.squareup.javapoet.TypeName;
 @SuppressWarnings("WeakerAccess")
 public class ControlTowerAnnotatedClass {
 
-  public final TypeElement annotatedElement;
-  public final String packageName;
-  public final String clazzName;
-  public ClassName baseView;
-  public String baseViewName;
-  public ClassName screen;
-  public String screenName;
-  public String viewsMetaData;
-  public TypeName superClass;
+    public final TypeElement annotatedElement;
+    public final String packageName;
+    public final String clazzName;
+    public ClassName baseView;
+    public String baseViewName;
+    public ClassName screen;
+    public String screenName;
+    public String viewsMetaData;
+    public TypeName superClass;
 
-  public ControlTowerAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
-      throws VerifyException {
-    PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
-    this.packageName =
-        packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
-    this.annotatedElement = annotatedElement;
-    this.clazzName = annotatedElement.getSimpleName().toString();
+    public ControlTowerAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
+        throws VerifyException {
+        PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
+        this.packageName =
+            packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
+        this.annotatedElement = annotatedElement;
+        this.clazzName = annotatedElement.getSimpleName().toString();
 
-    RequireViews requireViews = annotatedElement.getAnnotation(RequireViews.class);
-    int packageIndexViews = requireViews.toString().lastIndexOf("=");
-    String viewsPackage =
-      requireViews
-        .toString()
-        .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
+        RequireViews requireViews = annotatedElement.getAnnotation(RequireViews.class);
+        int packageIndexViews = requireViews.toString().lastIndexOf("=");
+        String viewsPackage =
+            requireViews
+                .toString()
+                .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
 
-    int indexView = viewsPackage.lastIndexOf(".");
-    if (indexView == -1)
-      indexView = viewsPackage.lastIndexOf("\\.");
+        int indexView = viewsPackage.lastIndexOf(".");
+        if (indexView == -1)
+            indexView = viewsPackage.lastIndexOf("\\.");
 
-    this.baseViewName = viewsPackage.substring(indexView + 1);
-    this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName);
+        this.baseViewName = viewsPackage.substring(indexView + 1);
+        this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName);
 
-    RequireScreen requireScreen =
-      annotatedElement.getAnnotation(RequireScreen.class);
-    int packageIndexS0 = requireScreen.toString().lastIndexOf("=");
-    String screenPackage =
-      requireScreen
-        .toString()
-        .substring(packageIndexS0 + 1, requireScreen.toString().length() - 1);
+        RequireScreen requireScreen =
+            annotatedElement.getAnnotation(RequireScreen.class);
+        int packageIndexS0 = requireScreen.toString().lastIndexOf("=");
+        String screenPackage =
+            requireScreen
+                .toString()
+                .substring(packageIndexS0 + 1, requireScreen.toString().length() - 1);
 
-    int indexScreen = screenPackage.lastIndexOf(".");
-    if (indexScreen == -1)
-      indexScreen = screenPackage.lastIndexOf("\\.");
+        int indexScreen = screenPackage.lastIndexOf(".");
+        if (indexScreen == -1)
+            indexScreen = screenPackage.lastIndexOf("\\.");
 
-    this.screenName = screenPackage.substring(indexScreen + 1);
-    this.screen = ClassName.get(screenPackage.substring(0, indexScreen), screenName);
+        this.screenName = screenPackage.substring(indexScreen + 1);
+        this.screen = ClassName.get(screenPackage.substring(0, indexScreen), screenName);
 
-    ClassName controlTowerClassName =
-      ClassName.get("com.naver.android.svc.core.controltower", "ControlTower");
-    this.superClass = controlTowerClassName;
-  }
+        this.superClass = ClassName.get("com.naver.android.svc.core.controltower", "ControlTower");
+    }
 }

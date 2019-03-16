@@ -21,11 +21,11 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 
 abstract class CustomViewTemplate @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
-  : ConstraintLayout(context, attrs, defStyleAttr) {
+    : ConstraintLayout(context, attrs, defStyleAttr) {
 
-  abstract val layoutId: Int
+    abstract val layoutId: Int
 
-  init {
-    LayoutInflater.from(context).inflate(layoutId, this)
-  }
+    init {
+        LayoutInflater.from(context).inflate(layoutId, this)
+    }
 }

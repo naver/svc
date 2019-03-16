@@ -18,6 +18,6 @@ package com.naver.android.svc.sample.tabs.statistic
 import com.naver.android.svc.core.views.ViewsAction
 
 interface StatisticViewsAction : ViewsAction {
-  fun onClickName()
-  fun onClickExtra()
+    fun onClickName()
+    fun onClickExtra()
 }

@@ -18,6 +18,9 @@ package com.naver.android.svc.sample.tabs.search
 import com.naver.android.annotation.ControlTower
 import com.naver.android.annotation.RequireScreen
 import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.core.screen.DialogSupportScreen
+import com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
+import com.naver.android.svc.sample.dialog.listener.SampleListenerDialogListener
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
@@ -30,11 +33,24 @@ import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 @RequireScreen(ReallyLongScreenNameSearchFragment::class)
 class ReallyLongScreenNameSearchCT : SVC_ReallyLongScreenNameSearchCT(), CommonViewsAction {
 
-  override fun onCreated() {
-    views.setExtraString("ReallyLongScreenNameSearchCT")
-  }
+    private var isToggled = false
 
-  override fun onClickBtn() {
-    showToast("ReallyLongScreenNameSearchCT - onClickBtn")
-  }
+    override fun onCreated() {
+        views.setNameText(screen.javaClass.simpleName)
+        views.setExtraText("Open SampleListenerDialog")
+    }
+
+    override fun onClickBtn() {
+        showToast("ReallyLongScreenNameSearchCT - onClickBtn")
+    }
+
+    override fun onClickExtra() {
+        val dialog = SampleListenerDialog.newInstance(object : SampleListenerDialogListener {
+            override fun clickDialog() {
+                views.setExtraText(isToggled.toString())
+                isToggled = !isToggled
+            }
+        })
+        (screen as? DialogSupportScreen)?.showDialog(dialog)
+    }
 }

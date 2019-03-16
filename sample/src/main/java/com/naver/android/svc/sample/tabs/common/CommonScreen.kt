@@ -5,7 +5,7 @@ import com.naver.android.svc.core.screen.Screen
 /**
  * @author bs.nam@navercorp.com
  */
-interface CommonScreen: Screen<CommonViews>{
+interface CommonScreen : Screen<CommonViews> {
 
-  fun startCommonActivity()
+    fun startCommonActivity()
 }

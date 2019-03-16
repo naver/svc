@@ -20,11 +20,12 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
 import com.google.common.base.VerifyException;
+import com.naver.android.annotation.RequireControlTower;
+import com.naver.android.annotation.RequireListener;
+import com.naver.android.annotation.RequireViews;
 import com.naver.android.annotation.SvcActivity;
 import com.naver.android.annotation.SvcDialogFragment;
 import com.naver.android.annotation.SvcFragment;
-import com.naver.android.annotation.RequireControlTower;
-import com.naver.android.annotation.RequireViews;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
@@ -39,6 +40,8 @@ public class ScreenAnnotatedClass {
   public String baseViewName;
   public ClassName controlTower;
   public String controlTowerName;
+    public ClassName dialogListener;
+    public String dialogListenerName;
   public String viewsMetaData;
   public TypeName superClass;
 
@@ -90,9 +93,25 @@ public class ScreenAnnotatedClass {
           ClassName.get("com.naver.android.svc.core.screen", "SvcFragment");
       this.superClass = ParameterizedTypeName.get(svcFragmentClassName, baseView);
     } else if (svcDialogFragment != null) {
+
+        RequireListener requireListener =
+            annotatedElement.getAnnotation(RequireListener.class);
+        int indexOf0 = requireListener.toString().lastIndexOf("=");
+        String listenerPackage =
+            requireListener
+                .toString()
+                .substring(indexOf0 + 1, requireListener.toString().length() - 1);
+
+        int indexListener = listenerPackage.lastIndexOf(".");
+        if (indexListener == -1)
+            indexListener = listenerPackage.lastIndexOf("\\.");
+
+        this.dialogListenerName = listenerPackage.substring(indexListener + 1);
+        this.dialogListener = ClassName.get(listenerPackage.substring(0, indexListener), dialogListenerName);
+
       ClassName svcDialogFragmentClassName =
           ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment");
-      this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, baseView);
+      this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, baseView, dialogListener);
     }
   }
 }

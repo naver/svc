@@ -18,6 +18,7 @@ package com.naver.android.svc.sample.tabs.home
 import com.naver.android.annotation.ControlTower
 import com.naver.android.annotation.RequireScreen
 import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.sample.dialog.simple.SimpleDialog
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
@@ -29,11 +30,17 @@ import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 @RequireScreen(HomeFragment::class)
 class HomeControlTower : SVC_HomeControlTower(), CommonViewsAction {
 
-  override fun onCreated() {
-    views.setExtraString("HomeControlTower")
-  }
+    override fun onCreated() {
+        views.setNameText(screen.javaClass.simpleName)
+        views.setExtraText("Open SimpleDialog")
+    }
 
-  override fun onClickBtn() {
-    showToast("HomeControlTower - onClickBtn")
-  }
+    override fun onClickBtn() {
+        showToast("HomeControlTower - onClickBtn")
+    }
+
+    override fun onClickExtra() {
+        val dialog = SimpleDialog.newInstance()
+        screen.showDialog(dialog)
+    }
 }

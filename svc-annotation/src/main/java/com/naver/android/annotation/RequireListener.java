@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.naver.android.svc.sample.tabs.common
+package com.naver.android.annotation;
 
-import com.naver.android.svc.core.views.ViewsAction
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-interface CommonViewsAction : ViewsAction {
-    fun onClickBtn()
-    fun onClickExtra()
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface RequireListener {
+  Class<?> value();
 }

@@ -49,6 +49,9 @@ abstract class ControlTower : LifecycleObserver, Toastable {
   override val context: Context?
     get() = baseScreen.hostActivity
 
+    var isFirstOnCreate = true
+        private set
+
   /**
    * create ControlTower
    * called automatically by ControlTowerManger
@@ -109,7 +112,12 @@ abstract class ControlTower : LifecycleObserver, Toastable {
     activity?.finish()
   }
 
-  open fun onBackPressed(): Boolean {
-    return false
-  }
+    open fun onBackPressed(): Boolean {
+        return false
+    }
+
+    internal fun changeIsFirstOnCreateFalse() {
+        isFirstOnCreate = false
+    }
+
 }

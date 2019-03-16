@@ -21,19 +21,25 @@ import kotlinx.android.synthetic.main.fragment_common.view.*
 
 class CommonViews : ActionViews<CommonViewsAction>() {
 
-  override val layoutResId = R.layout.fragment_common
+    override val layoutResId = R.layout.fragment_common
 
-  val extra by lazy { rootView.extra }
+    private val extra by lazy { rootView.tv_extra }
+    private val name by lazy { rootView.tv_name }
 
-  override fun onCreated() {
-    rootView.btn_click.setOnClickListener { viewsAction.onClickBtn() }
-  }
+    override fun onCreated() {
+        extra.setOnClickListener { viewsAction.onClickExtra() }
+        rootView.btn_click.setOnClickListener { viewsAction.onClickBtn() }
+    }
 
-  fun setExtraString(extraName: String) {
-    extra?.text = extraName
-  }
+    fun setNameText(name: String) {
+        this.name.text = name
+    }
 
-  fun setButtonText(buttonText: String) {
-    rootView.btn_click.text = buttonText
-  }
+    fun setExtraText(extraName: String) {
+        this.extra.text = extraName
+    }
+
+    fun setButtonText(buttonText: String) {
+        rootView.btn_click.text = buttonText
+    }
 }

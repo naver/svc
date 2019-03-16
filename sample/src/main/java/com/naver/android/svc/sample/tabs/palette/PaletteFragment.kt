@@ -27,8 +27,8 @@ import com.naver.android.svc.sample.tabs.common.CommonViews
 @RequireControlTower(PaletteControlTower::class)
 class PaletteFragment : SVC_PaletteFragment() {
 
-  fun startMainActivity() {
-    val intent = Intent(activity, MainActivity::class.java)
-    startActivity(intent)
-  }
+    fun startMainActivity() {
+        val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
+    }
 }
