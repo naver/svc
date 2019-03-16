@@ -17,11 +17,11 @@
 package com.naver.android.svc.core.screen
 
 import android.app.Dialog
-import android.app.DialogFragment
 import android.arch.lifecycle.LifecycleOwner
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
