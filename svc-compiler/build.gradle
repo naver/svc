@@ -61,7 +61,7 @@ bintray {
 
     pkg {
         repo = rootProject.ext.repoName
-        name = rootProject.ext.moduleName
+        name = rootProject.ext.compilerModuleName
         userOrg = user
         desc = rootProject.ext.desc
         licenses = ['Apache-2.0']
@@ -69,7 +69,7 @@ bintray {
         vcsUrl = rootProject.ext.defaultRepoUrl
         websiteUrl = rootProject.ext.defaultUrl
 
-        labels = ['jar', 'android', 'svc']
+        labels = ['jar', 'android', rootProject.ext.compilerModuleName]
         publicDownloadNumbers = true
 
         githubRepo = 'BansookNam/svc'
