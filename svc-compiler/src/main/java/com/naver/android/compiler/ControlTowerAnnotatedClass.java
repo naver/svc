@@ -20,6 +20,7 @@ import com.naver.android.annotation.RequireScreen;
 import com.naver.android.annotation.RequireViews;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
+
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -34,23 +35,22 @@ public class ControlTowerAnnotatedClass {
     public String baseViewName;
     public ClassName screen;
     public String screenName;
-    public String viewsMetaData;
     public TypeName superClass;
 
     public ControlTowerAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
-            throws VerifyException {
+        throws VerifyException {
         PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
         this.packageName =
-                packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
+            packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
         this.annotatedElement = annotatedElement;
         this.clazzName = annotatedElement.getSimpleName().toString();
 
         RequireViews requireViews = annotatedElement.getAnnotation(RequireViews.class);
         int packageIndexViews = requireViews.toString().lastIndexOf("=");
         String viewsPackage =
-                requireViews
-                        .toString()
-                        .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
+            requireViews
+                .toString()
+                .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
 
         int indexView = viewsPackage.lastIndexOf(".");
         if (indexView == -1) indexView = viewsPackage.lastIndexOf("\\.");
@@ -61,9 +61,9 @@ public class ControlTowerAnnotatedClass {
         RequireScreen requireScreen = annotatedElement.getAnnotation(RequireScreen.class);
         int packageIndexS0 = requireScreen.toString().lastIndexOf("=");
         String screenPackage =
-                requireScreen
-                        .toString()
-                        .substring(packageIndexS0 + 1, requireScreen.toString().length() - 1);
+            requireScreen
+                .toString()
+                .substring(packageIndexS0 + 1, requireScreen.toString().length() - 1);
 
         int indexScreen = screenPackage.lastIndexOf(".");
         if (indexScreen == -1) indexScreen = screenPackage.lastIndexOf("\\.");
