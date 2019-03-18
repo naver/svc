@@ -25,7 +25,6 @@ import com.naver.android.svc.sample.dialog.action.SampleActionDialogListener
 import com.naver.android.svc.sample.tabs.common.CommonViews
 import com.naver.android.svc.sample.tabs.common.CommonViewsAction
 
-
 @ControlTower
 @RequireViews(CommonViews::class)
 @RequireScreen(PaletteFragment::class)

@@ -97,7 +97,6 @@ abstract class SvcActivity : AppCompatActivity(), Screen, DialogSupportScreen {
         super.onBackPressed()
     }
 
-
     override val isActive: Boolean
         get() = !isFinishing
 }

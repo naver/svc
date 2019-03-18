@@ -15,10 +15,6 @@
  */
 package com.naver.android.compiler;
 
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.Elements;
-
 import com.google.common.base.VerifyException;
 import com.naver.android.annotation.RequireControlTower;
 import com.naver.android.annotation.RequireListener;
@@ -29,6 +25,9 @@ import com.naver.android.annotation.SvcFragment;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
 
 @SuppressWarnings("WeakerAccess")
 public class ScreenAnnotatedClass {
@@ -46,73 +45,72 @@ public class ScreenAnnotatedClass {
     public TypeName superClass;
 
     public ScreenAnnotatedClass(TypeElement annotatedElement, Elements elementUtils)
-        throws VerifyException {
+            throws VerifyException {
         PackageElement packageElement = elementUtils.getPackageOf(annotatedElement);
         this.packageName =
-            packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
+                packageElement.isUnnamed() ? null : packageElement.getQualifiedName().toString();
         this.annotatedElement = annotatedElement;
         this.clazzName = annotatedElement.getSimpleName().toString();
 
         RequireViews requireViews = annotatedElement.getAnnotation(RequireViews.class);
         int packageIndexViews = requireViews.toString().lastIndexOf("=");
         String viewsPackage =
-            requireViews
-                .toString()
-                .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
+                requireViews
+                        .toString()
+                        .substring(packageIndexViews + 1, requireViews.toString().length() - 1);
 
         int indexView = viewsPackage.lastIndexOf(".");
-        if (indexView == -1)
-            indexView = viewsPackage.lastIndexOf("\\.");
+        if (indexView == -1) indexView = viewsPackage.lastIndexOf("\\.");
 
         this.baseViewName = viewsPackage.substring(indexView + 1);
         this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName);
 
         RequireControlTower requireControlTower =
-            annotatedElement.getAnnotation(RequireControlTower.class);
+                annotatedElement.getAnnotation(RequireControlTower.class);
         int packageIndexS0 = requireControlTower.toString().lastIndexOf("=");
         String controlTowerPackage =
-            requireControlTower
-                .toString()
-                .substring(packageIndexS0 + 1, requireControlTower.toString().length() - 1);
+                requireControlTower
+                        .toString()
+                        .substring(packageIndexS0 + 1, requireControlTower.toString().length() - 1);
 
         int indexCT = controlTowerPackage.lastIndexOf(".");
-        if (indexCT == -1)
-            indexCT = controlTowerPackage.lastIndexOf("\\.");
+        if (indexCT == -1) indexCT = controlTowerPackage.lastIndexOf("\\.");
 
         this.controlTowerName = controlTowerPackage.substring(indexCT + 1);
-        this.controlTower = ClassName.get(controlTowerPackage.substring(0, indexCT), controlTowerName);
+        this.controlTower =
+                ClassName.get(controlTowerPackage.substring(0, indexCT), controlTowerName);
 
         SvcActivity svcActivity = annotatedElement.getAnnotation(SvcActivity.class);
         SvcFragment svcFragment = annotatedElement.getAnnotation(SvcFragment.class);
-        SvcDialogFragment svcDialogFragment = annotatedElement.getAnnotation(SvcDialogFragment.class);
+        SvcDialogFragment svcDialogFragment =
+                annotatedElement.getAnnotation(SvcDialogFragment.class);
 
         if (svcActivity != null) {
             ClassName svcActivityClassName =
-                ClassName.get("com.naver.android.svc.core.screen", "SvcActivity");
+                    ClassName.get("com.naver.android.svc.core.screen", "SvcActivity");
             this.superClass = svcActivityClassName;
         } else if (svcFragment != null) {
             ClassName svcFragmentClassName =
-                ClassName.get("com.naver.android.svc.core.screen", "SvcFragment");
+                    ClassName.get("com.naver.android.svc.core.screen", "SvcFragment");
             this.superClass = svcFragmentClassName;
         } else if (svcDialogFragment != null) {
 
-            RequireListener requireListener =
-                annotatedElement.getAnnotation(RequireListener.class);
+            RequireListener requireListener = annotatedElement.getAnnotation(RequireListener.class);
             int indexOf0 = requireListener.toString().lastIndexOf("=");
             String listenerPackage =
-                requireListener
-                    .toString()
-                    .substring(indexOf0 + 1, requireListener.toString().length() - 1);
+                    requireListener
+                            .toString()
+                            .substring(indexOf0 + 1, requireListener.toString().length() - 1);
 
             int indexListener = listenerPackage.lastIndexOf(".");
-            if (indexListener == -1)
-                indexListener = listenerPackage.lastIndexOf("\\.");
+            if (indexListener == -1) indexListener = listenerPackage.lastIndexOf("\\.");
 
             this.dialogListenerName = listenerPackage.substring(indexListener + 1);
-            this.dialogListener = ClassName.get(listenerPackage.substring(0, indexListener), dialogListenerName);
+            this.dialogListener =
+                    ClassName.get(listenerPackage.substring(0, indexListener), dialogListenerName);
 
             ClassName svcDialogFragmentClassName =
-                ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment");
+                    ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment");
             this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, dialogListener);
         }
     }
