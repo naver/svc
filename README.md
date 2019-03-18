@@ -38,16 +38,20 @@ https://github.com/BansookNam/android-architecture
 
 
 
-## Examples
-For activity and fragment for the screen, should inherit the `ScvBaseXXXX` class.
-And declare `RequestControlTower` annotation above the class. This annotation will request and create ControlTower class automatically.
+## Examples of Screen
+1. For activity and fragment for the screen, should inherit the `SVC_{name of screen class}` class.
+2. Add screen annotations `SvcActivity`, `SvcFragment`, `SvcDialogFragment`.
+3. And declare `RequireControlTower`, `RequireViews` annotation above the class.
+
 
 ### 1. Activity
 
 ```kotlin
+@SvcActivity
+@RequireViews(MainViews::class)
 @RequireControlTower(MainControlTower::class) // magic things do happening
-class MainActivity : SvcBaseActivity<MainViews>() {
-    override fun createViews() = MainViews(this) // provide Views
+class MainActivity : SVC_MainActivity() {
+  //extend SVC_{name of class}
 }
 
 ```
@@ -55,11 +59,58 @@ class MainActivity : SvcBaseActivity<MainViews>() {
 ### 2. Fragment
 
 ```kotlin
+@SvcFragment
+@RequireViews(StatisticViews::class)
 @RequireControlTower(StatisticControlTower::class) // magic things do happening
-class StatisticFragment : SvcBaseFragment<StatisticViews>() {
-    override fun createViews() = StatisticViews(this) // provide Views
+class StatisticFragment : SVC_StatisticFragment() {
+   //extend SVC_{name of class}
 }
 ```
+
+### 3. DialogFragment
+
+```kotlin
+@SvcDialogFragment
+@RequireViews(SampleActionViews::class)
+@RequireControlTower(SampleActionControlTower::class)
+@RequireListener(SampleActionDialogListener::class) //listener from another screen.
+class SampleActionDialog : SVC_SampleActionDialog(){
+    //extend SVC_{name of class}
+}
+```
+
+## Examples of ControlTower
+1. For controlTower, should inherit the `SVC_{name of screen class}` class.
+2. Declare annotations `ControlTower`.
+3. Declare `RequireScreen`, `RequireViews` annotation above the class.
+
+### 1. ControlTower
+
+```kotlin
+@ControlTower
+@RequireViews(StatisticViews::class)
+@RequireScreen(StatisticFragment::class) //screen which this controlTower will be used.
+class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction {
+    //extend SVC_{name of class}
+    //implement ViewsAction which 'Views' is needed.
+}
+
+```
+
+### 2. ControlTower (Abstract screen use)
+
+```kotlin
+@ControlTower
+@RequireViews(CommonViews::class)
+@RequireScreen(CommonScreen::class) //abstract screen is available to declare. (CommonScreen is interface)
+class CommonControlTower : SVC_CommonControlTower(), CommonViewsAction {
+    //extend SVC_{name of class}
+    //implement ViewsAction which 'Views' is needed.
+}
+
+```
+
+
 
 
 
@@ -68,10 +119,10 @@ You can really **divide** "Views" from Activity and Fragment.
 so you can see logic about real Fragment and Activity very well like below. ([source link](https://github.com/BansookNam/android-architecture/blob/todo-svc-kotlin/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/screen/taskdetail/TaskDetailActivity.kt))
 
 ```kotlin
+@SvcActivity
+@RequireViews(TaskDetailViews::class)
 @RequireControlTower(TaskDetailCT::class)
-class TaskDetailActivity : SvcBaseActivity<TaskDetailViews>() {
-
-    override fun createViews() = TaskDetailViews(this)
+class TaskDetailActivity : SVC_TaskDetailActivity() {
 
     var taskId: String? = null
 
@@ -183,17 +234,28 @@ And both MVP, MVVM can call Business logics of Mediator directly.
 
 ## 3. SVC with Model
 
+### 3-1. SVC-M (similar with MVP)
+
 ![diagram](./doc/img/SVC_M.png)
 
 As same as MVP, Mediator("ControlTower") comunicated with Model.
 
 It's exactly same.
 
-![diagram](./doc/img/SVC_VM_M.png)
+
+### 3-2. SVC-VM-M type 1
+![diagram](./doc/img/SVC_VM_M_type1.png)
 
 We can use ViewModel in ControlTower to take advantage of "Auto Lifecycle Management".
+We use `ControlTower` as Mediator and `ViewModel` as data holder.
+In this type, `ControlTower` has `Repositories` and manage the datas
 
-Especially when we call asynchronous call which take more than 100ms, using ViewModel would be a good choice.
+### 3-3. SVC-VM-M type 2
+![diagram](./doc/img/SVC_VM_M_type2.png)
+
+Similar with type1, however in this architecture `ViewModel` has `Repositories` and manage the data.
+You can design in type2 in case of `ViewModel` can independently divided with `ControlTower`.
+
 
 ## 4. Difference between MVP,MVVM vs SVC
 
@@ -209,9 +271,9 @@ With this 2 big differences. We can
 1. Prevent "View" from being "God View"
 2. We can see well divided logics.
 3. When we write "View" logic we don't need to think about business logics.
-4. We don't need to make duplicated methods by interfaces (in MVP especially)
-5. We don't need to observe commands with parameter (in MVVM)
-6. We can use same "Views" in "A Activity" and "B Fragment". (reusable)
+4. We don't need to make duplicated methods by interfaces (compare to MVP)
+5. We don't need to observe commands with parameter (compare to MVVM)
+6. We can use same "Views" in "A Activity" and "B Fragment". (reusable. ex-`CommonViews` from sample)
 7. We can understand intuitively with clear naming.
 
 
@@ -239,7 +301,11 @@ allprojects {
 Include below in your "application" build.gradle file
 
 ```groovy
-implementation "com.naver.android.svc:svc:0.0.2-alpha10"
+apply plugin: 'kotlin-kapt'
+
+
+implementation "com.naver.android.svc:svc:1.0.0-beta10"
+kapt "com.naver.android.svc:svc-compiler:1.0.0-beta10"
 ```
 
 
