@@ -2,7 +2,6 @@ apply plugin: 'java-library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-
 group = rootProject.ext.packageName
 version = rootProject.ext.libVersionName
 

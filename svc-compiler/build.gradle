@@ -1,6 +1,7 @@
 apply plugin: 'java-library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply from: '../dependencies.gradle'
 
 group = rootProject.ext.packageName
 version = rootProject.ext.libVersionName
@@ -53,7 +54,6 @@ bintray {
 
     println(user)
     println(key)
-
 
     configurations = ['archives']
 
@@ -117,8 +117,8 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     implementation project(":svc-annotation")
-    implementation "com.google.auto.service:auto-service:1.0-rc4"
-    implementation "com.squareup:javapoet:1.11.1"
+    implementation "com.google.auto.service:auto-service:$versions.autoService"
+    implementation "com.squareup:javapoet:$versions.javapoet"
 }
 
 apply from: '../spotless.gradle'
