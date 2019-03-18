@@ -254,7 +254,8 @@ In this type, `ControlTower` has `Repositories` and manage the datas
 ![diagram](./doc/img/SVC_VM_M_type2.png)
 
 Similar with type1, however in this architecture `ViewModel` has `Repositories` and manage the data.
-You can design in type2 in case of `ViewModel` can independently divided with `ControlTower`.
+You can design in type2 in case of `Repository` can independently divided with `ControlTower`.
+`ViewModel` will contain data change methods.
 
 
 ## 4. Difference between MVP,MVVM vs SVC
