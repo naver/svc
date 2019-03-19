@@ -17,12 +17,18 @@
 package com.naver.android.svc.sample
 
 import com.naver.android.svc.core.controltower.ControlTower
+import com.naver.android.svc.sample.preference.GuidePreference
 import com.naver.android.svc.sample.tabs.MainTab
+
 
 class MainControlTower(screen: MainActivity, views: MainViews) : ControlTower<MainActivity, MainViews>(screen, views), MainViewsAction {
 
     override fun onCreated() {
         screen.changeScreen(MainTab.HOME)
+        if (!GuidePreference.isHelloShown) {
+            showToast("Hello. Nice to see you! :)")
+            GuidePreference.isHelloShown = false
+        }
     }
 
     override fun onClickHome() {

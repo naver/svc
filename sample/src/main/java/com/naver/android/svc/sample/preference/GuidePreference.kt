@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.naver.android.svc.sample.preference
 
-package com.naver.android.svc.sample
-
-import android.app.Application
-import android.content.Context
-import com.naver.android.svc.SvcConfig
-
-class MainApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        SvcConfig.debugMode = true
-    }
+import com.naver.android.svc.preference.AbsPreference
+import com.naver.android.svc.sample.MainApplication
 
 
-    override fun attachBaseContext(base: Context) {
-        instance = this
-        super.attachBaseContext(base)
-    }
+/**
+ * @author bs.nam@navercorp.com 2019. 3. 20..
+ */
+object GuidePreference : AbsPreference(MainApplication.instance, "guide") {
 
-    companion object {
-        @JvmStatic
-        lateinit var instance: MainApplication
-            private set
-    }
+    private val HELLO_TOAST = "HELLO_TOAST"
+
+    var isHelloShown: Boolean
+        get() = getPreferenceBoolean(HELLO_TOAST)
+        set(value) = setPreference(HELLO_TOAST, value)
 }
