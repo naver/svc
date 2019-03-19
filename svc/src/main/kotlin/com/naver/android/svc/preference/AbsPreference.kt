@@ -66,29 +66,27 @@ abstract class AbsPreference
         editor.commit()
     }
 
-    fun getPreferenceBoolean(key: String): Boolean {
-        return preferences.getBoolean(key, false)
-    }
-
-    fun getPreferenceBoolean(key: String, defaultValue: Boolean): Boolean {
+    fun getPreferenceBoolean(key: String, defaultValue: Boolean = false): Boolean {
         return preferences.getBoolean(key, defaultValue)
     }
 
-    fun getPreferenceFloat(key: String): Float {
-        return preferences.getFloat(key, 0.0f)
+    fun getPreferenceFloat(key: String, defaultValue: Float = 0.0f): Float {
+        return preferences.getFloat(key, defaultValue)
     }
 
-    @JvmOverloads
     fun getPreferenceInt(key: String, defaultValue: Int = 0): Int {
         return preferences.getInt(key, defaultValue)
     }
 
-    fun getPreferenceLong(key: String): Long {
-        return preferences.getLong(key, 0L)
+    fun getPreferenceLong(key: String, defaultValue: Long = 0L): Long {
+        return preferences.getLong(key, defaultValue)
     }
 
-    @JvmOverloads
-    fun getPreferenceString(key: String, defaultValue: String? = null): String? {
+    fun getPreferenceOptionalString(key: String, defaultValue: String? = null): String {
+        return preferences.getString(key, defaultValue)
+    }
+
+    fun getPreferenceString(key: String, defaultValue: String = ""): String {
         return preferences.getString(key, defaultValue)
     }
 }
