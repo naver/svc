@@ -237,7 +237,7 @@ allprojects {
 Include below in your "application" build.gradle file
 
 ```groovy
-implementation "com.naver.android.svc:svc-generic:1.0.0-android-28-beta03"
+implementation "com.naver.android.svc:svc-generic:1.0.0-android-28-beta07"
 ```
 
 
