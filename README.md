@@ -1,9 +1,11 @@
 # SVC
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Download](https://api.bintray.com/packages/bansooknam/SVC/svc/images/download.svg)](https://bintray.com/bansooknam/SVC/svc/_latestVersion)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) <br>
 
-**Easy** and **intuitive** pattern **library** for Android
+:rocket: **Easy** and **intuitive** pattern **library** for Android by Naver.
 
-![diagram](./doc/img/SVC_LOGO_256.png)
-
+<img src="./doc/img/SVC_LOGO_256.png" align="right" width="30%">
 
 
 ## Why SVC?
@@ -31,50 +33,46 @@ For more read check article below
    [https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f](https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f)
 
    
-
 Ps. It can be used with ViewModel as Well.
 you can check an example here below.
 https://github.com/BansookNam/android-architecture
 
 
 
-## Examples of Screen
+## How to implement
 1. For activity and fragment for the screen, should inherit the `SVC_{name of screen class}` class.
 2. Add screen annotations `SvcActivity`, `SvcFragment`, `SvcDialogFragment`.
 3. And declare `RequireControlTower`, `RequireViews` annotation above the class.
-
+4. Build you project, then `SVC_XXX` class will be generated automatically by svc processor.
 
 ### 1. Activity
-
 ```kotlin
 @SvcActivity
 @RequireViews(MainViews::class)
 @RequireControlTower(MainControlTower::class) // magic things do happening
-class MainActivity : SVC_MainActivity() {
+class MainActivity : SVC_MainActivity() { // SVC_MainActivity will be generated after build project.
   //extend SVC_{name of class}
 }
 
 ```
 
 ### 2. Fragment
-
 ```kotlin
 @SvcFragment
 @RequireViews(StatisticViews::class)
 @RequireControlTower(StatisticControlTower::class) // magic things do happening
-class StatisticFragment : SVC_StatisticFragment() {
+class StatisticFragment : SVC_StatisticFragment() { // SVC_StatisticFragment will be generated after build project.
    //extend SVC_{name of class}
 }
 ```
 
 ### 3. DialogFragment
-
 ```kotlin
 @SvcDialogFragment
 @RequireViews(SampleActionViews::class)
 @RequireControlTower(SampleActionControlTower::class)
 @RequireListener(SampleActionDialogListener::class) //listener from another screen.
-class SampleActionDialog : SVC_SampleActionDialog(){
+class SampleActionDialog : SVC_SampleActionDialog() { // SVC_SampleActionDialog will be generated after build project.
     //extend SVC_{name of class}
 }
 ```
@@ -83,6 +81,7 @@ class SampleActionDialog : SVC_SampleActionDialog(){
 1. For controlTower, should inherit the `SVC_{name of screen class}` class.
 2. Declare annotations `ControlTower`.
 3. Declare `RequireScreen`, `RequireViews` annotation above the class.
+4. Build you project, then `SVC_YourControlTower` will be generated automatically by svc processor.
 
 ### 1. ControlTower
 
@@ -90,7 +89,7 @@ class SampleActionDialog : SVC_SampleActionDialog(){
 @ControlTower
 @RequireViews(StatisticViews::class)
 @RequireScreen(StatisticFragment::class) //screen which this controlTower will be used.
-class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction {
+class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction { 
     //extend SVC_{name of class}
     //implement ViewsAction which 'Views' is needed.
 }
@@ -109,9 +108,6 @@ class CommonControlTower : SVC_CommonControlTower(), CommonViewsAction {
 }
 
 ```
-
-
-
 
 
 You can really **divide** "Views" from Activity and Fragment.
@@ -278,9 +274,9 @@ With this 2 big differences. We can
 7. We can understand intuitively with clear naming.
 
 
+# Include on your project
 
-# Implementation
-
+[![Download](https://api.bintray.com/packages/bansooknam/SVC/svc/images/download.svg)](https://bintray.com/bansooknam/SVC/svc/_latestVersion)
 ### 1. Project Top Build.gradle
 
 Packages are available in `jcenter`
@@ -294,8 +290,6 @@ allprojects {
     }
 }
 ```
-
-
 
 ### 2. Application Build.gradle
 
