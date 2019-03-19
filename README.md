@@ -32,9 +32,10 @@ For more read check article below
 
    
 
-Ps. It can be used with ViewModel as Well.
-you can check an example here below.
-https://github.com/BansookNam/android-architecture
+**Ps.** It can be used with ViewModel as Well.
+you can check **Examples** here below.<br/>
+https://github.com/BansookNam/android-architecture<br/>
+https://github.com/BansookNam/svc-lotto
 
 
 
