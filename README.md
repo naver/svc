@@ -31,13 +31,11 @@ For more read check article below
 
 2. Detail concept of SVC
    [https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f](https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f)
-
    
-Ps. It can be used with ViewModel as Well.
-you can check an example here below.
-https://github.com/BansookNam/android-architecture
-
-
+**Ps.** It can be used with ViewModel as Well.
+you can check **Examples** here below.<br/>
+https://github.com/BansookNam/android-architecture<br/>
+https://github.com/BansookNam/svc-lotto
 
 ## How to implement
 1. For activity and fragment for the screen, should inherit the `SVC_{name of screen class}` class.
