@@ -108,5 +108,4 @@ abstract class ControlTower : LifecycleObserver, Toastable {
     internal fun changeIsFirstOnCreateFalse() {
         isFirstOnCreate = false
     }
-
 }

@@ -66,7 +66,6 @@ abstract class Views : LifecycleObserver, Toastable, ContextHolder, ResourceProv
         }
     }
 
-
     //------LifeCycle START------
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun logOnCreate() {

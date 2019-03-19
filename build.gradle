@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
+apply from: './versionsPlugin.gradle'
+
 buildscript {
-    ext.kotlin_version = '1.3.21'
+    apply from: './dependencies.gradle'
+
     repositories {
         mavenCentral()
         google()
         jcenter()
     }
-    dependencies {
-        classpath "com.android.tools.build:gradle:3.3.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        classpath "com.github.dcendents:android-maven-gradle-plugin:2.1"
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.19.0"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+    dependencies {
+        classpath "com.android.tools.build:gradle:$versions.gradleBuildTool"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:$versions.mavanGradlePlugin"
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:$versions.spotlessGradle"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$versions.bintrayRelease"
+        classpath "com.github.ben-manes:gradle-versions-plugin:$versions.gradleVersionPlugin"
     }
 }
 

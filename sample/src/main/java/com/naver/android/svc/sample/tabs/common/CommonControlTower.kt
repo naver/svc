@@ -22,7 +22,6 @@ import com.naver.android.svc.core.screen.DialogSupportScreen
 import com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
 import com.naver.android.svc.sample.dialog.listener.SampleListenerDialogListener
 
-
 @ControlTower
 @RequireViews(CommonViews::class)
 @RequireScreen(CommonScreen::class)
