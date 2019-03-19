@@ -297,8 +297,8 @@ Include below in your "application" build.gradle file
 apply plugin: 'kotlin-kapt'
 
 
-implementation "com.naver.android.svc:svc:1.0.0-beta10"
-kapt "com.naver.android.svc:svc-compiler:1.0.0-beta10"
+implementation "com.naver.android.svc:svc:1.0.0-beta12"
+kapt "com.naver.android.svc:svc-compiler:1.0.0-beta12"
 ```
 
 
