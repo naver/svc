@@ -71,7 +71,7 @@ bintray {
         vcsUrl = rootProject.ext.defaultRepoUrl
         websiteUrl = rootProject.ext.defaultUrl
 
-        labels = ['aar', 'android', 'svc']
+        labels = ['aar', 'android', 'svc-generic']
         publicDownloadNumbers = true
 
         githubRepo = 'BansookNam/svc'
