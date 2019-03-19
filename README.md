@@ -3,7 +3,7 @@
 [![Download](https://api.bintray.com/packages/bansooknam/SVC/svc/images/download.svg)](https://bintray.com/bansooknam/SVC/svc/_latestVersion)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) <br>
 
-:rocket: **Easy** and **intuitive** pattern **library** for Android by Naver.
+:rocket: **Easy** and **intuitive** pattern **library** for Android.
 
 <img src="./doc/img/SVC_LOGO_256.png" align="right" width="30%">
 
@@ -41,7 +41,7 @@ https://github.com/BansookNam/svc-lotto
 1. For activity and fragment for the screen, should inherit the `SVC_{name of screen class}` class.
 2. Add screen annotations `SvcActivity`, `SvcFragment`, `SvcDialogFragment`.
 3. And declare `RequireControlTower`, `RequireViews` annotation above the class.
-4. Build you project, then `SVC_XXX` class will be generated automatically by svc processor.
+4. Build you project, then `SVC_{YourScreen}` class will be generated automatically by svc processor.
 
 ### 1. Activity
 ```kotlin
@@ -76,10 +76,10 @@ class SampleActionDialog : SVC_SampleActionDialog() { // SVC_SampleActionDialog 
 ```
 
 ## Examples of ControlTower
-1. For controlTower, should inherit the `SVC_{name of screen class}` class.
+1. For controlTower, should inherit the `SVC_{name of controlTower class}` class.
 2. Declare annotations `ControlTower`.
 3. Declare `RequireScreen`, `RequireViews` annotation above the class.
-4. Build you project, then `SVC_YourControlTower` will be generated automatically by svc processor.
+4. Build you project, then `SVC_{YourControlTower}` will be generated automatically by svc processor.
 
 ### 1. ControlTower
 
@@ -318,18 +318,19 @@ If you want to create Activity, Fragment, DialogFragment quickly. Try SvcTemplat
 
  3) restart Android Studio
 
- 4) right click, and use "SVC" - "SVC ***"
+ 4) right click, and use "SVC" - "SVC ***" 
 ![svcTemplate](./doc/img/svcTemplate.png)
 
- 5) write screen name, author then finish!
-
+ 5) write screen name, author then click "Finish".
 ![svcTemplate2](./doc/img/svcTemplate2.png)
+![svcTemplate3](./doc/img/svcTemplate3.png)<br/>
+ You will see "Unresolved Reference" error.
 
-![svcTemplate3](./doc/img/svcTemplate3.png)
+ 6) click "Build" - "Rebuild Project"
+    This will create "SVC_{component}" based on annotations.
+![svcTemplate4](./doc/img/svcTemplate4.png)
 
-6. **Happy coding!**
-
-
+ 7) **Done! Happy coding!
 
 # Reuse of Views and ControlTower
 
