@@ -104,7 +104,7 @@ bintray {
 
 // JCenter publish
 task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
+    from android.sourceSets.main.kotlin.srcDirs
     classifier = 'sources'
 }
 
