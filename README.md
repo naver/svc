@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Download](https://api.bintray.com/packages/bansooknam/SVC/svc/images/download.svg)](https://bintray.com/bansooknam/SVC/svc/_latestVersion)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) <br>
-
+[![Build Status](https://travis-ci.org/naver/svc.svg?branch=master)](https://travis-ci.org/naver/svc)
 :rocket: **Easy** and **intuitive** pattern **library** for Android.
 
 <img src="./doc/img/SVC_LOGO_256.png" align="right" width="30%">
