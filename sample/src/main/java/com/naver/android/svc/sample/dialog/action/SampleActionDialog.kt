@@ -15,14 +15,15 @@
  */
 package com.naver.android.svc.sample.dialog.action
 
-import com.naver.android.annotation.RequireControlTower
-import com.naver.android.annotation.RequireListener
-import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.svc.RequireControlTower
+import com.naver.android.annotation.svc.RequireListener
+import com.naver.android.annotation.svc.RequireViews
+import com.naver.android.annotation.svc.SvcDialogFragment
 
 /**
  * @author bs.nam@navercorp.com
  */
-@com.naver.android.annotation.SvcDialogFragment
+@SvcDialogFragment
 @RequireViews(SampleActionViews::class)
 @RequireControlTower(SampleActionControlTower::class)
 @RequireListener(SampleActionDialogListener::class)

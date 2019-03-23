@@ -16,10 +16,10 @@
 
 import com.google.auto.service.AutoService
 import com.google.common.base.VerifyException
-import com.naver.android.annotation.ControlTower
-import com.naver.android.annotation.SvcActivity
-import com.naver.android.annotation.SvcDialogFragment
-import com.naver.android.annotation.SvcFragment
+import com.naver.android.annotation.svc.ControlTower
+import com.naver.android.annotation.svc.SvcActivity
+import com.naver.android.annotation.svc.SvcDialogFragment
+import com.naver.android.annotation.svc.SvcFragment
 import com.squareup.javapoet.JavaFile
 import java.io.IOException
 import java.util.*

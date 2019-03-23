@@ -16,9 +16,9 @@
 package com.naver.android.svc.sample.tabs.common
 
 import android.content.Intent
-import com.naver.android.annotation.RequireControlTower
-import com.naver.android.annotation.RequireViews
-import com.naver.android.annotation.SvcActivity
+import com.naver.android.annotation.svc.RequireControlTower
+import com.naver.android.annotation.svc.RequireViews
+import com.naver.android.annotation.svc.SvcActivity
 
 /**
  * @author bs.nam@navercorp.com

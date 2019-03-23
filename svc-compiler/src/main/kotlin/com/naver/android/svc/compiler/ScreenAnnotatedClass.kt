@@ -15,7 +15,7 @@
  */package com.naver.android.svc.compiler
 
 import com.google.common.base.VerifyException
-import com.naver.android.annotation.*
+import com.naver.android.annotation.svc.*
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.ParameterizedTypeName
 import com.squareup.javapoet.TypeName

@@ -16,9 +16,9 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import android.content.Intent
-import com.naver.android.annotation.RequireControlTower
-import com.naver.android.annotation.RequireViews
-import com.naver.android.annotation.SvcFragment
+import com.naver.android.annotation.svc.RequireControlTower
+import com.naver.android.annotation.svc.RequireViews
+import com.naver.android.annotation.svc.SvcFragment
 import com.naver.android.svc.sample.MainActivity
 import com.naver.android.svc.sample.tabs.common.CommonViews
 

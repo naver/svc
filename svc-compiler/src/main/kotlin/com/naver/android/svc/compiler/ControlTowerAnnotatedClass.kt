@@ -15,8 +15,8 @@
  */package com.naver.android.svc.compiler
 
 import com.google.common.base.VerifyException
-import com.naver.android.annotation.RequireScreen
-import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.svc.RequireScreen
+import com.naver.android.annotation.svc.RequireViews
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.TypeName
 import javax.lang.model.element.TypeElement

@@ -15,13 +15,14 @@
  */
 package com.naver.android.svc.sample.dialog.simple
 
-import com.naver.android.annotation.RequireScreen
-import com.naver.android.annotation.RequireViews
+import com.naver.android.annotation.svc.ControlTower
+import com.naver.android.annotation.svc.RequireScreen
+import com.naver.android.annotation.svc.RequireViews
 
 /**
  * @author bs.nam@navercorp.com
  */
-@com.naver.android.annotation.ControlTower
+@ControlTower
 @RequireScreen(SimpleDialog::class)
 @RequireViews(SimpleViews::class)
 class SimpleControlTower : SVC_SimpleControlTower() {

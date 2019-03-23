@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.naver.android.annotation
-
-import kotlin.reflect.KClass
+package com.naver.android.annotation.svc
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class RequireListener(val value: KClass<*>)
+annotation class SvcActivity
