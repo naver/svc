@@ -15,9 +15,9 @@
  */
 package com.naver.android.svc.sample
 
-import com.naver.android.annotation.ControlTower
-import com.naver.android.annotation.RequireScreen
-import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.annotation.ControlTower
+import com.naver.android.svc.annotation.RequireScreen
+import com.naver.android.svc.annotation.RequireViews
 import com.naver.android.svc.sample.preference.GuidePreference
 import com.naver.android.svc.sample.tabs.MainTab
 

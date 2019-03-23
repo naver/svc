@@ -15,8 +15,9 @@
  */
 package com.naver.android.svc.sample.dialog.action
 
-import com.naver.android.annotation.RequireScreen
-import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.annotation.ControlTower
+import com.naver.android.svc.annotation.RequireScreen
+import com.naver.android.svc.annotation.RequireViews
 
 /**
  * If you think this SampleActionControlTower is just passing events and doing nothing
@@ -26,7 +27,7 @@ import com.naver.android.annotation.RequireViews
  * @see com.naver.android.svc.sample.dialog.listener.SampleListenerDialog
  * @author bs.nam@navercorp.com
  */
-@com.naver.android.annotation.ControlTower
+@ControlTower
 @RequireScreen(SampleActionDialog::class)
 @RequireViews(SampleActionViews::class)
 class SampleActionControlTower : SVC_SampleActionControlTower(), SampleActionViewsAction {

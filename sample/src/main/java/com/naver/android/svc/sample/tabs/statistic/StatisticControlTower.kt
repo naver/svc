@@ -15,9 +15,9 @@
  */
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.annotation.ControlTower
-import com.naver.android.annotation.RequireScreen
-import com.naver.android.annotation.RequireViews
+import com.naver.android.svc.annotation.ControlTower
+import com.naver.android.svc.annotation.RequireScreen
+import com.naver.android.svc.annotation.RequireViews
 
 @ControlTower
 @RequireViews(StatisticViews::class)
