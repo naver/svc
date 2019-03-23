@@ -15,7 +15,6 @@ sourceSets {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
     kapt project(":svc-annotation")
     implementation project(":svc-annotation")

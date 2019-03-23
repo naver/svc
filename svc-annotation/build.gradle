@@ -7,11 +7,6 @@ apply from: '../dependencies.gradle'
 group = rootProject.ext.packageName
 version = rootProject.ext.libVersionName
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-}
-
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
@@ -34,7 +29,7 @@ install {
             url rootProject.ext.defaultUrl
             inceptionYear '2018'
 
-            packaging 'jar'
+            packaging 'aar'
             groupId rootProject.ext.packageName
             artifactId rootProject.ext.annotationModuleName
             version rootProject.ext.libVersionName
@@ -90,7 +85,7 @@ bintray {
         vcsUrl = rootProject.ext.defaultRepoUrl
         websiteUrl = rootProject.ext.defaultUrl
 
-        labels = ['jar', 'android', rootProject.ext.annotationModuleName]
+        labels = ['aar', 'android', rootProject.ext.annotationModuleName]
         publicDownloadNumbers = true
 
         githubRepo = 'BansookNam/svc'
