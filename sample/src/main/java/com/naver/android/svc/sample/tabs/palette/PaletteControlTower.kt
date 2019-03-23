@@ -16,9 +16,9 @@
 package com.naver.android.svc.sample.tabs.palette
 
 import android.util.Log
-import com.naver.android.annotation.svc.ControlTower
-import com.naver.android.annotation.svc.RequireScreen
-import com.naver.android.annotation.svc.RequireViews
+import com.naver.android.svc.annotation.ControlTower
+import com.naver.android.svc.annotation.RequireScreen
+import com.naver.android.svc.annotation.RequireViews
 import com.naver.android.svc.core.screen.DialogSupportScreen
 import com.naver.android.svc.sample.dialog.action.SampleActionDialog
 import com.naver.android.svc.sample.dialog.action.SampleActionDialogListener

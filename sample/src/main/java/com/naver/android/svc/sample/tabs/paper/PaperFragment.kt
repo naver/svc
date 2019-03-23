@@ -16,9 +16,9 @@
 package com.naver.android.svc.sample.tabs.paper
 
 import android.content.Intent
-import com.naver.android.annotation.svc.RequireControlTower
-import com.naver.android.annotation.svc.RequireViews
-import com.naver.android.annotation.svc.SvcFragment
+import com.naver.android.svc.annotation.RequireControlTower
+import com.naver.android.svc.annotation.RequireViews
+import com.naver.android.svc.annotation.SvcFragment
 import com.naver.android.svc.sample.tabs.common.CommonActivity
 import com.naver.android.svc.sample.tabs.common.CommonControlTower
 import com.naver.android.svc.sample.tabs.common.CommonScreen

@@ -15,10 +15,10 @@
  */
 package com.naver.android.svc.sample.dialog.action
 
-import com.naver.android.annotation.svc.RequireControlTower
-import com.naver.android.annotation.svc.RequireListener
-import com.naver.android.annotation.svc.RequireViews
-import com.naver.android.annotation.svc.SvcDialogFragment
+import com.naver.android.svc.annotation.RequireControlTower
+import com.naver.android.svc.annotation.RequireListener
+import com.naver.android.svc.annotation.RequireViews
+import com.naver.android.svc.annotation.SvcDialogFragment
 
 /**
  * @author bs.nam@navercorp.com

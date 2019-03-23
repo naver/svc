@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.naver.android.annotation.svc
-
-import kotlin.reflect.KClass
+package com.naver.android.svc.annotation
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class RequireViews(val value: KClass<*>)
+annotation class SvcFragment
