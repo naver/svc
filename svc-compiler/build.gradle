@@ -7,10 +7,6 @@ apply from: '../dependencies.gradle'
 group = rootProject.ext.packageName
 version = rootProject.ext.libVersionName
 
-kapt {
-    generateStubs = true
-}
-
 sourceSets {
     main {
         java {
