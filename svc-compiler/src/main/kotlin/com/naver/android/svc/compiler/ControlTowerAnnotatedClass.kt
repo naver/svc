@@ -17,8 +17,8 @@
 import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.RequireScreen
 import com.naver.android.svc.annotation.RequireViews
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 
@@ -47,7 +47,7 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) {
         if (indexView == -1) indexView = viewsPackage.lastIndexOf("\\.")
 
         this.baseViewName = viewsPackage.substring(indexView + 1)
-        this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName)
+        this.baseView = ClassName(viewsPackage.substring(0, indexView), baseViewName)
 
         val requireScreen = annotatedElement.getAnnotation(RequireScreen::class.java)
         val packageIndexS0 = requireScreen.toString().lastIndexOf("=")
@@ -59,8 +59,8 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) {
         if (indexScreen == -1) indexScreen = screenPackage.lastIndexOf("\\.")
 
         this.screenName = screenPackage.substring(indexScreen + 1)
-        this.screen = ClassName.get(screenPackage.substring(0, indexScreen), screenName)
+        this.screen = ClassName(screenPackage.substring(0, indexScreen), screenName)
 
-        this.superClass = ClassName.get("com.naver.android.svc.core.controltower", "ControlTower")
+        this.superClass = ClassName("com.naver.android.svc.core.controltower", "ControlTower")
     }
 }

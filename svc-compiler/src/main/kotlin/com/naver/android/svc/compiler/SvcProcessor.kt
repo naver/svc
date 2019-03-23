@@ -20,7 +20,8 @@ import com.naver.android.svc.annotation.ControlTower
 import com.naver.android.svc.annotation.SvcActivity
 import com.naver.android.svc.annotation.SvcDialogFragment
 import com.naver.android.svc.annotation.SvcFragment
-import com.squareup.javapoet.JavaFile
+import com.squareup.kotlinpoet.FileSpec
+import java.io.File
 import java.io.IOException
 import java.util.*
 import javax.annotation.processing.*
@@ -147,9 +148,11 @@ class SvcProcessor : AbstractProcessor() {
         try {
             val controlTowerGenerator = ControlTowerGenerator(packageName!!, annotatedClazz)
             val controlTowerClazz = controlTowerGenerator.generate()
-            JavaFile.builder(packageName, controlTowerClazz)
-                .build()
-                .writeTo(processingEnv.filer)
+
+            val kaptKotlinGeneratedDir = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]
+            val file = File(kaptKotlinGeneratedDir, controlTowerGenerator.getControlTowerName() + ".kt")
+            FileSpec.get(packageName, controlTowerClazz)
+                .writeTo(file)
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -175,9 +178,10 @@ class SvcProcessor : AbstractProcessor() {
         try {
             val controlTowerGenerator = ScreenExtendsGenerator(packageName!!, annotatedClazz)
             val controlTowerClazz = controlTowerGenerator.generate()
-            JavaFile.builder(packageName, controlTowerClazz)
-                .build()
-                .writeTo(processingEnv.filer)
+            val kaptKotlinGeneratedDir = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME]
+            val file = File(kaptKotlinGeneratedDir, controlTowerGenerator.extendsName + ".kt")
+            FileSpec.get(packageName, controlTowerClazz)
+                .writeTo(file)
         } catch (e: IOException) {
             e.printStackTrace()
         }

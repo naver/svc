@@ -15,5 +15,5 @@ ext.versions = [
     lifecycle          : '2.1.0-alpha03',
     constraintLayout   : '1.1.3',
     autoService        : '1.0-rc4',
-    javapoet           : '1.11.1'
+    kotlinPoet         : '1.0.0'
 ]

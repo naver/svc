@@ -16,9 +16,9 @@
 
 import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.*
-import com.squareup.javapoet.ClassName
-import com.squareup.javapoet.ParameterizedTypeName
-import com.squareup.javapoet.TypeName
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 
@@ -49,7 +49,7 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) {
         if (indexView == -1) indexView = viewsPackage.lastIndexOf("\\.")
 
         this.baseViewName = viewsPackage.substring(indexView + 1)
-        this.baseView = ClassName.get(viewsPackage.substring(0, indexView), baseViewName)
+        this.baseView = ClassName(viewsPackage.substring(0, indexView), baseViewName)
 
         val requireControlTower = annotatedElement.getAnnotation(RequireControlTower::class.java)
         val packageIndexS0 = requireControlTower.toString().lastIndexOf("=")
@@ -61,15 +61,15 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) {
         if (indexCT == -1) indexCT = controlTowerPackage.lastIndexOf("\\.")
 
         this.controlTowerName = controlTowerPackage.substring(indexCT + 1)
-        this.controlTower = ClassName.get(controlTowerPackage.substring(0, indexCT), controlTowerName)
+        this.controlTower = ClassName(controlTowerPackage.substring(0, indexCT), controlTowerName)
 
         val svcActivity = annotatedElement.getAnnotation(SvcActivity::class.java)
         val svcFragment = annotatedElement.getAnnotation(SvcFragment::class.java)
         val svcDialogFragment = annotatedElement.getAnnotation(SvcDialogFragment::class.java)
 
         when {
-            svcActivity != null -> this.superClass = ClassName.get("com.naver.android.svc.core.screen", "SvcActivity")
-            svcFragment != null -> this.superClass = ClassName.get("com.naver.android.svc.core.screen", "SvcFragment")
+            svcActivity != null -> this.superClass = ClassName("com.naver.android.svc.core.screen", "SvcActivity")
+            svcFragment != null -> this.superClass = ClassName("com.naver.android.svc.core.screen", "SvcFragment")
             svcDialogFragment != null -> {
                 //svcDialogFragment
                 val requireListener = annotatedElement.getAnnotation(RequireListener::class.java)
@@ -82,10 +82,10 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) {
                 if (indexListener == -1) indexListener = listenerPackage.lastIndexOf("\\.")
 
                 this.dialogListenerName = listenerPackage.substring(indexListener + 1)
-                this.dialogListener = ClassName.get(listenerPackage.substring(0, indexListener), dialogListenerName)
+                this.dialogListener = ClassName(listenerPackage.substring(0, indexListener), dialogListenerName!!)
 
-                val svcDialogFragmentClassName = ClassName.get("com.naver.android.svc.core.screen", "SvcDialogFragment")
-                this.superClass = ParameterizedTypeName.get(svcDialogFragmentClassName, dialogListener)
+                val svcDialogFragmentClassName = ClassName("com.naver.android.svc.core.screen", "SvcDialogFragment")
+                this.superClass = svcDialogFragmentClassName.parameterizedBy(this.dialogListener!!)
             }
         }
     }
