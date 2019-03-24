@@ -21,7 +21,8 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 
-class ScreenExtendsGenerator(private val packageName: String, private val screenAnnotatedClass: ScreenAnnotatedClass) : CommonGenerator {
+class CustomScreenExtendsGenerator(private val packageName: String, private val screenAnnotatedClass: CustomScreenAnnotatedClass) :
+    CommonGenerator {
 
     private val createControlTowerMethodSpec: FunSpec
         get() = FunSpec.builder("createControlTower")

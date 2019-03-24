@@ -23,8 +23,8 @@ import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 
-class ScreenAnnotatedClass @Throws(VerifyException::class)
-constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonAnnotatedClass {
+class CustomScreenAnnotatedClass @Throws(VerifyException::class)
+constructor(val annotatedElement: TypeElement, elementUtils: Elements): CommonAnnotatedClass {
     val packageName: String?
     val clazzName: String
 
@@ -42,6 +42,7 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
             dialogListener ?: return null
             return dialogListener!!.simpleName
         }
+
     var superClass: TypeName? = null
 
     init {
@@ -55,21 +56,22 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
         val requireControlTower = annotatedElement.getAnnotation(RequireControlTower::class.java)
         this.controlTower = getClass(requireControlTower)
 
-        val svcActivity = annotatedElement.getAnnotation(SvcActivity::class.java)
-        val svcFragment = annotatedElement.getAnnotation(SvcFragment::class.java)
-        val svcDialogFragment = annotatedElement.getAnnotation(SvcDialogFragment::class.java)
+        val svcActivity = annotatedElement.getAnnotation(SvcCustomActivity::class.java)
+        val svcFragment = annotatedElement.getAnnotation(SvcCustomFragment::class.java)
+        val svcDialogFragment = annotatedElement.getAnnotation(SvcCustomDialogFragment::class.java)
 
         when {
-            svcActivity != null -> this.superClass = ClassName("com.naver.android.svc.core.screen", "SvcActivity")
-            svcFragment != null -> this.superClass = ClassName("com.naver.android.svc.core.screen", "SvcFragment")
+            svcActivity != null -> this.superClass = getClass(svcActivity)
+            svcFragment != null -> this.superClass = getClass(svcFragment)
             svcDialogFragment != null -> {
+                //svcDialogFragment
                 val requireListener = annotatedElement.getAnnotation(RequireListener::class.java)
                 if (requireListener != null) {
                     this.dialogListener = getClass(requireListener)
                 } else {
                     this.dialogListener = ClassName("kotlin", "Unit")
                 }
-                val svcDialogFragmentClassName = ClassName("com.naver.android.svc.core.screen", "SvcDialogFragment")
+                val svcDialogFragmentClassName = getClass(svcDialogFragment)
                 this.superClass = svcDialogFragmentClassName.parameterizedBy(this.dialogListener!!)
             }
         }

@@ -2,11 +2,7 @@ package com.naver.android.svc.compiler.processor.controltower
 
 import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.ControlTower
-import com.naver.android.svc.compiler.SvcProcessor
 import com.naver.android.svc.compiler.processor.CommonProcessor
-import com.squareup.kotlinpoet.FileSpec
-import java.io.File
-import java.io.IOException
 import javax.annotation.processing.ProcessingEnvironment
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.element.TypeElement
@@ -33,7 +29,6 @@ class ControlTowerProcessor(processingEnv: ProcessingEnvironment): CommonProcess
             }
     }
 
-
     private fun processControlTower(annotatedType: TypeElement) {
         try {
             val annotatedClazz = ControlTowerAnnotatedClass(annotatedType, processingEnv.elementUtils)
@@ -46,23 +41,13 @@ class ControlTowerProcessor(processingEnv: ProcessingEnvironment): CommonProcess
         } catch (e: VerifyException) {
             showProcessErrorLog(e.message, annotatedType)
         }
-
     }
 
     private fun generateProcessControlTower(
         packageName: String?, annotatedClazz: ControlTowerAnnotatedClass) {
-        try {
-            val controlTowerGenerator = ControlTowerGenerator(packageName!!, annotatedClazz)
-            val controlTowerClazz = controlTowerGenerator.generate()
-
-            val kaptKotlinGeneratedDir = processingEnv.options[SvcProcessor.KAPT_KOTLIN_GENERATED_OPTION_NAME]
-            val file = File(kaptKotlinGeneratedDir, controlTowerGenerator.getControlTowerName() + ".kt")
-            FileSpec.get(packageName, controlTowerClazz)
-                .writeTo(file)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
+        val generator = ControlTowerGenerator(packageName!!, annotatedClazz)
+        val clazz = generator.generate()
+        writeFile(packageName, generator, clazz)
     }
 
 }

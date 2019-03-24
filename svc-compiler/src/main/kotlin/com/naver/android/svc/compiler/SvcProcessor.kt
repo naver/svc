@@ -20,6 +20,7 @@ import com.naver.android.svc.annotation.SvcActivity
 import com.naver.android.svc.annotation.SvcDialogFragment
 import com.naver.android.svc.annotation.SvcFragment
 import com.naver.android.svc.compiler.processor.controltower.ControlTowerProcessor
+import com.naver.android.svc.compiler.processor.screen.CustomScreenProcessor
 import com.naver.android.svc.compiler.processor.screen.ScreenProcessor
 import java.util.*
 import javax.annotation.processing.*
@@ -31,6 +32,7 @@ import javax.lang.model.element.TypeElement
 class SvcProcessor : AbstractProcessor() {
 
     lateinit var controlTowerProcessor : ControlTowerProcessor
+    lateinit var customScreenProcessor : CustomScreenProcessor
     lateinit var screenProcessor : ScreenProcessor
 
     companion object {
@@ -41,6 +43,7 @@ class SvcProcessor : AbstractProcessor() {
     override fun init(processingEnvironment: ProcessingEnvironment) {
         super.init(processingEnvironment)
         controlTowerProcessor = ControlTowerProcessor(processingEnv)
+        customScreenProcessor = CustomScreenProcessor(processingEnv)
         screenProcessor = ScreenProcessor(processingEnv)
     }
 
@@ -64,6 +67,7 @@ class SvcProcessor : AbstractProcessor() {
         }
 
         controlTowerProcessor.processControlTower(roundEnvironment)
+        customScreenProcessor.processScreen(roundEnvironment)
         screenProcessor.processScreen(roundEnvironment)
         return true
     }

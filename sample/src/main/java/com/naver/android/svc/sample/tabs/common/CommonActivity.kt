@@ -18,12 +18,12 @@ package com.naver.android.svc.sample.tabs.common
 import android.content.Intent
 import com.naver.android.svc.annotation.RequireControlTower
 import com.naver.android.svc.annotation.RequireViews
-import com.naver.android.svc.annotation.SvcActivity
+import com.naver.android.svc.annotation.SvcCustomActivity
 
 /**
  * @author bs.nam@navercorp.com
  */
-@SvcActivity
+@SvcCustomActivity(BaseActivity::class)
 @RequireControlTower(CommonControlTower::class)
 @RequireViews(CommonViews::class)
 class CommonActivity : SVC_CommonActivity(), CommonScreen {
