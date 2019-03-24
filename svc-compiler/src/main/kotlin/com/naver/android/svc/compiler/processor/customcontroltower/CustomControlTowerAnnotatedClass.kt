@@ -19,6 +19,7 @@ import com.naver.android.svc.annotation.CustomControlTower
 import com.naver.android.svc.annotation.RequireScreen
 import com.naver.android.svc.annotation.RequireViews
 import com.naver.android.svc.compiler.processor.CommonAnnotatedClass
+import com.naver.android.svc.compiler.processor.CommonClass
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
@@ -41,8 +42,8 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
         this.packageName = if (packageElement.isUnnamed) null else packageElement.qualifiedName.toString()
         this.clazzName = annotatedElement.simpleName.toString()
 
-        this.baseView = getClass(annotatedElement.getAnnotation(RequireViews::class.java))
-        this.screen = getClass(annotatedElement.getAnnotation(RequireScreen::class.java))
-        this.superClass = getClass(annotatedElement.getAnnotation(CustomControlTower::class.java))
+        this.baseView = getValueClass(annotatedElement.getAnnotation(RequireViews::class.java), CommonClass.Views)
+        this.screen = getValueClass(annotatedElement.getAnnotation(RequireScreen::class.java), CommonClass.Screen)
+        this.superClass = getValueClass(annotatedElement.getAnnotation(CustomControlTower::class.java))
     }
 }

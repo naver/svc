@@ -17,6 +17,7 @@
 import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.*
 import com.naver.android.svc.compiler.processor.CommonAnnotatedClass
+import com.naver.android.svc.compiler.processor.CommonClass
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.TypeName
@@ -44,10 +45,10 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
         this.clazzName = annotatedElement.simpleName.toString()
 
         val requireViews = annotatedElement.getAnnotation(RequireViews::class.java)
-        this.baseView = getClass(requireViews)
+        this.baseView = getValueClass(requireViews, CommonClass.Views)
 
         val requireControlTower = annotatedElement.getAnnotation(RequireControlTower::class.java)
-        this.controlTower = getClass(requireControlTower)
+        this.controlTower = getValueClass(requireControlTower, CommonClass.ControlTower)
 
         val svcActivity = annotatedElement.getAnnotation(SvcActivity::class.java)
         val svcFragment = annotatedElement.getAnnotation(SvcFragment::class.java)
@@ -59,7 +60,7 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
             svcDialogFragment != null -> {
                 val requireListener = annotatedElement.getAnnotation(RequireListener::class.java)
                 val dialogListener = if (requireListener != null) {
-                    getClass(requireListener)
+                    getValueClass(requireListener)
                 } else {
                     ClassName("kotlin", "Unit")
                 }

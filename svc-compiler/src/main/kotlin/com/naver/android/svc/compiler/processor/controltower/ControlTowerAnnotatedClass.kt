@@ -18,6 +18,7 @@ import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.RequireScreen
 import com.naver.android.svc.annotation.RequireViews
 import com.naver.android.svc.compiler.processor.CommonAnnotatedClass
+import com.naver.android.svc.compiler.processor.CommonClass
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
@@ -41,10 +42,10 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
         this.clazzName = annotatedElement.simpleName.toString()
 
         val requireViews = annotatedElement.getAnnotation(RequireViews::class.java)
-        this.baseView = getClass(requireViews)
+        this.baseView = getValueClass(requireViews, CommonClass.Views)
 
         val requireScreen = annotatedElement.getAnnotation(RequireScreen::class.java)
-        this.screen = getClass(requireScreen)
+        this.screen = getValueClass(requireScreen, CommonClass.Screen)
 
         this.superClass = ClassName("com.naver.android.svc.core.controltower", "ControlTower")
     }

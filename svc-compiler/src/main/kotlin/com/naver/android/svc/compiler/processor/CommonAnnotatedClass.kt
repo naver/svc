@@ -6,7 +6,15 @@ import com.squareup.kotlinpoet.ClassName
  * @author bs.nam@navercorp.com
  */
 interface CommonAnnotatedClass{
-    fun getClass(annotation: Annotation): ClassName {
+    fun getValueClass(annotation: Annotation?, default: ClassName? = null): ClassName {
+        if(annotation == null){
+            if(default!=null){
+                return default
+            }else{
+                throw IllegalAccessException("annotation value is null")
+            }
+        }
+
         val packgeIndexActivity = annotation.toString().lastIndexOf("=")
         val activityPackage = annotation
             .toString()
