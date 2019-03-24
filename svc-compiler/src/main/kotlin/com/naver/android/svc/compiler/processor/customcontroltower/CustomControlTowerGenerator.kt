@@ -21,7 +21,7 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 
-class ControlTowerGenerator(private val packageName: String, private val annotatedClazz: ControlTowerAnnotatedClass):
+class CustomControlTowerGenerator(private val packageName: String, private val annotatedClazz: CustomControlTowerAnnotatedClass):
     CommonGenerator {
     private val controlTowerName: String
 

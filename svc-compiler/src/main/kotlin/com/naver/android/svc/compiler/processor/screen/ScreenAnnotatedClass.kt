@@ -36,13 +36,7 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
     val controlTowerName: String
         get() = controlTower.simpleName
 
-    var dialogListener: ClassName? = null
-    val dialogListenerName: String?
-        get() {
-            dialogListener ?: return null
-            return dialogListener!!.simpleName
-        }
-    var superClass: TypeName? = null
+    lateinit var superClass: TypeName
 
     init {
         val packageElement = elementUtils.getPackageOf(annotatedElement)
@@ -64,13 +58,13 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
             svcFragment != null -> this.superClass = ClassName("com.naver.android.svc.core.screen", "SvcFragment")
             svcDialogFragment != null -> {
                 val requireListener = annotatedElement.getAnnotation(RequireListener::class.java)
-                if (requireListener != null) {
-                    this.dialogListener = getClass(requireListener)
+                val dialogListener = if (requireListener != null) {
+                    getClass(requireListener)
                 } else {
-                    this.dialogListener = ClassName("kotlin", "Unit")
+                    ClassName("kotlin", "Unit")
                 }
                 val svcDialogFragmentClassName = ClassName("com.naver.android.svc.core.screen", "SvcDialogFragment")
-                this.superClass = svcDialogFragmentClassName.parameterizedBy(this.dialogListener!!)
+                this.superClass = svcDialogFragmentClassName.parameterizedBy(dialogListener)
             }
         }
     }

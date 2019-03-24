@@ -15,11 +15,9 @@
  */package com.naver.android.svc.compiler
 
 import com.google.auto.service.AutoService
-import com.naver.android.svc.annotation.ControlTower
-import com.naver.android.svc.annotation.SvcActivity
-import com.naver.android.svc.annotation.SvcDialogFragment
-import com.naver.android.svc.annotation.SvcFragment
+import com.naver.android.svc.annotation.*
 import com.naver.android.svc.compiler.processor.controltower.ControlTowerProcessor
+import com.naver.android.svc.compiler.processor.controltower.CustomControlTowerProcessor
 import com.naver.android.svc.compiler.processor.screen.CustomScreenProcessor
 import com.naver.android.svc.compiler.processor.screen.ScreenProcessor
 import java.util.*
@@ -32,6 +30,7 @@ import javax.lang.model.element.TypeElement
 class SvcProcessor : AbstractProcessor() {
 
     lateinit var controlTowerProcessor : ControlTowerProcessor
+    lateinit var customControlTowerProcessor : CustomControlTowerProcessor
     lateinit var customScreenProcessor : CustomScreenProcessor
     lateinit var screenProcessor : ScreenProcessor
 
@@ -43,6 +42,7 @@ class SvcProcessor : AbstractProcessor() {
     override fun init(processingEnvironment: ProcessingEnvironment) {
         super.init(processingEnvironment)
         controlTowerProcessor = ControlTowerProcessor(processingEnv)
+        customControlTowerProcessor = CustomControlTowerProcessor(processingEnv)
         customScreenProcessor = CustomScreenProcessor(processingEnv)
         screenProcessor = ScreenProcessor(processingEnv)
     }
@@ -50,9 +50,16 @@ class SvcProcessor : AbstractProcessor() {
     override fun getSupportedAnnotationTypes(): Set<String> {
         val supportedTypes = HashSet<String>()
         supportedTypes.add(ControlTower::class.java.canonicalName)
-        supportedTypes.add(SvcFragment::class.java.canonicalName)
-        supportedTypes.add(SvcDialogFragment::class.java.canonicalName)
+        supportedTypes.add(CustomControlTower::class.java.canonicalName)
+
         supportedTypes.add(SvcActivity::class.java.canonicalName)
+        supportedTypes.add(SvcCustomActivity::class.java.canonicalName)
+
+        supportedTypes.add(SvcFragment::class.java.canonicalName)
+        supportedTypes.add(SvcCustomFragment::class.java.canonicalName)
+
+        supportedTypes.add(SvcDialogFragment::class.java.canonicalName)
+        supportedTypes.add(SvcCustomDialogFragment::class.java.canonicalName)
         return supportedTypes
     }
 
@@ -67,6 +74,7 @@ class SvcProcessor : AbstractProcessor() {
         }
 
         controlTowerProcessor.processControlTower(roundEnvironment)
+        customControlTowerProcessor.processControlTower(roundEnvironment)
         customScreenProcessor.processScreen(roundEnvironment)
         screenProcessor.processScreen(roundEnvironment)
         return true
