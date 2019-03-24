@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package com.naver.android.svc.compiler
+ */package com.naver.android.svc.compiler.processor.controltower
 
 import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.RequireScreen
