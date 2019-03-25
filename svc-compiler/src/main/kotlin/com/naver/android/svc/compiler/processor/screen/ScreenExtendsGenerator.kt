@@ -12,15 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package com.naver.android.svc.compiler
+ */package com.naver.android.svc.compiler.processor.screen
 
 
+import com.naver.android.svc.compiler.processor.CommonGenerator
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 
-class ScreenExtendsGenerator(private val packageName: String, private val screenAnnotatedClass: ScreenAnnotatedClass) {
+class ScreenExtendsGenerator(private val packageName: String, private val screenAnnotatedClass: ScreenAnnotatedClass) : CommonGenerator {
 
     private val createControlTowerMethodSpec: FunSpec
         get() = FunSpec.builder("createControlTower")
@@ -55,8 +56,8 @@ class ScreenExtendsGenerator(private val packageName: String, private val screen
                 .build())
             .build()
 
-    val extendsName: String
-        get() = "SVC_" + this.screenAnnotatedClass.clazzName
+    override val extendsName: String
+        get() = "SVC_" + this.screenAnnotatedClass.simpleName
 
     fun generate(): TypeSpec {
         val builder = TypeSpec.classBuilder(extendsName)
@@ -68,7 +69,7 @@ class ScreenExtendsGenerator(private val packageName: String, private val screen
             .addFunction(createControlTowerMethodSpec)
             .addProperty(viewsParamSpec)
             .addProperty(controlTowerParamSpec)
-            .superclass(this.screenAnnotatedClass.superClass!!)
+            .superclass(this.screenAnnotatedClass.superClass)
         return builder.build()
     }
 }

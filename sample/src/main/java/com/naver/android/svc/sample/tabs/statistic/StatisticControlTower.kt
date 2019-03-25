@@ -15,16 +15,18 @@
  */
 package com.naver.android.svc.sample.tabs.statistic
 
-import com.naver.android.svc.annotation.ControlTower
+import com.naver.android.svc.annotation.CustomControlTower
 import com.naver.android.svc.annotation.RequireScreen
 import com.naver.android.svc.annotation.RequireViews
+import com.naver.android.svc.sample.common.BaseControlTower
 
-@ControlTower
+@CustomControlTower(BaseControlTower::class)
 @RequireViews(StatisticViews::class)
 @RequireScreen(StatisticFragment::class)
 class StatisticControlTower : SVC_StatisticControlTower(), StatisticViewsAction {
 
     override fun onCreated() {
+        super.onCreated()
         views.setName(screen.javaClass.simpleName)
         views.setExtra(javaClass.simpleName)
     }

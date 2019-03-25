@@ -13,25 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.naver.android.svc.sample.dialog.simple
+package com.naver.android.svc.annotation
 
-import com.naver.android.svc.annotation.RequireControlTower
-import com.naver.android.svc.annotation.RequireViews
-import com.naver.android.svc.annotation.SvcDialogFragment
+import kotlin.reflect.KClass
 
-/**
- * @author bs.nam@navercorp.com
- */
-@SvcDialogFragment
-@RequireViews(SimpleViews::class)
-@RequireControlTower(SimpleControlTower::class)
-class SimpleDialog : SVC_SimpleDialog() {
-
-    companion object {
-        fun newInstance(): SimpleDialog {
-            val dialog = SimpleDialog()
-            dialog.dialogListener = Unit
-            return dialog
-        }
-    }
-}
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class CustomControlTower(val value: KClass<*>)

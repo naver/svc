@@ -12,54 +12,40 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package com.naver.android.svc.compiler
+ */package com.naver.android.svc.compiler.processor.controltower
 
 import com.google.common.base.VerifyException
 import com.naver.android.svc.annotation.RequireScreen
 import com.naver.android.svc.annotation.RequireViews
+import com.naver.android.svc.compiler.processor.CommonAnnotatedClass
+import com.naver.android.svc.compiler.processor.CommonClass
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.TypeName
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 
 class ControlTowerAnnotatedClass @Throws(VerifyException::class)
-constructor(val annotatedElement: TypeElement, elementUtils: Elements) {
+constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonAnnotatedClass {
     val packageName: String?
-    val clazzName: String
+    val simpleName: String
     var baseView: ClassName
-    var baseViewName: String
+    val baseViewName: String
+        get() = baseView.simpleName
     var screen: ClassName
-    var screenName: String
+    val screenName: String
+        get() = screen.simpleName
     var superClass: TypeName
 
     init {
         val packageElement = elementUtils.getPackageOf(annotatedElement)
         this.packageName = if (packageElement.isUnnamed) null else packageElement.qualifiedName.toString()
-        this.clazzName = annotatedElement.simpleName.toString()
+        this.simpleName = annotatedElement.simpleName.toString()
 
         val requireViews = annotatedElement.getAnnotation(RequireViews::class.java)
-        val packageIndexViews = requireViews.toString().lastIndexOf("=")
-        val viewsPackage = requireViews
-            .toString()
-            .substring(packageIndexViews + 1, requireViews.toString().length - 1)
-
-        var indexView = viewsPackage.lastIndexOf(".")
-        if (indexView == -1) indexView = viewsPackage.lastIndexOf("\\.")
-
-        this.baseViewName = viewsPackage.substring(indexView + 1)
-        this.baseView = ClassName(viewsPackage.substring(0, indexView), baseViewName)
+        this.baseView = getValueClass(requireViews, CommonClass.Views)
 
         val requireScreen = annotatedElement.getAnnotation(RequireScreen::class.java)
-        val packageIndexS0 = requireScreen.toString().lastIndexOf("=")
-        val screenPackage = requireScreen
-            .toString()
-            .substring(packageIndexS0 + 1, requireScreen.toString().length - 1)
-
-        var indexScreen = screenPackage.lastIndexOf(".")
-        if (indexScreen == -1) indexScreen = screenPackage.lastIndexOf("\\.")
-
-        this.screenName = screenPackage.substring(indexScreen + 1)
-        this.screen = ClassName(screenPackage.substring(0, indexScreen), screenName)
+        this.screen = getValueClass(requireScreen, CommonClass.Screen)
 
         this.superClass = ClassName("com.naver.android.svc.core.controltower", "ControlTower")
     }
