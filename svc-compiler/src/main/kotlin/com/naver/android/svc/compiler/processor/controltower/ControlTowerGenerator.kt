@@ -44,7 +44,7 @@ class ControlTowerGenerator(private val packageName: String, private val annotat
             .build()
 
     init {
-        this.controlTowerName = annotatedClazz.clazzName
+        this.controlTowerName = annotatedClazz.simpleName
     }
 
     fun generate(): TypeSpec {

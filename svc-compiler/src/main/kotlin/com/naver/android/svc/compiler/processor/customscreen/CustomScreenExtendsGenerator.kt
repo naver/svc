@@ -58,7 +58,7 @@ class CustomScreenExtendsGenerator(private val packageName: String, private val 
             .build()
 
     override val extendsName: String
-        get() = "SVC_" + this.screenAnnotatedClass.clazzName
+        get() = "SVC_" + this.screenAnnotatedClass.simpleName
 
     fun generate(): TypeSpec {
         val builder = TypeSpec.classBuilder(extendsName)

@@ -28,7 +28,7 @@ import javax.lang.model.util.Elements
 class CustomControlTowerAnnotatedClass @Throws(VerifyException::class)
 constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonAnnotatedClass {
     val packageName: String?
-    val clazzName: String
+    val simpleName: String
     var baseView: ClassName
     val baseViewName: String
         get() = baseView.simpleName
@@ -40,7 +40,7 @@ constructor(val annotatedElement: TypeElement, elementUtils: Elements) : CommonA
     init {
         val packageElement = elementUtils.getPackageOf(annotatedElement)
         this.packageName = if (packageElement.isUnnamed) null else packageElement.qualifiedName.toString()
-        this.clazzName = annotatedElement.simpleName.toString()
+        this.simpleName = annotatedElement.simpleName.toString()
 
         this.baseView = getValueClass(annotatedElement.getAnnotation(RequireViews::class.java), CommonClass.Views)
         this.screen = getValueClass(annotatedElement.getAnnotation(RequireScreen::class.java), CommonClass.Screen)
