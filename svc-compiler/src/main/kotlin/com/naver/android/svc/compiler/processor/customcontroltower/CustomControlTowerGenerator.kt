@@ -28,6 +28,8 @@ class CustomControlTowerGenerator(private val packageName: String, private val a
     private val screenParamSpec: PropertySpec
         get() = PropertySpec.builder("screen", annotatedClazz.screen)
             .addModifiers(KModifier.PUBLIC)
+            .addModifiers(KModifier.OVERRIDE)
+            .addModifiers(KModifier.OPEN)
             .getter(FunSpec.getterBuilder()
                 .addStatement("return baseScreen as ${annotatedClazz.screenName}")
                 .build())
@@ -36,6 +38,8 @@ class CustomControlTowerGenerator(private val packageName: String, private val a
     private val viewsParamSpec: PropertySpec
         get() = PropertySpec.builder("views", annotatedClazz.baseView)
             .addModifiers(KModifier.PUBLIC)
+            .addModifiers(KModifier.OVERRIDE)
+            .addModifiers(KModifier.OPEN)
             .getter(FunSpec.getterBuilder()
                 .addStatement("return baseViews as ${annotatedClazz.baseViewName}")
                 .build())

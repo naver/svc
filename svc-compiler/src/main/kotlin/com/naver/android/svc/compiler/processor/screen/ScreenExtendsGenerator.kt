@@ -69,7 +69,7 @@ class ScreenExtendsGenerator(private val packageName: String, private val screen
             .addFunction(createControlTowerMethodSpec)
             .addProperty(viewsParamSpec)
             .addProperty(controlTowerParamSpec)
-            .superclass(this.screenAnnotatedClass.superClass!!)
+            .superclass(this.screenAnnotatedClass.superClass)
         return builder.build()
     }
 }
