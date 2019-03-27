@@ -109,16 +109,6 @@ bintray {
  * limitations under the License.
  */
 
-// JCenter publish
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.kotlin.srcDirs
-    classifier = 'sources'
-}
-
-artifacts {
-    archives sourcesJar
-}
-
 android {
     compileSdkVersion 28
 
@@ -139,6 +129,16 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerView"
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
     api project(":svc-annotation")
+}
+
+// JCenter publish
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.kotlin.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
 }
 
 apply from: '../spotless.gradle'
