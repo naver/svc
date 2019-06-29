@@ -1,4 +1,14 @@
-# SVC
+# SVC:no_entry: [DEPRECATED] 
+
+
+# Deprecated
+
+It will be sustained on git below.
+
+https://github.com/BansookNam/svc
+
+---
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Download](https://api.bintray.com/packages/bansooknam/SVC/svc/images/download.svg)](https://bintray.com/bansooknam/SVC/svc/_latestVersion)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
@@ -33,6 +43,7 @@ For more read check article below
 2. Detail concept of SVC
    [https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f](https://medium.com/@bansooknam/svc-the-better-pattern-against-mvp-66e6d342a23f)
    
+
 **Ps.** It can be used with ViewModel as Well.
 you can check **Examples** here below.<br/>
 https://github.com/BansookNam/android-architecture<br/>
